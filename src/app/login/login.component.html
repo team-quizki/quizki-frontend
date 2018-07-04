@@ -1,0 +1,42 @@
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4 class="panel-title">LOGIN STATUS: {{loginStatus}}</h4>
+      </div>
+      <div class="panel-body">
+        <form >
+          <div class="form-group">
+            <label for="usernameIn">Username</label>
+            <input
+              required
+              class="form-control"
+              id="usernameIn"
+              placeholder="username"
+              name="username"
+              [(ngModel)] = username>
+          </div>
+          <div class="form-group">
+            <label for="passwordIn">Password</label>
+            <input
+              required
+              class="form-control"
+              id="passwordIn"
+              placeholder="Password"
+              name="password"
+              [(ngModel)]="password">
+          </div>
+          <button
+             type="button"
+             class="btn btn-primary"
+             (click) = "login()">
+             Login
+           </button>
+         </form>
+      </div>
+      <div class="panel-footer">
+        <p>User: {{username}}  Password: {{password}} Status: {{loginStatus}}</p>
+      </div>
+    </div>
+  </div>
+</div>
