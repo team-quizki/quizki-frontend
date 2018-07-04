@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {HttpClient, HttpParams, HttpHeaders} from '@angular/common/http';
+import {HttpClient, HttpParams, HttpHeaders, HttpResponse} from '@angular/common/http';
+import {User} from '../user/user';
 import { Observable } from 'rxjs';
 
 
@@ -13,6 +14,7 @@ export class LoginComponent implements OnInit {
   username: string;
   password: string;
   loginStatus: string;
+  user: User;
 
   constructor(private http: HttpClient) { }
 
@@ -25,23 +27,33 @@ export class LoginComponent implements OnInit {
   public login(){
     console.log("Login: Username: " + this.username + " Password: " + this.password);
     this.loginStatus = "Requested"
-    this.requestLogin(this.username, this.password).subscribe((res: Response) => {
-      console.log("Login Response Body: " + res);
-      this.loginStatus = res.toString();
+    this.requestLogin(this.username, this.password).subscribe((res: User) => {
+      console.log("Login User: " + res.name);
+      this.loginStatus = `${res.name} Logged In`;
     });
   }
 
-  private requestLogin(user: string, pw: string): Observable<any>{
-    const body = new HttpParams()
-    .set('username', user)
-    .set('password', pw);
+  private requestLogin(user: string, pw: string): Observable<User>{
 
-    return this.http.post('http://localhost:8080/LoginServlet',
-      body.toString(),
+    //construct the authorization headers
+    let authHeader: string = "Basic " + btoa(`${user}:${pw}`);
+
+    console.log("User: " + user);
+    console.log("PW: " + pw);
+    /*this doesn't work!!!
+    authHeader.concat( user);
+    authHeader.concat( ":");
+    authHeader.concat( pw);
+    */
+    console.log("Authorization Header: " + authHeader);
+
+
+    return this.http.get<User>('http://localhost:8080/api/verifyCredentials',
       {
         headers: new HttpHeaders()
-          .set('Content-Type', 'application/x-www-form-urlencoded'),
-        responseType: 'text'
+          .set('Authorization', authHeader)
+          .append('content-type',"application/json"),
+        responseType: 'json'
       }
     );
 
