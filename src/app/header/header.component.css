@@ -1,0 +1,28 @@
+
+.header-toolbar-row {
+  min-height: 80px;
+}
+
+.header-button-wrapper {
+
+}
+
+.header-icon {
+  padding: 1px;
+}
+
+.header-page-title {
+  /* Align to center of window frame ... how?  */
+  text-align: center;
+  vertical-align: middle;
+}
+
+.header-fill-remaining-space {
+  flex: 1 1 auto;
+}
+
+.header-login-register {
+  /* Align to right side of window frame*/
+
+
+}
