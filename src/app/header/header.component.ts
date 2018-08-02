@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-/*
-  The header component for all quizki pages
-*/
+//  The header component for all quizki pages
+
+import { Component } from '@angular/core';
+
+import { HeaderService } from './../header.service';
 
 @Component({
   selector: 'app-header',
@@ -9,11 +10,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./header.component.css']
 })
 
-export class HeaderComponent implements OnInit {
+export class HeaderComponent {
+  constructor(
+      private headerService: HeaderService
+    ) {}
 
-  constructor() { }
+    pageTitle = this.headerService.getPageTitle();
 
-  ngOnInit() {
-  }
-
+    //  pageTitle = "Temp Page Title"
 }

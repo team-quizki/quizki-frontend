@@ -1,22 +1,19 @@
 <mat-toolbar color="primary">
   <mat-toolbar-row class="header-toolbar-row">
-    <span class="header-icon">
-      <a  aria-label="Quizki Home" class="docs-button mat-button" mat-button="" routerlink="/home-page" tabindex="0" aria-disabled="false" href="/">
-        <span class="header-button-wrapper">
+    <span>
+      <a  aria-label="Quizki Home" mat-button="" routerlink="/home-page" tabindex="0" aria-disabled="false" href="/home-page">
           <img alt="quizki" class="header-icon" src="./../assets/images/logo-light.png">
-        </span>
-        <div class="mat-button-ripple mat-ripple" matripple=""> </div>
       </a>
     </span>
 
-    <span class="header-page-title"> Page Title Here </span>
+    <span> {{pageTitle}} </span>
 
     <span class="header-fill-remaining-space"> </span>
 
     <span class="header-login-register">
-      <button mat-button aria-label="Quizki Home" routerlink="/login">login</button>
+      <button mat-button aria-label="login" routerlink="/login" aria-disabled="false" >login</button>
       <span>|</span>
-      <button mat-button aria-label="Quizki Home" >register</button>
+      <button mat-button aria-label="register" routerlink="#" aria-disabled="false" >register</button>
     </span>
   </mat-toolbar-row>
 
