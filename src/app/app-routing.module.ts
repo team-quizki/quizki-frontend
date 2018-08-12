@@ -4,6 +4,10 @@ import { RouterModule, Routes } from '@angular/router';
 
 // list the components which will bet routed here
 import { HomePageComponent } from './home-page/home-page.component';
+import { GenerateExamPageComponent } from './generate-exam-page/generate-exam-page.component';
+import { SearchForAnExamPageComponent } from './search-for-an-exam-page/search-for-an-exam-page.component';
+import { CreateExamPageComponent } from './create-exam-page/create-exam-page.component';
+import { CreateQuestionPageComponent } from './create-question-page/create-question-page.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 //import { LoginComponent} from './login/login.component';
 
@@ -26,7 +30,11 @@ import { HttpInterceptorProviders} from './http-interceptors/index';
 
 //for each component page add the path, component, and pageTitle
 const appRoutes: Routes = [
-  { path: 'home-page', component: HomePageComponent, data: {pageTitle: "Home Page"} },
+  { path: 'home-page', component: HomePageComponent, data: {pageTitle: "Home"} },
+  { path: 'generate-exam-page', component: HomePageComponent, data: {pageTitle: "Generate Exam"} },
+  { path: 'search-for-an-exam-page', component: HomePageComponent, data: {pageTitle: "Search for an Exam"} },
+  { path: 'create-question-page', component: HomePageComponent, data: {pageTitle: "Create Question"} },
+  { path: 'create-exam-page', component: HomePageComponent, data: {pageTitle: "Create Exam"} },
 //  { path: 'login', component: LoginComponent, data: {pageTitle: "loginIn"}},
 
   // add new pages for the router above this comment line.

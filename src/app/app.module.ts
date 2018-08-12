@@ -1,19 +1,24 @@
 //angular inports here
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule  } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http'
-import { MatToolbarModule, MatButtonModule, MatIconModule  } from '@angular/material';
+import { MatToolbarModule, MatButtonModule, MatIconModule, MatSidenavModule, MatListModule  } from '@angular/material';
 
 //app level imports here
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
+import { AppNavigationComponent } from './navigation/navigation.component';
 
 //page inports here
-import { HeaderComponent } from './header/header.component';
 import { HomePageComponent } from './home-page/home-page.component';
-import { PageNotFoundComponent } from './page-not-found/page-not-found.component'
+import { GenerateExamPageComponent } from './generate-exam-page/generate-exam-page.component';
+import { SearchForAnExamPageComponent } from './search-for-an-exam-page/search-for-an-exam-page.component';
+import { CreateExamPageComponent } from './create-exam-page/create-exam-page.component';
+import { CreateQuestionPageComponent } from './create-question-page/create-question-page.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 //question imports
 import { QuestionComponent } from './questions/question/question.component';
@@ -28,7 +33,7 @@ import { QuestionDifficultyComponent } from './questions/question/question-diffi
 import { QuestionTypeComponent } from './questions/question/question-types/question-type.component';
 import { LoginComponent} from './login/login.component';
 import { HttpInterceptorProviders} from './http-interceptors/index';
-
+import { LayoutModule } from '@angular/cdk/layout';
 
 @NgModule({
   declarations: [
@@ -44,18 +49,26 @@ import { HttpInterceptorProviders} from './http-interceptors/index';
     QuestionDifficultyComponent,
     QuestionTypeComponent,
     LoginComponent,
-    HeaderComponent,
+    AppNavigationComponent,
     HomePageComponent,
+    GenerateExamPageComponent,
+    SearchForAnExamPageComponent,
+    CreateExamPageComponent,
+    CreateQuestionPageComponent,
     PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     FormsModule,
     HttpClientModule,
     MatToolbarModule,
     MatButtonModule,
     MatIconModule,
-    AppRoutingModule
+    AppRoutingModule,
+    LayoutModule,
+    MatSidenavModule,
+    MatListModule
   ],
   providers: [ HttpInterceptorProviders ],
   bootstrap: [AppComponent]
