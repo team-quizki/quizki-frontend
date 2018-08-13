@@ -26,7 +26,7 @@
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
       <span>
-        <a  aria-label="Quizki Home" class="docs-button mat-button" mat-button="" routerlink="/" tabindex="0" aria-disabled="false" href="/">
+        <a  aria-label="Quizki home" class="docs-button mat-button" mat-button="" routerlink="/home-page" tabindex="0" aria-disabled="false" href="/home-page">
           <span >
             <img class="header-icon" alt="quizki" src="./../assets/images/logo-light.png">
           </span>
@@ -46,5 +46,6 @@
       </span>
     </mat-toolbar>
     <!-- Add Content Here -->
+    <router-outlet></router-outlet>
   </mat-sidenav-content>
 </mat-sidenav-container>
