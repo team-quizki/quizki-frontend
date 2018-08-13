@@ -10,7 +10,7 @@ import { MatToolbarModule, MatButtonModule, MatIconModule, MatSidenavModule, Mat
 //app level imports here
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { AppNavigationComponent } from './navigation/navigation.component';
+import { NavigationComponent } from './navigation/navigation.component';
 
 //page inports here
 import { HomePageComponent } from './home-page/home-page.component';
@@ -49,7 +49,7 @@ import { LayoutModule } from '@angular/cdk/layout';
     QuestionDifficultyComponent,
     QuestionTypeComponent,
     LoginComponent,
-    AppNavigationComponent,
+    NavigationComponent,
     HomePageComponent,
     GenerateExamPageComponent,
     SearchForAnExamPageComponent,

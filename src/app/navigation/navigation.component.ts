@@ -12,19 +12,33 @@ import { NavigationService } from './../navigation.service';
   templateUrl: './navigation.component.html',
   styleUrls: ['./navigation.component.css']
 })
-export class AppNavigationComponent {
+export class NavigationComponent {
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
       map(result => result.matches)
     );
 
-    navigationEnd: Observable<NavigationEnd>;
+//    navigationEnd: Observable<NavigationEnd>;
   //  activatedRoute: ActivatedRoute;
+
+  constructor(
+    private breakpointObserver: BreakpointObserver,
+    private navigationService: NavigationService,
+  ) {}
+
+    ngOnInit() {
+    }
+
+    pageTitle = this.navigationService.getPageTitle();
+
+}
+
+/*
 
     constructor(
       private breakpointObserver: BreakpointObserver,
-      private NavigationService: NavigationService,
+      private navigationService: NavigationService,
       private router: Router,
       private activatedRoute: ActivatedRoute,
       private pageTitleService: NavigationService
@@ -46,9 +60,10 @@ export class AppNavigationComponent {
       ngOnInit() {
         this.navigationEnd.subscribe(evt => console.log('Navigation Ended!'));
         this.navigationEnd.subscribe(navigationEndEvent => this.pageTitleService.setPageTitle(navigationEndEvent['pageTitle']));
-        this.navigationEnd.subscribe(evt => console.log("In MyNavComponent ngOnInit pageTitle is: " + this.NavigationService.getPageTitle()));
+        this.navigationEnd.subscribe(evt => console.log("In MyNavComponent ngOnInit pageTitle is: " + this.navigationService.getPageTitle()));
       }
 
-      pageTitle = this.NavigationService.getPageTitle();
+      pageTitle = this.navigationService.getPageTitle();
 
   }
+*/

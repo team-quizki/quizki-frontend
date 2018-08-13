@@ -31,10 +31,10 @@ import { HttpInterceptorProviders} from './http-interceptors/index';
 //for each component page add the path, component, and pageTitle
 const appRoutes: Routes = [
   { path: 'home-page', component: HomePageComponent, data: {pageTitle: "Home"} },
-  { path: 'generate-exam-page', component: HomePageComponent, data: {pageTitle: "Generate Exam"} },
-  { path: 'search-for-an-exam-page', component: HomePageComponent, data: {pageTitle: "Search for an Exam"} },
-  { path: 'create-question-page', component: HomePageComponent, data: {pageTitle: "Create Question"} },
-  { path: 'create-exam-page', component: HomePageComponent, data: {pageTitle: "Create Exam"} },
+  { path: 'generate-exam-page', component: GenerateExamPageComponent, data: {pageTitle: "Generate Exam"} },
+  { path: 'search-for-an-exam-page', component: SearchForAnExamPageComponent, data: {pageTitle: "Search for an Exam"} },
+  { path: 'create-question-page', component: CreateQuestionPageComponent, data: {pageTitle: "Create Question"} },
+  { path: 'create-exam-page', component: CreateExamPageComponent, data: {pageTitle: "Create Exam"} },
 //  { path: 'login', component: LoginComponent, data: {pageTitle: "loginIn"}},
 
   // add new pages for the router above this comment line.
