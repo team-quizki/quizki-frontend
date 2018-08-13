@@ -27,7 +27,6 @@ export class NavigationComponent {
       private router: Router,
       private activatedRoute: ActivatedRoute
       ) {
-
         // Create an Observable NavigationEnd event
         this.navigationEnd = this.router.events.pipe(
           filter((navigationEndEvent) => navigationEndEvent instanceof NavigationEnd),
@@ -42,14 +41,8 @@ export class NavigationComponent {
       }
 
       ngOnInit() {
-        this.navigationEnd.subscribe(evt => console.log('Navigation Ended!'));
+        // set the pageTitle using the navigationEndEvent subscription
         this.navigationEnd.subscribe(navigationEndEvent => this.navigationService.setPageTitle(navigationEndEvent['pageTitle']));
-        this.navigationEnd.subscribe(evt => console.log("In MyNavComponent ngOnInit pageTitle is: " + this.navigationService.getPageTitle()));
-        //error: the following line doesn't seam to bind the pageTitle after the NavigationEndEvent
-        //this.pageTitle = this.navigationService.getPageTitle();
-        <'./navigation.component.html'>document.getElementById('spanPageTitle').innerHTML = this.navigationService.getPageTitle();
       }
-
-      pageTitle = this.navigationService.getPageTitle();
 
   }

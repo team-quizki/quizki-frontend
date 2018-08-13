@@ -11,8 +11,8 @@ export class NavigationService {
     this.pageTitle = "Welcome To Quizki"
   }
 
-  setPageTitle(newPageTitle: string) {
-    this.pageTitle = newPageTitle;
+  setPageTitle(newPageTitle:string) {
+    document.getElementById('spanPageTitle').innerHTML = this.pageTitle = newPageTitle;
   }
 
   getPageTitle() {
