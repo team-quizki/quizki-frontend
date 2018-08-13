@@ -46,7 +46,8 @@ export class NavigationComponent {
         this.navigationEnd.subscribe(navigationEndEvent => this.navigationService.setPageTitle(navigationEndEvent['pageTitle']));
         this.navigationEnd.subscribe(evt => console.log("In MyNavComponent ngOnInit pageTitle is: " + this.navigationService.getPageTitle()));
         //error: the following line doesn't seam to bind the pageTitle after the NavigationEndEvent
-        this.pageTitle = this.navigationService.getPageTitle();
+        //this.pageTitle = this.navigationService.getPageTitle();
+        <'./navigation.component.html'>document.getElementById('spanPageTitle').innerHTML = this.navigationService.getPageTitle();
       }
 
       pageTitle = this.navigationService.getPageTitle();
