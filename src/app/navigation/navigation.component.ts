@@ -19,29 +19,13 @@ export class NavigationComponent {
       map(result => result.matches)
     );
 
-//    navigationEnd: Observable<NavigationEnd>;
-  //  activatedRoute: ActivatedRoute;
-
-  constructor(
-    private breakpointObserver: BreakpointObserver,
-    private navigationService: NavigationService,
-  ) {}
-
-    ngOnInit() {
-    }
-
-    pageTitle = this.navigationService.getPageTitle();
-
-}
-
-/*
+  navigationEnd: Observable<NavigationEnd>;
 
     constructor(
       private breakpointObserver: BreakpointObserver,
       private navigationService: NavigationService,
       private router: Router,
-      private activatedRoute: ActivatedRoute,
-      private pageTitleService: NavigationService
+      private activatedRoute: ActivatedRoute
       ) {
 
         // Create an Observable NavigationEnd event
@@ -59,11 +43,11 @@ export class NavigationComponent {
 
       ngOnInit() {
         this.navigationEnd.subscribe(evt => console.log('Navigation Ended!'));
-        this.navigationEnd.subscribe(navigationEndEvent => this.pageTitleService.setPageTitle(navigationEndEvent['pageTitle']));
+        this.navigationEnd.subscribe(navigationEndEvent => this.navigationService.setPageTitle(navigationEndEvent['pageTitle']));
         this.navigationEnd.subscribe(evt => console.log("In MyNavComponent ngOnInit pageTitle is: " + this.navigationService.getPageTitle()));
+        this.pageTitle = this.navigationService.getPageTitle();
       }
 
       pageTitle = this.navigationService.getPageTitle();
 
   }
-*/
