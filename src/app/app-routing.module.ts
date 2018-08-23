@@ -1,18 +1,8 @@
-//angular inports here
-import { BrowserModule  } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+// list angular imports where
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http'
-import { MatToolbarModule, MatButtonModule, MatIconModule, MatSidenavModule, MatListModule  } from '@angular/material';
 
-//app level imports here
-import { AppComponent } from './app.component';
-import { AppRoutingModule } from './app-routing.module';
-import { NavigationComponent } from './navigation/navigation.component';
-
-//page inports here
+// list the components which will bet routed here
 import { HomePageComponent } from './home-page/home-page.component';
 import { GenerateExamPageComponent } from './generate-exam-page/generate-exam-page.component';
 import { SearchForAnExamPageComponent } from './search-for-an-exam-page/search-for-an-exam-page.component';
@@ -21,6 +11,7 @@ import { CreateQuestionPageComponent } from './create-question-page/create-quest
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 //question imports
+/* saving these imports for use when processing original QuizkiTest functionality
 import { QuestionComponent } from './questions/question/question.component';
 import { QuestionTopicsComponent } from './questions/question/question-topics/question-topics.component';
 import { QuestionReferencesComponent } from './questions/question/question-references/question-references.component';
@@ -33,44 +24,31 @@ import { QuestionDifficultyComponent } from './questions/question/question-diffi
 import { QuestionTypeComponent } from './questions/question/question-types/question-type.component';
 import { LoginComponent} from './login/login.component';
 import { HttpInterceptorProviders} from './http-interceptors/index';
-import { LayoutModule } from '@angular/cdk/layout';
+*/
+
+
+//for each component page add the path, component, and pageTitle
+const appRoutes: Routes = [
+  { path: 'home-page', component: HomePageComponent, data: {pageTitle: "Home"} },
+  { path: 'generate-exam-page', component: GenerateExamPageComponent, data: {pageTitle: "Generate Exam"} },
+  { path: 'search-for-an-exam-page', component: SearchForAnExamPageComponent, data: {pageTitle: "Search for an Exam"} },
+  { path: 'create-question-page', component: CreateQuestionPageComponent, data: {pageTitle: "Create Question"} },
+  { path: 'create-exam-page', component: CreateExamPageComponent, data: {pageTitle: "Create Exam"} },
+
+  // add new pages for the router above this comment line.
+  // the empty path should always list as 2nd to last path.
+  { path: '', redirectTo: '/home-page', pathMatch: 'full'},
+  // Wild card route is always listed last and used when page is not found.
+  { path: '**', component: PageNotFoundComponent },
+]
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    QuestionComponent,
-    QuestionTopicsComponent,
-    QuestionReferencesComponent,
-    QuestionChoicesComponent,
-    QuestionsComponent,
-    QuestionChoiceComponent,
-    QuestionReferenceComponent,
-    QuestionTopicComponent,
-    QuestionDifficultyComponent,
-    QuestionTypeComponent,
-    LoginComponent,
-    NavigationComponent,
-    HomePageComponent,
-    GenerateExamPageComponent,
-    SearchForAnExamPageComponent,
-    CreateExamPageComponent,
-    CreateQuestionPageComponent,
-    PageNotFoundComponent
+  imports: [ RouterModule.forRoot(appRoutes,
+      // to see the router events change enableTracing: true
+      { enableTracing: false }
+      )
   ],
-  imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    FormsModule,
-    HttpClientModule,
-    MatToolbarModule,
-    MatButtonModule,
-    MatIconModule,
-    AppRoutingModule,
-    LayoutModule,
-    MatSidenavModule,
-    MatListModule
-  ],
-  providers: [ HttpInterceptorProviders ],
-  bootstrap: [AppComponent]
+  exports: [ RouterModule ]
 })
-export class AppModule { }
+
+export class AppRoutingModule { }

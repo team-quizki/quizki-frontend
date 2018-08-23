@@ -73,4 +73,17 @@ The [team-quizki](https://github.com/team-quizki) project is licensed under the 
 
 
 ## Acknowledgements
+To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+
+## LICENSE
+
+The templated code is licensed by Google under an MIT-style License. Documentation licensed under CC BY 4.0.
+
+The [team-quizki](https://github.com/team-quizki) project is licensed under the GNU GENERAL PUBLIC LICENSE. The project originated from the quizki project copyright by [Johnathan James] (https://github.com/haxwell). The purpose of the team-quizki open source project is to modernize quizki.  
+
+## Join team-quizki coding an Open Source project!
+
+To join the [team-quizki](https://github.com/team-quizki) project, which you are encouraged to do, look on Meetup.com for the [Denver Mock Programming Job] (https://www.meetup.com/Denver-Mock-Programming-Job-Meetup/) meetings. We use the agile development process. We want to help you gain professional coding experience.
+
 We would like to thank our sponsors:
+
