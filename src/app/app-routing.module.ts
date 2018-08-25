@@ -9,6 +9,8 @@ import { SearchForAnExamPageComponent } from './search-for-an-exam-page/search-f
 import { CreateExamPageComponent } from './create-exam-page/create-exam-page.component';
 import { CreateQuestionPageComponent } from './create-question-page/create-question-page.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { LoginComponent} from './login/login.component';
+import { RegistrationComponent} from './registration/registration.component';
 
 //question imports
 /* saving these imports for use when processing original QuizkiTest functionality
@@ -22,7 +24,6 @@ import { QuestionReferenceComponent } from './questions/question/question-refere
 import { QuestionTopicComponent } from './questions/question/question-topics/question-topic/question-topic.component';
 import { QuestionDifficultyComponent } from './questions/question/question-difficulties/question-difficulty.component';
 import { QuestionTypeComponent } from './questions/question/question-types/question-type.component';
-import { LoginComponent} from './login/login.component';
 import { HttpInterceptorProviders} from './http-interceptors/index';
 */
 
@@ -34,6 +35,8 @@ const appRoutes: Routes = [
   { path: 'search-for-an-exam-page', component: SearchForAnExamPageComponent, data: {pageTitle: "Search for an Exam"} },
   { path: 'create-question-page', component: CreateQuestionPageComponent, data: {pageTitle: "Create Question"} },
   { path: 'create-exam-page', component: CreateExamPageComponent, data: {pageTitle: "Create Exam"} },
+  { path: 'login', component: LoginComponent, data: {pageTitle: "Login"} },
+  { path: 'registration', component: RegistrationComponent, data: {pageTitle: "Register"} },
 
   // add new pages for the router above this comment line.
   // the empty path should always list as 2nd to last path.

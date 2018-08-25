@@ -34,6 +34,7 @@ import { QuestionTypeComponent } from './questions/question/question-types/quest
 import { LoginComponent} from './login/login.component';
 import { HttpInterceptorProviders} from './http-interceptors/index';
 import { LayoutModule } from '@angular/cdk/layout';
+import { RegistrationComponent } from './registration/registration.component';
 
 @NgModule({
   declarations: [
@@ -55,7 +56,8 @@ import { LayoutModule } from '@angular/cdk/layout';
     SearchForAnExamPageComponent,
     CreateExamPageComponent,
     CreateQuestionPageComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    RegistrationComponent
   ],
   imports: [
     BrowserModule,
