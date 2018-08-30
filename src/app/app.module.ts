@@ -5,7 +5,13 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http'
-import { MatToolbarModule, MatButtonModule, MatIconModule, MatSidenavModule, MatListModule  } from '@angular/material';
+import { MatButtonModule,
+         MatFormFieldModule,
+         MatIconModule,
+         MatListModule,
+         MatSidenavModule,
+         MatToolbarModule
+        } from '@angular/material';
 
 //app level imports here
 import { AppComponent } from './app.component';
@@ -64,13 +70,14 @@ import { RegistrationComponent } from './registration/registration.component';
     BrowserAnimationsModule,
     FormsModule,
     HttpClientModule,
-    MatToolbarModule,
     MatButtonModule,
+    MatFormFieldModule,
     MatIconModule,
-    AppRoutingModule,
-    LayoutModule,
+    MatListModule,
+    MatToolbarModule,
     MatSidenavModule,
-    MatListModule
+    AppRoutingModule,
+    LayoutModule
   ],
   providers: [ HttpInterceptorProviders ],
   bootstrap: [AppComponent]
