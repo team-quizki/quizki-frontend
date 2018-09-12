@@ -2,13 +2,20 @@
 import { BrowserModule  } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
+
 import { RouterModule, Routes } from '@angular/router';
-import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http'
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { LayoutModule } from '@angular/cdk/layout';
 import { MatButtonModule,
+         MatCardModule,
+         MatExpansionModule,
          MatFormFieldModule,
          MatIconModule,
+         MatInputModule,
          MatListModule,
+         MatMenuModule,
+         MatSelectModule,
          MatSidenavModule,
          MatToolbarModule
         } from '@angular/material';
@@ -39,7 +46,6 @@ import { QuestionDifficultyComponent } from './questions/question/question-diffi
 import { QuestionTypeComponent } from './questions/question/question-types/question-type.component';
 import { LoginComponent} from './login/login.component';
 import { HttpInterceptorProviders} from './http-interceptors/index';
-import { LayoutModule } from '@angular/cdk/layout';
 import { RegistrationComponent } from './registration/registration.component';
 
 @NgModule({
@@ -69,15 +75,24 @@ import { RegistrationComponent } from './registration/registration.component';
     BrowserModule,
     BrowserAnimationsModule,
     FormsModule,
+    ReactiveFormsModule,
+    LayoutModule,
     HttpClientModule,
     MatButtonModule,
+    MatCardModule,
+    MatExpansionModule,
     MatFormFieldModule,
     MatIconModule,
+    MatInputModule,
     MatListModule,
+    MatMenuModule,
     MatToolbarModule,
+    MatSelectModule,
     MatSidenavModule,
+    MatToolbarModule,
     AppRoutingModule,
     LayoutModule
+
   ],
   providers: [ HttpInterceptorProviders ],
   bootstrap: [AppComponent]

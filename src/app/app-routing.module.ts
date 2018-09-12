@@ -42,13 +42,13 @@ const appRoutes: Routes = [
   // the empty path should always list as 2nd to last path.
   { path: '', redirectTo: '/home-page', pathMatch: 'full'},
   // Wild card route is always listed last and used when page is not found.
-  { path: '**', component: PageNotFoundComponent },
+  { path: '**', component: PageNotFoundComponent }
 ]
 
 @NgModule({
   imports: [ RouterModule.forRoot(appRoutes,
       // to see the router events change enableTracing: true
-      { enableTracing: false }
+      //{ enableTracing: false }
       )
   ],
   exports: [ RouterModule ]

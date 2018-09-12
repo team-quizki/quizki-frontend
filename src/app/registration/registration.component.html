@@ -1,32 +1,189 @@
-<p>
-  <mat-form-field appearance="legacy">
-    <mat-label>Legacy form field</mat-label>
-    <input matInput placeholder="Placeholder">
-    <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
-    <mat-hint>Hint</mat-hint>
-  </mat-form-field>
-</p>
-<p>
-  <mat-form-field appearance="standard">
-    <mat-label>Standard form field</mat-label>
-    <input matInput placeholder="Placeholder">
-    <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
-    <mat-hint>Hint</mat-hint>
-  </mat-form-field>
-</p>
-<p>
-  <mat-form-field appearance="fill">
-    <mat-label>Fill form field</mat-label>
-    <input matInput placeholder="Placeholder">
-    <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
-    <mat-hint>Hint</mat-hint>
-  </mat-form-field>
-</p>
-<p>
-  <mat-form-field appearance="outline">
-    <mat-label>Outline form field</mat-label>
-    <input matInput placeholder="Placeholder">
-    <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
-    <mat-hint>Hint</mat-hint>
-  </mat-form-field>
-</p>
+
+TODO: remove after verifying data captured correctly: {{diagnostic}}
+
+<div class="mat-typography row">
+  <div class="col-md-4 col-md-offset-1">
+
+    <div class="panel panel-default">
+
+      <div class="panel-heading">
+        <h2>REGISTER</h2>
+      </div>
+
+      <div class="panel-body">
+        <form class="basic-container form" (ngSubmit)="onSubmit(registerForm)" #registerForm="ngForm">
+
+          <div class="basic-container">
+            <mat-form-field appearance="standard">
+              <mat-label for="fullname">Enter your full name</mat-label>
+              <input matInput required
+                type="text" class="form-control" id="fullname"
+                [(ngModel)]="specificUserRegistration.fullname" name="fullname"
+                placeholder="firstname lastname">
+              <mat-hint>Example: Firstname Lastname</mat-hint>
+            </mat-form-field>
+          </div>
+
+          <div class="basic-container">
+            <mat-form-field appearance="standard">
+              <mat-label for="email">Enter email address</mat-label>
+              <input matInput required
+                type="email" class="form-control" id="email"
+                [(ngModel)]="specificUserRegistration.email" name="email"
+                [formControl]="emailFormControl"
+                placeholder="Enter your email.">
+              <mat-error *ngIf="emailFormControl.invalid">{{getErrorMessage()}}</mat-error>
+              <mat-hint>Example: info@quizki.com</mat-hint>
+            </mat-form-field>
+          </div>
+
+          <div class="basic-container">
+            <mat-form-field appearance="standard">
+              <mat-label for="username">Enter username</mat-label>
+              <input matInput required
+                type="text" class="form-control" id="username"
+                [(ngModel)]="specificUserRegistration.username" name="username"
+                placeholder="username">
+              <mat-hint>Use letters, numbers and underscore. </mat-hint>
+            </mat-form-field>
+          </div>
+
+          <a class="basic-container">
+            <mat-form-field appearance="standard">
+              <mat-label for="password">Enter password</mat-label>
+              <input matInput required
+                type="password" class="form-control" id="password"
+                [(ngModel)]="specificUserRegistration.password" name="password"
+                placeholder="Enter password" [type]="hidePassword ? 'password' : 'text'">
+              <mat-icon matSuffix (click)="hidePassword = !hidePassword">{{hidePassword ? 'visibility' : 'visibility_off'}}</mat-icon>
+              <mat-hint>Use 8 or more numbers, letters, and special characters.</mat-hint>
+            </mat-form-field>
+          </a>
+
+          <div class="basic-container">
+            <mat-form-field appearance="standard">
+              <mat-label for="demograpic">Select a category</mat-label>
+              <mat-select [(ngModel)]="specificUserRegistration.demographic" name="demographic">
+                <mat-option *ngFor="let demo of listOfDemographics" [value]="demo.id">
+                  {{demo.name}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div hidden>
+            <mat-form-field appearance="standard" >
+              <mat-label for="role">Select a role</mat-label>
+              <mat-select required [(ngModel)]= "specificUserRegistration.role" name ="role">
+                <mat-option *ngFor="let role of listOfUserRoles" [value]="role.id">
+                   {{role.name}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+         </form>
+
+         <div class="basic-container">
+           <div class="button-row">
+             <button mat-raised-button type="submit" class="btn btn-success btn-primary">Submit</button>
+             &nbsp;
+             <button mat-raised-button type="cancel" class="btn">Cancel</button>
+           </div>
+
+         </div>
+
+      </div>
+
+      <div class="panel-footer">
+        <p></p>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- previous version starts here
+  <div class="basic-container" id="registerForm">
+    <form class="basic-container form" (ngSubmit)="onSubmit(registerForm)" #registerForm="ngForm">
+      <h2 class="mat-h2">Register</h2>
+      <p>
+        <mat-form-field appearance="fill">
+          <mat-label for="fullname">Enter your full name</mat-label>
+          <input matInput required
+            type="text" class="form-control" id="fullname"
+            [(ngModel)]="specificUserRegistration.fullname" name="fullname"
+            placeholder="firstname lastname">
+          <mat-hint>Example: Firstname Lastname</mat-hint>
+        </mat-form-field>
+      </p>
+
+      <p>
+        <mat-form-field appearance="fill">
+          <mat-label for="email">Enter email address</mat-label>
+          <input matInput required
+            type="email" class="form-control" id="email"
+            [(ngModel)]="specificUserRegistration.email" name="email"
+            [formControl]="emailFormControl"
+            placeholder="Enter your email.">
+          <mat-error *ngIf="emailFormControl.invalid">{{getErrorMessage()}}</mat-error>
+          <mat-hint>Example: info@quizki.com</mat-hint>
+        </mat-form-field>
+      </p>
+
+      <p>
+        <mat-form-field appearance="fill">
+          <mat-label for="username">Enter username</mat-label>
+          <input matInput required
+            type="text" class="form-control" id="username"
+            [(ngModel)]="specificUserRegistration.username" name="username"
+            placeholder="username">
+          <mat-hint>Use letters, numbers and underscore. </mat-hint>
+        </mat-form-field>
+      </p>
+
+      <p>
+        <mat-form-field appearance="fill">
+          <mat-label for="password">Enter password</mat-label>
+          <input matInput required
+            type="password" class="form-control" id="password"
+            [(ngModel)]="specificUserRegistration.password" name="password"
+            placeholder="Enter password" [type]="hidePassword ? 'password' : 'text'">
+          <mat-hint>Use 8 or more numbers, letters, and special characters.</mat-hint>
+          <mat-icon matSuffix (click)="hidePassword = !hidePassword">{{hidePassword ? 'visibility' : 'visibility_off'}}</mat-icon>
+        </mat-form-field>
+      </p>
+
+      <p>
+        <mat-form-field appearance="fill">
+          <mat-label for="demograpic">Select a category</mat-label>
+          <mat-select [(ngModel)]="specificUserRegistration.demographic" name="demographic">
+            <mat-option *ngFor="let demo of listOfDemographics" [value]="demo.id">
+              {{demo.name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </p>
+
+      <p hidden>
+        <mat-form-field appearance="fill" >
+          <mat-label for="role">Select a role</mat-label>
+          <mat-select required [(ngModel)]= "specificUserRegistration.role" name ="role">
+            <mat-option *ngFor="let role of listOfUserRoles" [value]="role.id">
+               {{role.name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </p>
+    </form>
+
+    <div class="basic-container">
+      <div class="button-row">
+        <button mat-raised-button type="submit" class="btn btn-success">Submit</button>
+        &nbsp;
+        <button mat-raised-button type="cancel" class="btn btn-success">Cancel</button>
+      </div>
+    </div>
+
+  </div>
+-->
