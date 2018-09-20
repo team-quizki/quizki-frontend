@@ -21,16 +21,6 @@ body {
   margin: 5px 0;
 }
 
-.basic-container-with-icon a {
-  margin-bottom: 5px;
-  vertical-align: middle;
-}
-
-.basic-container-with-icon a > * {
-  margin: 5px 0;
-}
-
-
 .version-info {
   font-size: 12pt;
   float: right;

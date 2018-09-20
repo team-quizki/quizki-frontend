@@ -3,18 +3,6 @@ import { FormControl, Validators } from '@angular/forms';
 
 import { UserRegistration } from './../user/user-registration';
 
-// define UserRoles interface
-export interface UserRoles {
-  id: string;
-  name: string;
-}
-
-// define UserDemographics interface
-export interface UserDemographics {
-  id: string;
-  name: string;
-}
-
 
 @Component({
   selector: 'app-registration',
@@ -23,54 +11,72 @@ export interface UserDemographics {
 })
 export class RegistrationComponent implements OnInit {
 
-  specificUserRegistration = new UserRegistration(0,'','',false,'','','');
+  specificUserRegistration = new UserRegistration('','','',false,1,'','');
     /* recall that the fields in UserRegistration are as follows.
-        public id: number,
-        public password: string,
-        public name: string,
-        public enabled : boolean,
-        public role: string,
-        public email: string,
-        public fullname: string,
-        public demographic?: string
+    public id: string,
+    public password: string,
+    public username: string,
+    public enabled : boolean,
+    public role_id: number,
+    public email: string,
+    public fullname: string,
+    public demographic?: string,
     */
 
     constructor() {
      // setting this is the key to initial select.
-     this.specificUserRegistration.role= '0';
-     this.specificUserRegistration.demographic = '0';
     }
 
     ngOnInit() {
     }
 
-// consider moving email to a serve as it will be need for login
-    hidePassword = true;
+// Establish FormControls for each form-field use for user-registration
 
-    emailFormControl = new FormControl('', [Validators.required, Validators.email]);
+    fullnameFormControl = new FormControl('',
+      [Validators.required, Validators.minLength(5), Validators.pattern("([a-zA-Z0-9])[a-zA-Z0-9]* ([a-zA-Z0-9])[a-zA-Z0-9., ]*")]);
 
-    getErrorMessage() {
-      return this.emailFormControl.hasError('required') ? 'You must enter a value' :
-        this.emailFormControl.hasError('email') ? 'Not a valid email' :
-              '';
+    getFullnameErrorMessage() {
+        return this.fullnameFormControl.hasError('required') ? 'You must enter a value' :
+          this.fullnameFormControl.hasError('minlength') ? 'Length must be at least 5 characters' :
+          this.fullnameFormControl.hasError('pattern') ? 'Use letters and with a space between FirstName and LastName' :
+          '';
     }
 
-  // define the valid UserDemographics until another solution surfaces.
-  listOfDemographics : UserDemographics [] = [
-      { id:'0',  name:'None'},
-      { id:'1',  name:'Student'},
-      { id:'2',  name:'Teacher'},
-      { id:'3',  name:'Independant'},
-      { id:'4',  name:'Other'}
-    ];
+    emailFormControl = new FormControl('',
+      [Validators.required, Validators.email]);
 
-  // define the valid UserRoles until another solution surfaces.
-  listOfUserRoles : UserRoles [] = [
-    { id: '0', name: 'User'},
-    { id: '1', name: 'Admin'}
-  ];
+    getEmailErrorMessage() {
+      return this.emailFormControl.hasError('required') ? 'You must enter a value' :
+        this.emailFormControl.hasError('email') ? 'Not a valid email.' :
+        '';
+    }
 
-  // has the form been submitted?
+    usernameFormControl = new FormControl('',
+      [Validators.required, Validators.minLength(5), Validators.pattern("([a-zA-Z])[a-zA-Z0-9]*")]);
+
+    getUsernameErrorMessage() {
+        return this.usernameFormControl.hasError('required') ? 'You must enter a value' :
+          this.usernameFormControl.hasError('minlength') ? 'Length must be at least 5 characters' :
+          this.usernameFormControl.hasError('pattern') ? 'Use letters, numbers and underscores.' :
+          '';
+    }
+
+    hidePassword = true;
+
+    passwordFormControl = new FormControl('',
+      [Validators.required, Validators.minLength(5), Validators.pattern("([a-zA-Z0-9_-])[a-zA-Z0-9_-]*")]);
+
+    getPasswordErrorMessage() {
+        return this.passwordFormControl.hasError('required') ? 'You must enter a value' :
+          this.passwordFormControl.hasError('minlength') ? 'Length must be at least 5 characters' :
+          this.passwordFormControl.hasError('pattern') ? 'Use letters, numbers and special characters.' :
+          '';
+    }
+
+
+  // Establish the controls and methods for the submit button
+  submitButtonIsDisabled = true;
+
   submitted = false;
 
   onSubmit() {

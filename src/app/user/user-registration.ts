@@ -2,11 +2,11 @@
 export class UserRegistration {
 
   constructor(
-    public id: number,
+    public id: string,
     public password: string,
     public username: string,
     public enabled : boolean,
-    public role: string,
+    public role_id: number,
     public email: string,
     public fullname: string,
     public demographic?: string,

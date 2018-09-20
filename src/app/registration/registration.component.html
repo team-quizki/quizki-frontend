@@ -16,10 +16,12 @@ TODO: remove after verifying data captured correctly: {{diagnostic}}
           <div class="basic-container">
             <mat-form-field appearance="standard">
               <mat-label for="fullname">Enter your full name</mat-label>
-              <input matInput required
+              <input matInput required minlength pattern
                 type="text" class="form-control" id="fullname"
                 [(ngModel)]="specificUserRegistration.fullname" name="fullname"
+                [formControl]="fullnameFormControl"
                 placeholder="firstname lastname">
+              <mat-error *ngIf="fullnameFormControl.invalid">{{getFullnameErrorMessage()}}</mat-error>
               <mat-hint>Example: Firstname Lastname</mat-hint>
             </mat-form-field>
           </div>
@@ -27,12 +29,12 @@ TODO: remove after verifying data captured correctly: {{diagnostic}}
           <div class="basic-container">
             <mat-form-field appearance="standard">
               <mat-label for="email">Enter email address</mat-label>
-              <input matInput required
+              <input matInput required email
                 type="email" class="form-control" id="email"
                 [(ngModel)]="specificUserRegistration.email" name="email"
                 [formControl]="emailFormControl"
                 placeholder="Enter your email.">
-              <mat-error *ngIf="emailFormControl.invalid">{{getErrorMessage()}}</mat-error>
+              <mat-error *ngIf="emailFormControl.invalid">{{getEmailErrorMessage()}}</mat-error>
               <mat-hint>Example: info@quizki.com</mat-hint>
             </mat-form-field>
           </div>
@@ -40,10 +42,12 @@ TODO: remove after verifying data captured correctly: {{diagnostic}}
           <div class="basic-container">
             <mat-form-field appearance="standard">
               <mat-label for="username">Enter username</mat-label>
-              <input matInput required
+              <input matInput required minlength pattern
                 type="text" class="form-control" id="username"
                 [(ngModel)]="specificUserRegistration.username" name="username"
+                [formControl]="usernameFormControl"
                 placeholder="username">
+              <mat-error *ngIf="usernameFormControl.invalid">{{getUsernameErrorMessage()}}</mat-error>
               <mat-hint>Use letters, numbers and underscore. </mat-hint>
             </mat-form-field>
           </div>
@@ -51,36 +55,16 @@ TODO: remove after verifying data captured correctly: {{diagnostic}}
           <a class="basic-container">
             <mat-form-field appearance="standard">
               <mat-label for="password">Enter password</mat-label>
-              <input matInput required
+              <input matInput required minlength pattern
                 type="password" class="form-control" id="password"
                 [(ngModel)]="specificUserRegistration.password" name="password"
+                [formControl]="passwordFormControl"
                 placeholder="Enter password" [type]="hidePassword ? 'password' : 'text'">
               <mat-icon matSuffix (click)="hidePassword = !hidePassword">{{hidePassword ? 'visibility' : 'visibility_off'}}</mat-icon>
-              <mat-hint>Use 8 or more numbers, letters, and special characters.</mat-hint>
+              <mat-error *ngIf="passwordFormControl.invalid">{{getPasswordErrorMessage()}}</mat-error>
+              <mat-hint>Use 5 or more numbers, letters, and special characters.</mat-hint>
             </mat-form-field>
           </a>
-
-          <div class="basic-container">
-            <mat-form-field appearance="standard">
-              <mat-label for="demograpic">Select a category</mat-label>
-              <mat-select [(ngModel)]="specificUserRegistration.demographic" name="demographic">
-                <mat-option *ngFor="let demo of listOfDemographics" [value]="demo.id">
-                  {{demo.name}}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div>
-
-          <div hidden>
-            <mat-form-field appearance="standard" >
-              <mat-label for="role">Select a role</mat-label>
-              <mat-select required [(ngModel)]= "specificUserRegistration.role" name ="role">
-                <mat-option *ngFor="let role of listOfUserRoles" [value]="role.id">
-                   {{role.name}}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div>
 
          </form>
 
