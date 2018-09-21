@@ -11,16 +11,16 @@ import { UserRegistration } from './../user/user-registration';
 })
 export class RegistrationComponent implements OnInit {
 
-  specificUserRegistration = new UserRegistration('','','',false,1,'','');
+  specificUserRegistration = new UserRegistration('','','',1,1,'','');
     /* recall that the fields in UserRegistration are as follows.
     public id: string,
     public password: string,
     public username: string,
-    public enabled : boolean,
+    public enabled : number,
     public role_id: number,
     public email: string,
     public fullname: string,
-    public demographic?: string,
+    public demographic?: string, // optional field
     */
 
     constructor() {
