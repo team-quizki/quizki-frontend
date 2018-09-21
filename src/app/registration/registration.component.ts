@@ -79,9 +79,16 @@ export class RegistrationComponent implements OnInit {
 
   submitted = false;
 
-  onSubmit() {
+  onSubmit(registerForm) {
     this.submitted = true;
     console.log("Hurrah! Submit button was pressed.");
+  }
+
+  cancelRegistration(){
+    console.log("Hurrah! Cancel button was pressed.");
+    // confirm Cancel
+    // reset specificUserRegistration to null
+    // route to homepage
   }
 
   // TODO: Remove this when we're done, it is just used to verify data capturing to correct variable
