@@ -37,6 +37,9 @@ export class RegistrationComponent implements OnInit {
       this.hidePassword = true;
       this.disableSubmit = true;
 
+      // don't forget to add all the special characters to the password pattern
+      // email validator still allows someEmail@somewhere because that is a valid emailValue
+      // according to the documentation. reseach further later.
       this.registerForm = this.formBuilder.group({
         fullname:['', [Validators.required, Validators.minLength(5),
           Validators.pattern("([a-zA-Z0-9])[a-zA-Z0-9]* ([a-zA-Z0-9])[a-zA-Z0-9., ]*")]],
@@ -59,30 +62,26 @@ export class RegistrationComponent implements OnInit {
  get email() {return this.registerForm.get('email');}
  get password() {return this.registerForm.get('password');}
 
-//enter and blur events
+//methods used for enter key up and blur events
 public addFullname(fullnameValue: string){
-  console.log("in addFullname, fullnameValue= " + fullnameValue)
   if(this.fullname.valid){
     this.specificUserRegistration.fullname = fullnameValue;
   }
 }
 
 public addEmail(emailValue: string){
-  console.log("in addEmail, emailValue= " + emailValue)
   if(this.email.valid){
     this.specificUserRegistration.email = emailValue;
   }
 }
 
 public addUsername(usernameValue: string){
-  console.log("in addUsername, usernameValue= " + usernameValue)
   if(this.username.valid){
     this.specificUserRegistration.username = usernameValue;
   }
 }
 
 public addPassword(passwordValue: string){
-  console.log("in addPassword, passwordValue= " + passwordValue)
   if(this.password.valid){
     this.specificUserRegistration.password = passwordValue;
   }
@@ -95,6 +94,9 @@ api/users/isUnique POST request
  "email":"somebody@somewhere.com"
 }
 */
+
+// the following method will be revisited after
+// cross field valdiation for the email and username is implemented
 public isUsernameUnique(usernameValue: string){
   console.log("this.username.valid: " + this.username.valid);
   if(this.username.valid){
@@ -128,6 +130,8 @@ public isUsernameUnique(usernameValue: string){
 */
  errorMessage: string;
 
+// need to change getErromMessage, so any form can use it.
+// yet solution works for the near term.
  public getErrorMessage(formControlName: string) {
 
    switch(formControlName){
@@ -163,8 +167,6 @@ public isUsernameUnique(usernameValue: string){
 
 
   // Establish the controls and methods for the submit button
-
-
   submitted = false;
 
   onSubmit() {
@@ -177,13 +179,17 @@ public isUsernameUnique(usernameValue: string){
     //TODO: rmove alert add other funtionaliy like call to login.
   }
 
+// note. consider adding the reset to the button, and eliminating method
+// cancelRegistration, unless of course addtional functionality is needed.
   cancelRegistration(){
     console.log("Hurrah! Cancel button was pressed.");
+    // consider asking the user for cancel confirmation.
     this.registerForm.reset();
-    // route to homepage
+    // routed to homepage is done on the button. of course eventually,
+    // routing should be back page the user was on orginially ...
   }
 
-  // TODO: Remove this when we're done, it is just used to verify data capturing to correct variable
+  // TODO: Remove these when done, it is just used to verify data capturing to correct variable
   get diagnostic() { return JSON.stringify(this.specificUserRegistration); }
   get registerFormDiagnostic() { return JSON.stringify(this.registerForm.value); }
 
