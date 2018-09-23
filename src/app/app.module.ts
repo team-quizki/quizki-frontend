@@ -92,7 +92,6 @@ import { RegistrationComponent } from './registration/registration.component';
     MatToolbarModule,
     AppRoutingModule,
     LayoutModule
-
   ],
   providers: [ HttpInterceptorProviders ],
   bootstrap: [AppComponent]

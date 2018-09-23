@@ -1,5 +1,7 @@
-
-TODO: remove after verifying data captured correctly: {{diagnostic}}
+TODO: remove after verifying data captured correctly specificUserRegistration: {{diagnostic}}
+<br>
+TODO: remove after verifying data captured correctly registerForm.value: {{registerFormDiagnostic}}
+<br>
 
 <div class="mat-typography row">
   <div class="col-md-4 col-md-offset-1">
@@ -11,17 +13,21 @@ TODO: remove after verifying data captured correctly: {{diagnostic}}
       </div>
 
       <div class="panel-body">
-        <form class="basic-container form" (ngSubmit)="onSubmit(registerForm)" #registerForm="ngForm">
+        <form class="basic-container" [formGroup]="registerForm"
+          (ngSubmit)="onSubmit()">
 
           <div class="basic-container">
             <mat-form-field appearance="standard">
               <mat-label for="fullname">Enter your full name</mat-label>
-              <input matInput required minlength pattern
-                type="text" class="form-control" id="fullname"
-                [(ngModel)]="specificUserRegistration.fullname" name="fullname"
-                [formControl]="fullnameFormControl"
+              <input #fullnameInput matInput required minlength pattern
+                type="text" formControlName="fullname"
+                class="form-control" id="fullname"
+                (keyup.enter)="addFullname(fullnameInput.value)"
+                (blur)="addFullname(fullnameInput.value)"
                 placeholder="firstname lastname">
-              <mat-error *ngIf="fullnameFormControl.invalid">{{getFullnameErrorMessage()}}</mat-error>
+              <mat-error *ngIf="fullname.touched && fullname.invalid && fullname.dirty">
+                  {{getErrorMessage("fullname")}}
+              </mat-error>
               <mat-hint>Example: Firstname Lastname</mat-hint>
             </mat-form-field>
           </div>
@@ -29,12 +35,15 @@ TODO: remove after verifying data captured correctly: {{diagnostic}}
           <div class="basic-container">
             <mat-form-field appearance="standard">
               <mat-label for="email">Enter email address</mat-label>
-              <input matInput required email
+              <input #emailInput matInput required email
                 type="email" class="form-control" id="email"
-                [(ngModel)]="specificUserRegistration.email" name="email"
-                [formControl]="emailFormControl"
+                (keyup.enter)="addEmail(emailInput.value)"
+                (blur)="addEmail(emailInput.value)"
+                formControlName="email"
                 placeholder="Enter your email.">
-              <mat-error *ngIf="emailFormControl.invalid">{{getEmailErrorMessage()}}</mat-error>
+              <mat-error *ngIf="email.touched && email.invalid && email.dirty">
+                {{getErrorMessage("email")}}
+              </mat-error>
               <mat-hint>Example: info@quizki.com</mat-hint>
             </mat-form-field>
           </div>
@@ -42,12 +51,15 @@ TODO: remove after verifying data captured correctly: {{diagnostic}}
           <div class="basic-container">
             <mat-form-field appearance="standard">
               <mat-label for="username">Enter username</mat-label>
-              <input matInput required minlength pattern
+              <input #usernameInput matInput required minlength pattern
                 type="text" class="form-control" id="username"
-                [(ngModel)]="specificUserRegistration.username" name="username"
-                [formControl]="usernameFormControl"
+                (keyup.enter)="addUsername(usernameInput.value)"
+                (blur)="addUsername(usernameInput.value)"
+                formControlName="username"
                 placeholder="username">
-              <mat-error *ngIf="usernameFormControl.invalid">{{getUsernameErrorMessage()}}</mat-error>
+              <mat-error *ngIf="username.touched && username.invalid && email.dirty">
+                {{getErrorMessage("username")}}
+              </mat-error>
               <mat-hint>Use letters, numbers and underscore. </mat-hint>
             </mat-form-field>
           </div>
@@ -55,13 +67,16 @@ TODO: remove after verifying data captured correctly: {{diagnostic}}
           <a class="basic-container">
             <mat-form-field appearance="standard">
               <mat-label for="password">Enter password</mat-label>
-              <input matInput required minlength pattern
+              <input #passwordInput matInput required minlength pattern
                 type="password" class="form-control" id="password"
-                [(ngModel)]="specificUserRegistration.password" name="password"
-                [formControl]="passwordFormControl"
+                (keyup.enter)="addPassword(passwordInput.value)"
+                (blur)="addPassword(passwordInput.value)"
+                formControlName="password"
                 placeholder="Enter password" [type]="hidePassword ? 'password' : 'text'">
               <mat-icon matSuffix (click)="hidePassword = !hidePassword">{{hidePassword ? 'visibility' : 'visibility_off'}}</mat-icon>
-              <mat-error *ngIf="passwordFormControl.invalid">{{getPasswordErrorMessage()}}</mat-error>
+              <mat-error *ngIf="password.touched && password.invalid && password.dirty">
+                {{getErrorMessage("password")}}
+              </mat-error>
               <mat-hint>Use 5 or more numbers, letters, and special characters.</mat-hint>
             </mat-form-field>
           </a>
@@ -71,13 +86,17 @@ TODO: remove after verifying data captured correctly: {{diagnostic}}
         <div class="button-row">
          <button mat-raised-button
            type="submit" class="btn btn-success btn-primary"
-           (click)="onSubmit(registerForm)"
+           aria-label="submit button"
+           [disabled]="registerForm.invalid"
+           (click)="onSubmit()"
            >Submit
          </button>
          &nbsp;
          <button mat-raised-button
            type="text" class="btn"
+           aria-label="cancel button"
            (click)="cancelRegistration(registerForm)"
+           routerLink="/home-page"
            >Cancel
          </button>
         </div>
