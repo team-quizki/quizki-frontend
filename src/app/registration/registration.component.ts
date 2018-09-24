@@ -130,7 +130,7 @@ public isUsernameUnique(usernameValue: string){
 */
  errorMessage: string;
 
-// need to change getErromMessage, so any form can use it.
+// need to change getErrorMessage, so any form can use it.
 // yet solution works for the near term.
  public getErrorMessage(formControlName: string) {
 
@@ -168,12 +168,15 @@ public isUsernameUnique(usernameValue: string){
 
   // Establish the controls and methods for the submit button
   onSubmit() {
-    console.log("Hurrah! Submit button was pressed.");
-    console.log("this.registerForm.invalid: " + this.registerForm.invalid);
     if(this.registerForm.invalid) { return;} // should never be invalid at this point...
 
     alert("In onSubmit: success thus far");
-    //TODO: rmove alert add other funtionaliy like call to login.
+
+    //TODO: rmove alert add other funtionaliy like:
+    // call to backend to created registration and send to login.
+    // perhaps route to login on the buttong after the registration completes
+    // successfully
+
   }
 
   public cancelRegistration(){

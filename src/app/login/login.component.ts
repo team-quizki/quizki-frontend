@@ -34,9 +34,6 @@ export class LoginComponent implements OnInit {
     this.hidePassword = true;
     this.loginErrorMessage = "";
 
-    // don't forget to add all the special characters to the password pattern
-    // email validator still allows someEmail@somewhere because that is a valid emailValue
-    // according to the documentation. reseach further later.
     this.loginForm = this.formBuilder.group({
       username: ['', [Validators.required, Validators.minLength(5)]],
       password: ['', [Validators.required, Validators.minLength(5)]]
