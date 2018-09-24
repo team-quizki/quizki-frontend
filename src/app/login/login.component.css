@@ -1,0 +1,27 @@
+body {
+  font-family: Roboto, Arial, sans-serif;
+  margin: 0;
+}
+
+.basic-container {
+  padding: 5px;
+  display: flex;
+  flex-direction: column;
+}
+
+.basic-container > * {
+  width: 100%;
+}
+
+.basic-container form {
+  margin-bottom: 5px;
+}
+
+.basic-container form > * {
+  margin: 5px 0;
+}
+
+.version-info {
+  font-size: 12pt;
+  float: right;
+}

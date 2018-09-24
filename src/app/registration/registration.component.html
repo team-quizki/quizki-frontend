@@ -57,7 +57,7 @@ TODO: remove after verifying data captured correctly registerForm.value: {{regis
                 (blur)="addUsername(usernameInput.value)"
                 formControlName="username"
                 placeholder="username">
-              <mat-error *ngIf="username.touched && username.invalid && email.dirty">
+              <mat-error *ngIf="username.touched && username.invalid && username.dirty">
                 {{getErrorMessage("username")}}
               </mat-error>
               <mat-hint>Use letters, numbers and underscore. </mat-hint>
@@ -69,8 +69,8 @@ TODO: remove after verifying data captured correctly registerForm.value: {{regis
               <mat-label for="password">Enter password</mat-label>
               <input #passwordInput matInput required minlength pattern
                 type="password" class="form-control" id="password"
-                (keyup.enter)="addPassword(passwordInput.value)"
-                (blur)="addPassword(passwordInput.value)"
+                (keyup.enter)="hidePassword=true;addPassword(passwordInput.value)"
+                (blur)="hidePassword=true;addPassword(passwordInput.value)"
                 formControlName="password"
                 placeholder="Enter password" [type]="hidePassword ? 'password' : 'text'">
               <mat-icon matSuffix (click)="hidePassword = !hidePassword">{{hidePassword ? 'visibility' : 'visibility_off'}}</mat-icon>
@@ -104,7 +104,13 @@ TODO: remove after verifying data captured correctly registerForm.value: {{regis
       </div>
 
       <div class="panel-footer">
-        <p></p>
+        <p>Already registered?
+          &nbsp;
+          <a  (click)="registerForm.reset()"
+            routerLink="/login"
+            aria-label="login"
+            href ="/login">Login</a>
+        </p>
       </div>
 
     </div>

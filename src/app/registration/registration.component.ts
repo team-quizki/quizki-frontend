@@ -167,24 +167,24 @@ public isUsernameUnique(usernameValue: string){
 
 
   // Establish the controls and methods for the submit button
-  submitted = false;
-
   onSubmit() {
-    this.submitted = true;
     console.log("Hurrah! Submit button was pressed.");
     console.log("this.registerForm.invalid: " + this.registerForm.invalid);
-    if(this.registerForm.invalid) { this.submitted = false; return;}
+    if(this.registerForm.invalid) { return;} // should never be invalid at this point...
 
     alert("In onSubmit: success thus far");
     //TODO: rmove alert add other funtionaliy like call to login.
   }
 
-// note. consider adding the reset to the button, and eliminating method
-// cancelRegistration, unless of course addtional functionality is needed.
-  cancelRegistration(){
-    console.log("Hurrah! Cancel button was pressed.");
+  public cancelRegistration(){
     // consider asking the user for cancel confirmation.
+    // really should right a reset method for UserRegistration
     this.registerForm.reset();
+    this.specificUserRegistration.id = '';
+    this.specificUserRegistration.fullname = '';
+    this.specificUserRegistration.username = '';
+    this.specificUserRegistration.password = '';
+    this.specificUserRegistration.email = '';
     // routed to homepage is done on the button. of course eventually,
     // routing should be back page the user was on orginially ...
   }
