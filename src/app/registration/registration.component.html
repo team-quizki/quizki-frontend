@@ -25,7 +25,7 @@ TODO: remove after verifying data captured correctly registerForm.value: {{regis
                 (keyup.enter)="addFullname(fullnameInput.value)"
                 (blur)="addFullname(fullnameInput.value)"
                 placeholder="firstname lastname">
-              <mat-error *ngIf="fullname.touched && fullname.invalid && fullname.dirty">
+              <mat-error *ngIf="fullnameFC.touched && fullnameFC.invalid && fullnameFC.dirty">
                   {{getErrorMessage("fullname")}}
               </mat-error>
               <mat-hint>Example: Firstname Lastname</mat-hint>
@@ -41,7 +41,7 @@ TODO: remove after verifying data captured correctly registerForm.value: {{regis
                 (blur)="addEmail(emailInput.value)"
                 formControlName="email"
                 placeholder="Enter your email.">
-              <mat-error *ngIf="email.touched && email.invalid && email.dirty">
+              <mat-error *ngIf="emailFC.touched && emailFC.invalid && emailFC.dirty">
                 {{getErrorMessage("email")}}
               </mat-error>
               <mat-hint>Example: info@quizki.com</mat-hint>
@@ -57,7 +57,7 @@ TODO: remove after verifying data captured correctly registerForm.value: {{regis
                 (blur)="addUsername(usernameInput.value)"
                 formControlName="username"
                 placeholder="username">
-              <mat-error *ngIf="username.touched && username.invalid && username.dirty">
+              <mat-error *ngIf="usernameFC.touched && usernameFC.invalid && usernameFC.dirty">
                 {{getErrorMessage("username")}}
               </mat-error>
               <mat-hint>Use letters, numbers and underscore. </mat-hint>
@@ -74,7 +74,7 @@ TODO: remove after verifying data captured correctly registerForm.value: {{regis
                 formControlName="password"
                 placeholder="Enter password" [type]="hidePassword ? 'password' : 'text'">
               <mat-icon matSuffix (click)="hidePassword = !hidePassword">{{hidePassword ? 'visibility' : 'visibility_off'}}</mat-icon>
-              <mat-error *ngIf="password.touched && password.invalid && password.dirty">
+              <mat-error *ngIf="passwordFC.touched && passwordFC.invalid && passwordFC.dirty">
                 {{getErrorMessage("password")}}
               </mat-error>
               <mat-hint>Use 5 or more numbers, letters, and special characters.</mat-hint>

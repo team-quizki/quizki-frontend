@@ -3,7 +3,7 @@ import { BrowserModule  } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 
-import { RouterModule, Routes } from '@angular/router';
+//import { RouterModule, Routes } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { LayoutModule } from '@angular/cdk/layout';
@@ -76,8 +76,8 @@ import { RegistrationComponent } from './registration/registration.component';
     BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
-    LayoutModule,
     HttpClientModule,
+    LayoutModule,
     MatButtonModule,
     MatCardModule,
     MatExpansionModule,
@@ -86,12 +86,10 @@ import { RegistrationComponent } from './registration/registration.component';
     MatInputModule,
     MatListModule,
     MatMenuModule,
-    MatToolbarModule,
     MatSelectModule,
     MatSidenavModule,
     MatToolbarModule,
-    AppRoutingModule,
-    LayoutModule
+    AppRoutingModule
   ],
   providers: [ HttpInterceptorProviders ],
   bootstrap: [AppComponent]

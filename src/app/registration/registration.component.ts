@@ -57,32 +57,32 @@ export class RegistrationComponent implements OnInit {
  get valid() {return this.registerForm.valid;}
 
 // getters for for form controls by form control name
- get fullname() {return this.registerForm.get('fullname');}
- get username() {return this.registerForm.get('username');}
- get email() {return this.registerForm.get('email');}
- get password() {return this.registerForm.get('password');}
+ get fullnameFC() {return this.registerForm.get('fullname');}
+ get usernameFC() {return this.registerForm.get('username');}
+ get emailFC() {return this.registerForm.get('email');}
+ get passwordFC() {return this.registerForm.get('password');}
 
 //methods used for enter key up and blur events
 public addFullname(fullnameValue: string){
-  if(this.fullname.valid){
+  if(this.fullnameFC.valid){
     this.specificUserRegistration.fullname = fullnameValue;
   }
 }
 
 public addEmail(emailValue: string){
-  if(this.email.valid){
+  if(this.emailFC.valid){
     this.specificUserRegistration.email = emailValue;
   }
 }
 
-public addUsername(usernameValue: string){
-  if(this.username.valid){
+public addUsernameFC(usernameValue: string){
+  if(this.usernameFC.valid){
     this.specificUserRegistration.username = usernameValue;
   }
 }
 
 public addPassword(passwordValue: string){
-  if(this.password.valid){
+  if(this.passwordFC.valid){
     this.specificUserRegistration.password = passwordValue;
   }
 }
@@ -98,8 +98,8 @@ api/users/isUnique POST request
 // the following method will be revisited after
 // cross field valdiation for the email and username is implemented
 public isUsernameUnique(usernameValue: string){
-  console.log("this.username.valid: " + this.username.valid);
-  if(this.username.valid){
+  console.log("this.usernameFC.valid: " + this.usernameFC.valid);
+  if(this.usernameFC.valid){
     // ask backend if usenname is unique and Valid
     // or perhaps check to see if both username and email are valid
     // then send the request.
@@ -136,26 +136,26 @@ public isUsernameUnique(usernameValue: string){
 
    switch(formControlName){
      case 'fullname':
-         this.errorMessage = this.fullname.hasError('required') ? 'You must enter a value' :
-         this.fullname.hasError('minlength') ? 'Length must be at least 5 characters' :
-         this.fullname.hasError('pattern') ? 'Use letters and with a space between FirstName and LastName' :
+         this.errorMessage = this.fullnameFC.hasError('required') ? 'You must enter a value' :
+         this.fullnameFC.hasError('minlength') ? 'Length must be at least 5 characters' :
+         this.fullnameFC.hasError('pattern') ? 'Use letters and with a space between FirstName and LastName' :
          '';
        break;
      case 'email':
-       this.errorMessage = this.email.hasError('required') ? 'You must enter a value' :
-         this.email.hasError('email') ? 'Not a valid email.' :
+       this.errorMessage = this.emailFC.hasError('required') ? 'You must enter a value' :
+         this.emailFC.hasError('email') ? 'Not a valid email.' :
          '';
        break;
      case 'username':
-       this.errorMessage = this.username.hasError('required') ? 'You must enter a value' :
-         this.username.hasError('minlength') ? 'Length must be at least 5 characters' :
-         this.username.hasError('pattern') ? 'Use letters, numbers and underscores.' :
+       this.errorMessage = this.usernameFC.hasError('required') ? 'You must enter a value' :
+         this.usernameFC.hasError('minlength') ? 'Length must be at least 5 characters' :
+         this.usernameFC.hasError('pattern') ? 'Use letters, numbers and underscores.' :
          '';
        break;
      case 'password':
-       this.errorMessage = this.password.hasError('required') ? 'You must enter a value' :
-         this.password.hasError('minlength') ? 'Length must be at least 5 characters' :
-         this.password.hasError('pattern') ? 'Use letters, numbers and special characters.' :
+       this.errorMessage = this.passwordFC.hasError('required') ? 'You must enter a value' :
+         this.passwordFC.hasError('minlength') ? 'Length must be at least 5 characters' :
+         this.passwordFC.hasError('pattern') ? 'Use letters, numbers and special characters.' :
          '';
        break;
      default:
@@ -181,9 +181,8 @@ public isUsernameUnique(usernameValue: string){
 
   public cancelRegistration(){
     // consider asking the user for cancel confirmation.
-    // really should right a reset method for UserRegistration
+    // really should write a reset method for UserRegistration
     this.registerForm.reset();
-    this.specificUserRegistration.id = '';
     this.specificUserRegistration.fullname = '';
     this.specificUserRegistration.username = '';
     this.specificUserRegistration.password = '';
