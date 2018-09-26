@@ -5,6 +5,7 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './create-question-page.component.html',
   styleUrls: ['./create-question-page.component.css']
 })
+
 export class CreateQuestionPageComponent implements OnInit {
 
   constructor() { }
