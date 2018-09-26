@@ -1,11 +1,77 @@
-<h1>
+<div style="border:1px solid black; margin-top:2vh; width:95%;">
+<h1 style="text-indent:1%;">
     Welcome to {{ title }} 
 </h1>
+<br><br>
+    <table style="width:95%; font-size:1.5em; margin:0px auto;">
+        <tr>
+            <td style="width:33%; text-align:center;">
+                Select Topic:<br>
+                <input type="text" list="topic" style="width:90%;">
+                <datalist id="topic">
+                    <option value="Topic 1">
+                    <option value="Topic 2">
+                    <option value="Topic 3">
+                    <option value="Topic 4">
+                    <option value="Topic 5">    
+                </datalist>
+            </td>
+            <td style="width:33%; text-align:center;">
+                Add New Topic:<br>
+                <input type="text" style="width:90%;">
+            </td>
+            <td style="width:33%; text-align:center;">
+                Your Chosen Topic:<br>
+                <input type="text" style="width:90%;">
+            </td>    
+        </tr><br>
+        <tr>
+            <td style="width:33%; text-align:center;">
+                Select Question Type:<br>
+            <input type="text" list="questiontype" style="width:90%;">
+                <datalist id="questiontype">
+                    <option value="Single">
+                    <option value="Multiple">
+                    <option value="Phrase">
+                    <option value="Sequence">
+                    <option value="Set">    
+                </datalist>
+            </td>
+            <td style="width:33%; text-align:center;">
+            </td>
+            <td style="width:33%; text-align:center;">
+            </td>    
+        </tr><br>
+    </table>
+<br>
+<br>
 
-<button (click)="onSaveQuestions()">Save Questions</button> 
+<div style="width:92%; margin:0px auto;">
+    <editor apiKey="lzlkf4t1qvjtid356kafllkafx5quoci0htkh5pxp41ilf73" [init]="{plugins: 'link'}" initialValue="Enter Question Here..."></editor>
+</div>  
+<br><br><br>
 
-<button (click)="onGetQuestions()">Get Questions</button> 
+<table style="width:95%; font-size:1.5em; margin:0px auto;">
+    <tr>
+        <td style="width:33%; text-align:center;">
+            Enter Answer(s) Here<br>
+            <input type="text" value="answer here" style="width:90%;">
+        </td>
+        <td style="width:33%; text-align:center;">
+            &nbsp;&nbsp;<br>
+            <button (click)="onSaveQuestions()" style="width:90%;">Save Question</button>
+        </td>
+        <td style="width:33%; text-align:center;">
+            &nbsp;&nbsp;<br>
+            <button (click)="onGetQuestions()" style="width:90%;">Get Questions - This Topic</button> 
+        </td>
+    </tr>
+</table>
+<br><br>
 
-<editor apiKey="lzlkf4t1qvjtid356kafllkafx5quoci0htkh5pxp41ilf73" [init]="{plugins: 'link'}" initialValue="Enter Question Here..."></editor>
-
+<span style="color:red">{{responseA}}</span>
+<br><br>
+<span style="color:blue;">{{responseB}}</span>
+<br><br>
+</div>
     

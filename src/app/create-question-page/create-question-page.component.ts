@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FirebaseService } from './firebase.service';
 import { HttpResponse } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 
 @Component({
     selector: 'app-create-question-page',
@@ -14,6 +15,11 @@ export class CreateQuestionPageComponent {
     title = "Create a Question:";
     
     array = ['A','B','C','D','E','F'];
+    
+    topic = "WTF!";
+    
+    responseA = "";
+    responseB = "";
         
     sQuestions = [
       { "id": "0", "desc": "singleQuestion0" },
@@ -41,36 +47,49 @@ export class CreateQuestionPageComponent {
       { "id": "9", "desc": "singleQuestionJ" }
     ];
         
-  constructor(private firebaseService: FirebaseService){}
-  
-  onSaveQuestions() {
-      
-        console.log(JSON.stringify(this.sQuestions2));
+    constructor(private firebaseService: FirebaseService){}
 
-        this.firebaseService.storeQuestions(this.sQuestions2)
-        .subscribe(
-          (response) => console.log("-- " + response),
-          (error) => console.log("** " + JSON.stringify(error))
-        );
-  };
-  
-  onGetQuestions(){
-        this.firebaseService.getQuestions()
-        .subscribe(
-            //(response) => console.log(response),
-            
-            (response: HttpResponse<any[]>) => { 
-             const data = response;
-             console.log(data);
-            },
-        
-            //(theQuestions: any[]) => {
-            //    console.log(theQuestions) 
-            //},
-            (error) => console.log("get error is: " + JSON.stringify(error))
-        )
-  }
+    onSaveQuestions() {
+
+          console.log(JSON.stringify(this.sQuestions2));
+
+          this.firebaseService.storeQuestions(this.sQuestions2)
+          .subscribe(
+            (response) => { this.dataSent(response); console.log(response);},
+            (error) => console.log("** " + JSON.stringify(error))
+          );
+    };
+    // (response) => console.log("-- " + JSON.stringify(response)),
+    onGetQuestions(){
+          this.firebaseService.getQuestions()
+          .subscribe(
+              //(response) => console.log(response),
+
+              (response: HttpResponse<any[]>) => { 
+               const data = response;
+               this.dataReceived(data);
+               console.log(data);
+              },
+
+              //(theQuestions: any[]) => {
+              //    console.log(theQuestions) 
+              //},
+              (error) => console.log("get error is: " + JSON.stringify(error))
+          )
+    }
+    
+    dataSent(responseA){
+        this.responseA = "Data base created on Firebase is: " + JSON.stringify(responseA);
+    }
+    
+    dataReceived(responseB){
+        this.responseB = "Data received from Firebase is: " + JSON.stringify(responseB);
+    }
+    
 }
+
+    
+
 // This error shows when I try to use the map feature as per its use in firebase.service.ts 
 /* 
 ERROR in src/app/app.component.ts(65,13): error TS2345: Argument of type '(theQuestions: any[]) => void' is not assignable to parameter of type '(value: HttpResponse<any[]>) => void'.
