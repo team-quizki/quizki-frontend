@@ -6,13 +6,15 @@ import { RouterModule, Routes } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http'
 import { MatToolbarModule, MatButtonModule, MatIconModule, MatSidenavModule, MatListModule  } from '@angular/material';
+import { EditorModule } from '@tinymce/tinymce-angular';
 
 //app level imports here
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { NavigationComponent } from './navigation/navigation.component';
+import { FirebaseService   } from './create-question-page/firebase.service';
 
-//page inports here
+//page imports here
 import { HomePageComponent } from './home-page/home-page.component';
 import { GenerateExamPageComponent } from './generate-exam-page/generate-exam-page.component';
 import { SearchForAnExamPageComponent } from './search-for-an-exam-page/search-for-an-exam-page.component';
@@ -68,9 +70,10 @@ import { LayoutModule } from '@angular/cdk/layout';
     AppRoutingModule,
     LayoutModule,
     MatSidenavModule,
-    MatListModule
+    MatListModule,
+    EditorModule
   ],
-  providers: [ HttpInterceptorProviders ],
+  providers: [ HttpInterceptorProviders, FirebaseService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

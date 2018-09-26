@@ -18,6 +18,7 @@
 .settings/
 *.sublime-workspace
 .nbproject/
+.githubpushURL.txt
 
 # IDE - VSCode
 .vscode/*
