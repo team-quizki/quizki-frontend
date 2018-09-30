@@ -7,7 +7,7 @@ This project was generated with [Angular CLI](https://cli.angular.io/) version 6
 Here is what you need to do to get the project up and running on your local machine for development and testing purposes.
 
 ### Dependencies
-To run the frontend you will need to download the following tools, on your own, and before proceeding...
+To run the frontend you will need to install the following tools, on your own, and before proceeding...
 * Node Package Manager ([npm](https://www.npmjs.com/) 
 * Angular Command Line Interface ([Angular CLI](https://cli.angular.io/))
 
