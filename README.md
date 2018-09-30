@@ -7,18 +7,17 @@ This project was generated with [Angular CLI](https://cli.angular.io/) version 6
 Here is what you need to do to get the project up and running on your local machine for development and testing purposes.
 
 ### Dependencies
-To run the frontend you will need the following tools
-* [Node Package Manager (npm)](https://www.npmjs.com/) 
+To run the frontend you will need to download the following tools, on your own, and before proceeding...
+* Node Package Manager ([npm](https://www.npmjs.com/) 
 * Angular Command Line Interface ([Angular CLI](https://cli.angular.io/))
-You can use Node Package Manager (npm) to install AngularCLI.
 
 ### Installation
 To get the frontend running on your local machine follow these steps.
   1. Clone this repository. `$ git clone https://github.com/team-quizki/quizki-frontend.git`
   2. Change to the quizki-frontend directory. `$ cd quizki-frontend`
-  3. Run npm install to install pacages and dependencies required by this Angular project `$ npm install`
+  3. Run `npm install` to install packages and dependencies required by this Angular project `$ npm install`
 
-If the above steps worked, you should be ready to sereve the app.
+If the above steps worked, you should be ready to serve the app.
 
 ## Development Server
 Run `$ ng serve` for a dev server, and navigate to `http://localhost:4200/`. You can also run `$ ng serve --open` to serve the app and open it in a new browser tab automatically. The app will automatically reload if you change any of the source files.
@@ -59,7 +58,7 @@ Please read [CONTRIBUTING.md] for details on our code of conduct, and the proces
 This project is in alpha version.
 
 ## Authors
-* Johnathan
+* [Johnathan](https://github.com/haxwell)
 * Jim
 * Deborah
 * Jeremiah
@@ -85,5 +84,4 @@ The [team-quizki](https://github.com/team-quizki) project is licensed under the 
 
 To join the [team-quizki](https://github.com/team-quizki) project, which you are encouraged to do, look on Meetup.com for the [Denver Mock Programming Job] (https://www.meetup.com/Denver-Mock-Programming-Job-Meetup/) meetings. We use the agile development process. We want to help you gain professional coding experience.
 
-We would like to thank our sponsors:
 
