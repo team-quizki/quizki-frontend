@@ -14,11 +14,16 @@ import { QuestionTopicComponent } from './questions/question/question-topics/que
 import { QuestionDifficultyComponent } from './questions/question/question-difficulties/question-difficulty.component';
 import { QuestionTypeComponent } from './questions/question/question-types/question-type.component';
 import { LoginComponent} from './login/login.component';
-import { HttpInterceptorProviders} from './http-interceptors/index'
-
-
-
-
+import { HttpInterceptorProviders} from './http-interceptors/index';
+import { DataTableComponent } from './data-table/data-table.component';
+import { MatTableModule, MatPaginatorModule, MatSortModule } from '@angular/material';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material';
+import { MatSelectModule } from '@angular/material/select';
+import { MatButtonModule } from '@angular/material/button';
+import { DataService } from './data-table/data.service';
 
 @NgModule({
   declarations: [
@@ -33,14 +38,24 @@ import { HttpInterceptorProviders} from './http-interceptors/index'
     QuestionTopicComponent,
     QuestionDifficultyComponent,
     QuestionTypeComponent,
-    LoginComponent
+    LoginComponent,
+    DataTableComponent,
   ],
   imports: [
     BrowserModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
+    BrowserAnimationsModule,
+    MatCheckboxModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatButtonModule
   ],
-  providers: [ HttpInterceptorProviders ],
+  providers: [ HttpInterceptorProviders, DataService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
