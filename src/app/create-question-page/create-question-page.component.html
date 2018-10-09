@@ -1,3 +1,96 @@
-<p>
-  create-question-page works!
-</p>
+<div style="border:1px solid black; margin-top:2vh; width:95%;">
+<h1 style="text-indent:1%;">
+    Welcome to {{ title }} 
+</h1>
+<br><br>
+    <table style="width:95%; font-size:1.0em; margin:0px auto;">
+        <tr>
+            <td style="width:33%; text-align:center;">
+                <mat-form-field style='width:80%;' >
+                    <mat-select placeholder="Select Topic">
+                      <mat-option *ngFor="let topic of topics" [value]="topic.value"
+                        (click)="viewClickedTopic(topic.value)">
+                        {{topic.viewValue}} (To be queried)
+                      </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            <br>{{value1}}
+            </td>
+            <td style="width:33%; text-align:center;">
+                Add New Topic:<br>
+                <input type="text" style="width:90%;">
+            </td>
+            <td style="width:33%; text-align:center;">
+                <mat-form-field >
+                    <mat-select placeholder="Favorite food">
+                      <mat-option *ngFor="let food of foods" [value]="food.value"
+                        (click)="displayValue(food.value)">
+                        {{food.viewValue}}
+                        {{food.value}} WTF {{food.value}}
+                      </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </td>    
+        </tr><br>
+        <tr>
+            <td style="width:33%; text-align:center;">
+                Select Question Type:<br>
+            <input type="text" list="questiontype" style="width:90%;">
+                <datalist id="questiontype">
+                    <option value="Single">
+                    <option value="Multiple">
+                    <option value="Phrase">
+                    <option value="Sequence">
+                    <option value="Set">    
+                </datalist>
+            </td>
+            <td style="width:33%; text-align:center;">
+                Select Question Type:<br>
+                <mat-form-field style="font-size:0.666em; border:1px solid lightgray; width:90%; background-color:white;">
+                    <mat-select>
+                        <mat-option *ngFor="let questiontype of questiontypes" [value]="questiontype.value">
+                          {{questiontype.viewValue}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field><br><br>
+                And the value is: <u>&nbsp;{{value}}&nbsp;</u>
+                
+            </td>
+            <td style="width:33%; text-align:center;">
+                <button (click)="test()">Click for test</button>
+                <!--{{ test() }}-->
+            </td>    
+        </tr><br>
+    </table>
+<br>
+<br>
+
+<div style="width:92%; margin:0px auto;">
+    <editor apiKey="lzlkf4t1qvjtid356kafllkafx5quoci0htkh5pxp41ilf73" [init]="{plugins: 'link'}" initialValue="Enter Question Here..."></editor>
+</div>  
+<br><br><br>
+
+<table style="width:95%; font-size:1.5em; margin:0px auto;">
+    <tr>
+        <td style="width:33%; text-align:center;">
+            Enter Answer(s) Here<br>
+            <input type="text" value="answer here" style="width:90%;">
+        </td>
+        <td style="width:33%; text-align:center;">
+            &nbsp;&nbsp;<br>
+            <button (click)="onSaveQuestions()" style="width:90%;">Save Question</button>
+        </td>
+        <td style="width:33%; text-align:center;">
+            &nbsp;&nbsp;<br>
+            <button (click)="onGetQuestions()" style="width:90%;">Get Questions - This Topic</button> 
+        </td>
+    </tr>
+</table>
+<br><br>
+
+<span style="color:red">{{responseA}}</span>
+<br><br>
+<span style="color:blue;">{{responseB}}</span>
+<br><br>
+</div>
+    

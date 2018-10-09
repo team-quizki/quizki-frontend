@@ -5,7 +5,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http'
-import { MatToolbarModule, MatButtonModule, MatIconModule, MatSidenavModule, MatListModule  } from '@angular/material';
+import { MatToolbarModule, MatButtonModule, MatIconModule, MatSidenavModule, MatListModule, MatSelectModule } from '@angular/material';
+import { EditorModule } from '@tinymce/tinymce-angular';
 
 //app level imports here
 import { AppComponent } from './app.component';
@@ -32,8 +33,10 @@ import { QuestionTopicComponent } from './questions/question/question-topics/que
 import { QuestionDifficultyComponent } from './questions/question/question-difficulties/question-difficulty.component';
 import { QuestionTypeComponent } from './questions/question/question-types/question-type.component';
 import { LoginComponent} from './login/login.component';
+
 import { HttpInterceptorProviders} from './http-interceptors/index';
 import { LayoutModule } from '@angular/cdk/layout';
+import { FirebaseService } from './create-question-page/firebase.service';
 
 @NgModule({
   declarations: [
@@ -65,12 +68,14 @@ import { LayoutModule } from '@angular/cdk/layout';
     MatToolbarModule,
     MatButtonModule,
     MatIconModule,
+    MatSelectModule,
     AppRoutingModule,
     LayoutModule,
     MatSidenavModule,
-    MatListModule
+    MatListModule,
+    EditorModule
   ],
-  providers: [ HttpInterceptorProviders ],
+  providers: [ HttpInterceptorProviders, FirebaseService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
