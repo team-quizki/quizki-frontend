@@ -2,11 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormControlName, FormGroup, Validators } from '@angular/forms';
 
 import { UserRegistration } from './../user/user-registration';
-
+import { RegisterService } from './register.service';
 
 @Component({
   selector: 'app-registration',
   templateUrl: './registration.component.html',
+  providers: [ RegisterService ],
   styleUrls: ['./registration.component.css']
 })
 export class RegistrationComponent implements OnInit {
@@ -27,8 +28,11 @@ export class RegistrationComponent implements OnInit {
     public demographic?: string, // optional field
     */
 
+
+
     constructor(
-      private formBuilder: FormBuilder
+      private formBuilder: FormBuilder,
+      private registerService: RegisterService
     ) {
      // setting this is the key to initial select.
     }
@@ -75,9 +79,17 @@ public addEmail(emailValue: string){
   }
 }
 
-public addUsernameFC(usernameValue: string){
+
+public addUsername(usernameValue: string){
   if(this.usernameFC.valid){
     this.specificUserRegistration.username = usernameValue;
+    //temporarily subscribing below to easily checkout the registerService
+    //eventally needs to move to become a valadator
+    console.log("in addUserName " + usernameValue);
+    let resultOfCheck = this.registerService.isUniqueName(usernameValue)
+        .subscribe(name => usernameValue);
+    console.log("out addUserName " + usernameValue + " " + resultOfCheck);
+
   }
 }
 
@@ -87,13 +99,6 @@ public addPassword(passwordValue: string){
   }
 }
 
-/* infor to the call delete later
-api/users/isUnique POST request
-{
- "name":"someUserName",
- "email":"somebody@somewhere.com"
-}
-*/
 
 // the following method will be revisited after
 // cross field valdiation for the email and username is implemented
@@ -108,26 +113,6 @@ public isUsernameUnique(usernameValue: string){
   return;
 }
 
-/* backend call Example
-    private requestLogin(user: string, pw: string): Observable<User>{
-
-      //construct the authorization headers
-      let authHeader: string = "Basic " + btoa(`${user}:${pw}`);
-
-      console.log("User: " + user);
-      console.log("PW: " + pw);
-      console.log("Authorization Header: " + authHeader);
-
-
-      return this.http.get<User>('http://localhost:8080/api/verifyCredentials',
-        {
-          headers: new HttpHeaders()
-            .set('Authorization', authHeader)
-            .append('content-type',"application/json"),
-          responseType: 'json'
-        }
-      );
-*/
  errorMessage: string;
 
 // need to change getErrorMessage, so any form can use it.
@@ -192,7 +177,7 @@ public isUsernameUnique(usernameValue: string){
   }
 
   // TODO: Remove these when done, it is just used to verify data capturing to correct variable
-  get diagnostic() { return JSON.stringify(this.specificUserRegistration); }
-  get registerFormDiagnostic() { return JSON.stringify(this.registerForm.value); }
+//  get diagnostic() { return JSON.stringify(this.specificUserRegistration); }
+//  get registerFormDiagnostic() { return JSON.stringify(this.registerForm.value); }
 
 }

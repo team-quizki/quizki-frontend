@@ -21,6 +21,18 @@ body {
   margin: 5px 0;
 }
 
+.basic-card-header {
+  text-align: center;
+}
+
+.basic-card-actions {
+  text-align: center;
+}
+
+.basic-card-footer {
+  text-align: center;
+}
+
 .version-info {
   font-size: 12pt;
   float: right;

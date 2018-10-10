@@ -101,7 +101,7 @@ export class LoginComponent implements OnInit {
   }
 
   public login(){
-    alert("In login() for Login: success thus far");
+    //alert("In login() for Login: success thus far");
 
     console.log("Login: Username: " + this.username + " Password: " + this.password);
     this.loginStatus = "Requested"

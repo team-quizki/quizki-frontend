@@ -2,14 +2,11 @@ TODO: remove after verifying data captured correctly loginForm.value: {{loginFor
 <br>
 <div class="mat-typography row">
   <div class="col-md-4 col-md-offset-1">
-
-    <div class="panel panel-default">
-
-      <div class="panel-heading">
-        <h2 class="panel-title">LOGIN STATUS: {{loginStatus}}</h2>
-      </div>
-
-      <div class="panel-body">
+    <mat-card>
+      <mat-card-header class="basic-container basic-card-header">
+        <mat-card-title><h2>LOGIN STATUS: {{loginStatus}}</h2></mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
         <form class="basic-container" [formGroup]="loginForm"
             (ngSubmit)="onSubmit()">
 
@@ -18,7 +15,6 @@ TODO: remove after verifying data captured correctly loginForm.value: {{loginFor
               <mat-label for="username">username</mat-label>
               <input #usernameLogin matInput required minlength
                 type="text" class="form-control" id="username"
-                (keyup.enter)="addUsername(usernameLogin.value)"
                 (blur)="addUsername(usernameLogin.value)"
                 formControlName="username"
                 placeholder="username">
@@ -35,7 +31,6 @@ TODO: remove after verifying data captured correctly loginForm.value: {{loginFor
               <mat-label for="passwordIn">password</mat-label>
               <input #passwordLogin matInput required minlength
                 type="password" class="form-control" id="passwordIn"
-                (keyup.enter)="hidePassword=true;addPassword(passwordLogin.value)"
                 (blur)="hidePassword=true;addPassword(passwordLogin.value)"
                 formControlName="password"
                 placeholder="Enter password" [type]="hidePassword ? 'password' : 'text'">
@@ -48,37 +43,38 @@ TODO: remove after verifying data captured correctly loginForm.value: {{loginFor
           </a>
 
          </form>
-
-         <div class="basic-container">
-          <div class="button-row">
-           <button mat-raised-button
-             type="submit" class="btn btn-success btn-primary"
-             aria-label="login button"
-             [disabled]="loginForm.invalid"
-             (click)="onSubmit()"
-             >Login
-           </button>
-           &nbsp;
-           <button mat-raised-button
-             type="text" class="btn"
-             aria-label="cancel button"
-             (click)="cancelLogin()"
-             routerLink="/home-page"
-             >Cancel
-           </button>
-          </div>
-         </div>
-      </div>
-      <div class="panel-footer">
-        <p>User: {{username}}  Password: {{password}} </p>
-        <p>New to Quizki?
+      </mat-card-content>
+      <mat-card-actions class="basic-container basic-card-actions">
+        <div class="button-row">
+          <button mat-raised-button
+            type="submit" class="btn btn-success btn-primary"
+            aria-label="login button"
+            [disabled]="loginForm.invalid"
+            (click)="onSubmit()"
+            >Login
+          </button>
           &nbsp;
-          <a  (click)="cancelLogin()"
-            routerLink="/registration"
-            aria-label="create an account"
-            href ="/registration">Create an account.</a>
-        </p>
-      </div>
-    </div>
+          <button mat-raised-button
+            type="text" class="btn"
+            aria-label="cancel button"
+            (click)="cancelLogin()"
+            routerLink="/home-page"
+            >Cancel
+          </button>
+        </div>
+      </mat-card-actions>
+      <mat-card-footer class="basic-container basic-card-footer">
+        <div>
+          <p>User: {{username}}  Password: {{password}} </p>
+          <p>New to Quizki?
+            &nbsp;
+            <a  (click)="cancelLogin()"
+              routerLink="/registration"
+              aria-label="create an account"
+              href ="/registration">Create an account.</a>
+          </p>
+        </div>
+      </mat-card-footer>
+    </mat-card>
   </div>
 </div>
