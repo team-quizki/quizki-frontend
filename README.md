@@ -13,9 +13,11 @@ To run the frontend you will need to install the following tools, on your own, a
 
 ### Installation
 To get the frontend running on your local machine follow these steps.
-  1. Clone this repository. `$ git clone https://github.com/team-quizki/quizki-frontend.git`
-  2. Change to the quizki-frontend directory. `$ cd quizki-frontend`
-  3. Run `npm install` to install packages and dependencies required by this Angular project `$ npm install`
+  1. Fork quizki-frontend.git into your git remote account: `https://github.com/team-quizki/quizki-frontend.git`
+  2. On your local machine create a folder to clone your forked copy into.
+  3. From that folder's command line issue: `$ git clone https://github.com/your-git-remote/quizki-frontend.git`  
+  4. Change to the quizki-frontend directory. `$ cd quizki-frontend`
+  5. Run `npm install` to install packages and dependencies required by this Angular project `$ npm install`
 
 If the above steps worked, you should be ready to serve the app.
 
