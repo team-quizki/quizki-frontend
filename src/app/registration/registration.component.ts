@@ -88,7 +88,8 @@ public addUsername(usernameValue: string){
     console.log("in addUserName " + usernameValue);
     let resultOfCheck = this.registerService.isUniqueName(usernameValue)
         .subscribe(name => usernameValue);
-    console.log("out addUserName " + usernameValue + " " + resultOfCheck);
+
+    console.log("out addUserName " + usernameValue + " " +JSON.stringify(resultOfCheck));
 
   }
 }
@@ -177,7 +178,7 @@ public isUsernameUnique(usernameValue: string){
   }
 
   // TODO: Remove these when done, it is just used to verify data capturing to correct variable
-//  get diagnostic() { return JSON.stringify(this.specificUserRegistration); }
-//  get registerFormDiagnostic() { return JSON.stringify(this.registerForm.value); }
+  get diagnostic() { return JSON.stringify(this.specificUserRegistration); }
+  get registerFormDiagnostic() { return JSON.stringify(this.registerForm.value); }
 
 }

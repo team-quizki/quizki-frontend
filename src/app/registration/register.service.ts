@@ -9,8 +9,7 @@ import { UserNameEmail } from './../user/userNameEmail';
 
 const httpOptions = {
   headers: new HttpHeaders({
-    'Content-Type':  'application/json',
-    'Authorization': 'my-auth-token' /* verify what should be here */
+    'Content-Type':  'application/json'
   })
 };
 
@@ -26,10 +25,23 @@ export class RegisterService {
 
   isUniqueName( name: string ) : Observable<string> {
     console.log('in isUniqueName ' + name);
+    let nameString = '{"name":"' + name + '"}';
+
+    return this.http.post<string>(this.isUniqueURL,
+      nameString,
+      {
+        headers: new HttpHeaders()
+            .set('content-type',"application/json"),
+        responseType: 'json'
+      }
+    );
+    /*
     return this.http.post<string>(this.isUniqueURL, name, httpOptions)
       .pipe(
         catchError(this.handleError)
       );
+    */
   }
+
 
 }
