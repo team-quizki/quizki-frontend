@@ -19,6 +19,7 @@ import { SearchForAnExamPageComponent } from './search-for-an-exam-page/search-f
 import { CreateExamPageComponent } from './create-exam-page/create-exam-page.component';
 import { CreateQuestionPageComponent } from './create-question-page/create-question-page.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { DataTableComponent } from './data-table/data-table.component';
 
 //question imports
 import { QuestionComponent } from './questions/question/question.component';
@@ -34,6 +35,11 @@ import { QuestionTypeComponent } from './questions/question/question-types/quest
 import { LoginComponent} from './login/login.component';
 import { HttpInterceptorProviders} from './http-interceptors/index';
 import { LayoutModule } from '@angular/cdk/layout';
+import { MatTableModule, MatPaginatorModule, MatSortModule } from '@angular/material';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -55,7 +61,8 @@ import { LayoutModule } from '@angular/cdk/layout';
     SearchForAnExamPageComponent,
     CreateExamPageComponent,
     CreateQuestionPageComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    DataTableComponent
   ],
   imports: [
     BrowserModule,
@@ -68,7 +75,16 @@ import { LayoutModule } from '@angular/cdk/layout';
     AppRoutingModule,
     LayoutModule,
     MatSidenavModule,
-    MatListModule
+    MatListModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
+    BrowserAnimationsModule,
+    MatCheckboxModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatButtonModule
   ],
   providers: [ HttpInterceptorProviders ],
   bootstrap: [AppComponent]
