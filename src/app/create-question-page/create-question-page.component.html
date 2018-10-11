@@ -1,6 +1,6 @@
 <div style="border:1px solid black; margin-top:2vh; width:95%;">
 <h1 style="text-indent:1%;">
-    Welcome to {{ title }} 
+    <span style="float:left;"> Welcome to {{ title }}</span><span style="float:right; padding:.50% 5% 0% 0%; font-size:0.5em ">Hello User Number: {{CreateQuestionDTO[0].userId}}</span>
 </h1>
 <br><br>
     <table style="width:95%; font-size:1.0em; margin:0px auto;">
@@ -8,56 +8,48 @@
             <td style="width:33%; text-align:center;">
                 <mat-form-field style='width:80%;' >
                     <mat-select placeholder="Select Topic">
-                      <mat-option *ngFor="let topic of topics" [value]="topic.value"
-                        (click)="viewClickedTopic(topic.value)">
-                        {{topic.viewValue}} (To be queried)
-                      </mat-option>
-                    </mat-select>
-                </mat-form-field>
-            <br>{{value1}}
-            </td>
-            <td style="width:33%; text-align:center;">
-                Add New Topic:<br>
-                <input type="text" style="width:90%;">
-            </td>
-            <td style="width:33%; text-align:center;">
-                <mat-form-field >
-                    <mat-select placeholder="Favorite food">
-                      <mat-option *ngFor="let food of foods" [value]="food.value"
-                        (click)="displayValue(food.value)">
-                        {{food.viewValue}}
-                        {{food.value}} WTF {{food.value}}
-                      </mat-option>
-                    </mat-select>
-                </mat-form-field>
-            </td>    
-        </tr><br>
-        <tr>
-            <td style="width:33%; text-align:center;">
-                Select Question Type:<br>
-            <input type="text" list="questiontype" style="width:90%;">
-                <datalist id="questiontype">
-                    <option value="Single">
-                    <option value="Multiple">
-                    <option value="Phrase">
-                    <option value="Sequence">
-                    <option value="Set">    
-                </datalist>
-            </td>
-            <td style="width:33%; text-align:center;">
-                Select Question Type:<br>
-                <mat-form-field style="font-size:0.666em; border:1px solid lightgray; width:90%; background-color:white;">
-                    <mat-select>
-                        <mat-option *ngFor="let questiontype of questiontypes" [value]="questiontype.value">
-                          {{questiontype.viewValue}}
+                        <mat-option *ngFor="let topic of topics" [value]="topic.value" (click)="clickedTopic(topic.value)">
+                            {{topic.viewValue}}
                         </mat-option>
                     </mat-select>
-                </mat-form-field><br><br>
-                And the value is: <u>&nbsp;{{value}}&nbsp;</u>
-                
+                </mat-form-field>
+            </td>
+            
+            <td style="width:33%; text-align:center;">
+                <mat-form-field style="width:50%;">
+                  <input matInput placeholder="New Topic" [(ngModel)]="newTopic">
+                </mat-form-field>&nbsp;&nbsp;&nbsp;
+                <button mat-raised-button (click)="updateCurrentTopic()">Set as current topic</button>
+                <!--<div>{{newTopic}}</div>-->
+            </td>
+            
+            <td style="width:33%; text-align:center; vertical-align:top;">
+                Current Topic:<br>{{currentTopic}}
+            </td>    
+        </tr><br>
+        
+<!--https://stackoverflow.com/questions/48404329/angular-material-input-two-way-data-binding-with-ngmodel-is-not-working-in-p            -->
+<!--https://lishman.io/angular-2-input-binding-->        
+        
+        
+        <tr>
+            <td style="width:33%; text-align:center;">
+                <mat-form-field style='width:80%;' >
+                    <mat-select placeholder="Select Question Type">
+                        <mat-option *ngFor="let quesType of questionType" [value]="quesType.value" (click)="clickedQuestionType(quesType.value)">
+                            {{quesType.viewValue}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
             </td>
             <td style="width:33%; text-align:center;">
-                <button (click)="test()">Click for test</button>
+                <mat-form-field style="width:80%;">
+                    <input matInput placeholder="question description" [(ngModel)]="questionDesc">
+                </mat-form-field><br><br>
+                <!--<div>{{questionDesc}}</div>-->
+            </td>
+            <td style="width:33%; text-align:center;">
+                <!--<button (click)="test()">Click for test</button>-->
                 <!--{{ test() }}-->
             </td>    
         </tr><br>
@@ -65,9 +57,10 @@
 <br>
 <br>
 
-<div style="width:92%; margin:0px auto;">
-    <editor apiKey="lzlkf4t1qvjtid356kafllkafx5quoci0htkh5pxp41ilf73" [init]="{plugins: 'link'}" initialValue="Enter Question Here..."></editor>
+<div id="tinyEditor" style="width:92%; margin:0px auto;">
+    <editor apiKey="lzlkf4t1qvjtid356kafllkafx5quoci0htkh5pxp41ilf73" [init]="{plugins: 'link'}" initialValue="Enter Question Here..." [(ngModel)]="editorData" ></editor>
 </div>  
+<!--<div>{{editorData}}</div>-->
 <br><br><br>
 
 <table style="width:95%; font-size:1.5em; margin:0px auto;">
@@ -88,9 +81,69 @@
 </table>
 <br><br>
 
-<span style="color:red">{{responseA}}</span>
+<!--<span style="color:red">{{dataSentResponse}}</span>-->
 <br><br>
-<span style="color:blue;">{{responseB}}</span>
+
+
+
+<div style="color:blue;">   
+    <table class="dto" style="width:70%; border:1px solid black;">
+        <tr>
+            <th class="dto" colspan="2" style="text-align:center;">DTO (to be) sent to Firebase</th>
+        </tr>
+        <tr>
+            <th class="dto" style="width:15%; text-align:left; text-indent:2%;">Property</th>
+            <th class="dto" style="text-align:left; text-indent:2%;">Value</th>
+        </tr>
+        <tr>
+            <td class="dto" style="width:15%">UserId:</td>
+            <td class="dto">{{CreateQuestionDTO[0].userId}}</td>
+        </tr>
+        <tr>
+            <td class="dto">Text:</td>
+            <td class="dto">{{CreateQuestionDTO[0].text}}</td>
+        </tr>
+        <tr>
+            <td class="dto">Description:</td>
+            <td class="dto">{{CreateQuestionDTO[0].description}}</td>
+        </tr>
+        <tr>
+            <td class="dto">Type:</td>
+            <td class="dto">{{CreateQuestionDTO[0].type}}</td>
+        </tr>
+        <tr>
+            <td class="dto">Topics:</td>
+            <td class="dto">{{CreateQuestionDTO[0].topics}}</td>
+        </tr>
+        <tr>
+            <td class="dto">References:</td>
+            <td class="dto">{{CreateQuestionDTO[0].references}}</td>
+        </tr>
+        <tr>
+            <td class="dto">Difficulty:</td>
+            <td class="dto">{{CreateQuestionDTO[0].difficulty}}</td>
+        </tr>
+        <tr>
+            <td class="dto">Choices:</td>
+            <td class="dto">{{CreateQuestionDTO[0].choices}}</td>
+        </tr>
+    </table>
+    
+<!--
+    UserId:     {{CreateQuestionDTO[0].userId}}<br>
+    Text:       {{CreateQuestionDTO[0].text}}<br>
+    Description:{{CreateQuestionDTO[0].description}}<br>
+    Type:       {{CreateQuestionDTO[0].type}}<br>
+    Topics:     {{CreateQuestionDTO[0].topics}}<br>
+    References: {{CreateQuestionDTO[0].references}}<br>
+    Difficulty: {{CreateQuestionDTO[0].difficulty}}<br>
+    Choices:    {{CreateQuestionDTO[0].choices}}<br>
+-->
+</div>
+                        
+
 <br><br>
+<div>{{dataReceivedResponse}}</div>
+
 </div>
     

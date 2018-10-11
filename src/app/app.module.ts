@@ -4,6 +4,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
 import { HttpClientModule } from '@angular/common/http'
 import { MatToolbarModule, MatButtonModule, MatIconModule, MatSidenavModule, MatListModule, MatSelectModule } from '@angular/material';
 import { EditorModule } from '@tinymce/tinymce-angular';
@@ -69,6 +70,7 @@ import { FirebaseService } from './create-question-page/firebase.service';
     MatButtonModule,
     MatIconModule,
     MatSelectModule,
+    MatInputModule,
     AppRoutingModule,
     LayoutModule,
     MatSidenavModule,
