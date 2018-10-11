@@ -42,7 +42,7 @@ export class CreateQuestionPageComponent {
         {value: 'topic-5', viewValue: 'Topic 5'}
     ];
   
-    newTopic:string = "new";
+    newTopic:string = "";
     
     questionType: QuestionType[] = [
         {value: "1",    viewValue: 'Single'},
