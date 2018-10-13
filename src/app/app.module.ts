@@ -9,14 +9,18 @@ import { HttpClientModule } from '@angular/common/http';
 import { LayoutModule } from '@angular/cdk/layout';
 import { MatButtonModule,
          MatCardModule,
+         MatCheckboxModule,
          MatExpansionModule,
          MatFormFieldModule,
          MatIconModule,
          MatInputModule,
          MatListModule,
          MatMenuModule,
+         MatPaginatorModule,
          MatSelectModule,
          MatSidenavModule,
+         MatSortModule,
+         MatTableModule,
          MatToolbarModule
         } from '@angular/material';
 
@@ -32,6 +36,10 @@ import { SearchForAnExamPageComponent } from './search-for-an-exam-page/search-f
 import { CreateExamPageComponent } from './create-exam-page/create-exam-page.component';
 import { CreateQuestionPageComponent } from './create-question-page/create-question-page.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { LoginComponent} from './login/login.component';
+import { HttpInterceptorProviders} from './http-interceptors/index';
+import { RegistrationComponent } from './registration/registration.component';
+import { DataTableComponent } from './data-table/data-table.component';
 
 //question imports
 import { QuestionComponent } from './questions/question/question.component';
@@ -44,9 +52,7 @@ import { QuestionReferenceComponent } from './questions/question/question-refere
 import { QuestionTopicComponent } from './questions/question/question-topics/question-topic/question-topic.component';
 import { QuestionDifficultyComponent } from './questions/question/question-difficulties/question-difficulty.component';
 import { QuestionTypeComponent } from './questions/question/question-types/question-type.component';
-import { LoginComponent} from './login/login.component';
-import { HttpInterceptorProviders} from './http-interceptors/index';
-import { RegistrationComponent } from './registration/registration.component';
+
 
 @NgModule({
   declarations: [
@@ -69,28 +75,33 @@ import { RegistrationComponent } from './registration/registration.component';
     CreateExamPageComponent,
     CreateQuestionPageComponent,
     PageNotFoundComponent,
-    RegistrationComponent
+    RegistrationComponent,
+    DataTableComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
     LayoutModule,
     MatButtonModule,
     MatCardModule,
+    MatCheckboxModule,
     MatExpansionModule,
     MatFormFieldModule,
     MatIconModule,
     MatInputModule,
     MatListModule,
+    MatPaginatorModule,
     MatMenuModule,
     MatSelectModule,
     MatSidenavModule,
+    MatSortModule,
+    MatTableModule,
     MatToolbarModule,
-    AppRoutingModule
-  ],
+],
   providers: [ HttpInterceptorProviders ],
   bootstrap: [AppComponent]
 })
