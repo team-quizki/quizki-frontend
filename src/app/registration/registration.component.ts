@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormControlName, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { UserRegistration } from './../user/user-registration';
 import { RegisterService } from './register.service';
@@ -87,9 +87,9 @@ public addUsername(usernameValue: string){
     //eventally needs to move to become a valadator
     console.log("in addUserName " + usernameValue);
     let resultOfCheck = this.registerService.isUniqueName(usernameValue)
-        .subscribe(name => usernameValue);
+        .subscribe(_name => usernameValue);
 
-    console.log("out addUserName " + usernameValue + " " +JSON.stringify(resultOfCheck));
+    console.log("out addUserName: " + usernameValue + " " + resultOfCheck);
 
   }
 }
