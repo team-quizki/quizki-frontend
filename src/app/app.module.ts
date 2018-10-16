@@ -1,20 +1,23 @@
-//angular inports here
+//angular imports here
 import { BrowserModule  } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { MatInputModule } from '@angular/material/input';
 import { HttpClientModule } from '@angular/common/http'
-import { MatToolbarModule, MatButtonModule, MatIconModule, MatSidenavModule, MatListModule, MatSelectModule } from '@angular/material';
 import { EditorModule } from '@tinymce/tinymce-angular';
+
+//angular Material imports here
+import { MatInputModule } from '@angular/material/input';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatToolbarModule, MatButtonModule, MatIconModule, MatSidenavModule, MatListModule, MatSelectModule } from '@angular/material';
 
 //app level imports here
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { NavigationComponent } from './navigation/navigation.component';
 
-//page inports here
+//page imports here
 import { HomePageComponent } from './home-page/home-page.component';
 import { GenerateExamPageComponent } from './generate-exam-page/generate-exam-page.component';
 import { SearchForAnExamPageComponent } from './search-for-an-exam-page/search-for-an-exam-page.component';
@@ -71,6 +74,7 @@ import { FirebaseService } from './create-question-page/firebase.service';
     MatIconModule,
     MatSelectModule,
     MatInputModule,
+    MatCheckboxModule,
     AppRoutingModule,
     LayoutModule,
     MatSidenavModule,

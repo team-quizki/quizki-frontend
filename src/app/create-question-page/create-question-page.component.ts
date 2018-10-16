@@ -3,6 +3,8 @@ import { FirebaseService } from './firebase.service';
 import { HttpResponse } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
+import { EditorModule } from '@tinymce/tinymce-angular';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 export interface questiontype {
     value: string;
@@ -55,6 +57,9 @@ export class CreateQuestionPageComponent {
     questionDesc:string = "A brief question overview";
   
     editorData:string = "Enter your question here:";
+    
+    checked:boolean = true;
+    id:string = "checkbox1";
   
     // Data Transfer Object
     CreateQuestionDTO:any =
