@@ -24,6 +24,7 @@ import { SearchForAnExamPageComponent } from './search-for-an-exam-page/search-f
 import { CreateExamPageComponent } from './create-exam-page/create-exam-page.component';
 import { CreateQuestionPageComponent } from './create-question-page/create-question-page.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { DataTableComponent } from './data-table/data-table.component';
 
 //question imports
 import { QuestionComponent } from './questions/question/question.component';
@@ -40,7 +41,15 @@ import { LoginComponent} from './login/login.component';
 
 import { HttpInterceptorProviders} from './http-interceptors/index';
 import { LayoutModule } from '@angular/cdk/layout';
+<<<<<<< HEAD
 import { FirebaseService } from './create-question-page/firebase.service';
+=======
+import { MatTableModule, MatPaginatorModule, MatSortModule } from '@angular/material';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material';
+import { MatSelectModule } from '@angular/material/select';
+>>>>>>> 63e2d1bf605236ed5bd05d9eb2894a08a7d1eaa9
 
 @NgModule({
   declarations: [
@@ -62,7 +71,8 @@ import { FirebaseService } from './create-question-page/firebase.service';
     SearchForAnExamPageComponent,
     CreateExamPageComponent,
     CreateQuestionPageComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    DataTableComponent
   ],
   imports: [
     BrowserModule,
@@ -79,7 +89,19 @@ import { FirebaseService } from './create-question-page/firebase.service';
     LayoutModule,
     MatSidenavModule,
     MatListModule,
+<<<<<<< HEAD
     EditorModule
+=======
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
+    BrowserAnimationsModule,
+    MatCheckboxModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatButtonModule
+>>>>>>> 63e2d1bf605236ed5bd05d9eb2894a08a7d1eaa9
   ],
   providers: [ HttpInterceptorProviders, FirebaseService],
   bootstrap: [AppComponent]
