@@ -31,12 +31,12 @@ TODO: remove after verifying data captured correctly registerForm.value: {{regis
           <div class="basic-container">
             <mat-form-field appearance="standard">
               <mat-label for="email">Enter email address</mat-label>
-              <input #emailInput matInput required email
+              <input #emailInput matInput email required
                 type="email" class="form-control" id="email"
                 (blur)="addEmail(emailInput.value)"
                 formControlName="email"
                 placeholder="Enter your email.">
-              <mat-error *ngIf="emailFC.touched && emailFC.invalid && emailFC.dirty">
+              <mat-error *ngIf="emailFC.invalid && (emailFC.touched || emailFC.dirty)">
                 {{getErrorMessage("email")}}
               </mat-error>
               <mat-hint>Example: info@quizki.com</mat-hint>

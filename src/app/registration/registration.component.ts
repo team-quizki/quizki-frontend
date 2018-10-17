@@ -86,10 +86,13 @@ public addUsername(usernameValue: string){
     //temporarily subscribing below to easily checkout the registerService
     //eventally needs to move to become a valadator
     console.log("in addUserName " + usernameValue);
-    let resultOfCheck = this.registerService.isUniqueName(usernameValue)
-        .subscribe(_name => usernameValue);
 
-    console.log("out addUserName: " + usernameValue + " " + resultOfCheck);
+    let localUsername = usernameValue;
+
+    let resultOfCheck = this.registerService.isUniqueName(localUsername)
+        .subscribe((name) => localUsername=name);
+
+    console.log("out addUserName: " + localUsername + " " + resultOfCheck);
 
   }
 }
@@ -128,8 +131,8 @@ public isUsernameUnique(usernameValue: string){
          '';
        break;
      case 'email':
-       this.errorMessage = this.emailFC.hasError('required') ? 'You must enter a value' :
-         this.emailFC.hasError('email') ? 'Not a valid email.' :
+       this.errorMessage = this.emailFC.hasError('required') ? 'Email is required.' :
+         this.emailFC.hasError('email') ? 'Enter a valid email.' :
          '';
        break;
      case 'username':
