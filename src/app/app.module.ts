@@ -37,7 +37,6 @@ import { CreateExamPageComponent } from './create-exam-page/create-exam-page.com
 import { CreateQuestionPageComponent } from './create-question-page/create-question-page.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { LoginComponent} from './login/login.component';
-import { HttpInterceptorProviders} from './http-interceptors/index';
 import { RegistrationComponent } from './registration/registration.component';
 import { DataTableComponent } from './data-table/data-table.component';
 
@@ -102,7 +101,7 @@ import { QuestionTypeComponent } from './questions/question/question-types/quest
     MatTableModule,
     MatToolbarModule,
 ],
-  providers: [ HttpInterceptorProviders ],
+  providers: [ ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

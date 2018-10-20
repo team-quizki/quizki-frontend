@@ -85,12 +85,15 @@ public addUsername(usernameValue: string){
     this.specificUserRegistration.username = usernameValue;
     //temporarily subscribing below to easily checkout the registerService
     //eventally needs to move to become a valadator
-    console.log("in addUserName " + usernameValue);
 
     let localUsername = usernameValue;
+    console.log("in addUserName localUserName = " + localUsername);
 
     let resultOfCheck = this.registerService.isUniqueName(localUsername)
-        .subscribe((name) => localUsername=name);
+        .subscribe((result) => {
+          localUsername = result;
+          console.log("addUserName in subscribe localUsername= " + localUsername);
+          });
 
     console.log("out addUserName: " + localUsername + " " + resultOfCheck);
 
@@ -101,20 +104,6 @@ public addPassword(passwordValue: string){
   if(this.passwordFC.valid){
     this.specificUserRegistration.password = passwordValue;
   }
-}
-
-
-// the following method will be revisited after
-// cross field valdiation for the email and username is implemented
-public isUsernameUnique(usernameValue: string){
-  console.log("this.usernameFC.valid: " + this.usernameFC.valid);
-  if(this.usernameFC.valid){
-    // ask backend if usenname is unique and Valid
-    // or perhaps check to see if both username and email are valid
-    // then send the request.
-    this.specificUserRegistration.username = usernameValue;
-  }
-  return;
 }
 
  errorMessage: string;
