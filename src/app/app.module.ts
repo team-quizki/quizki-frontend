@@ -41,15 +41,9 @@ import { LoginComponent} from './login/login.component';
 
 import { HttpInterceptorProviders} from './http-interceptors/index';
 import { LayoutModule } from '@angular/cdk/layout';
-<<<<<<< HEAD
 import { FirebaseService } from './create-question-page/firebase.service';
-=======
 import { MatTableModule, MatPaginatorModule, MatSortModule } from '@angular/material';
-import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material';
-import { MatSelectModule } from '@angular/material/select';
->>>>>>> 63e2d1bf605236ed5bd05d9eb2894a08a7d1eaa9
 
 @NgModule({
   declarations: [
@@ -89,19 +83,15 @@ import { MatSelectModule } from '@angular/material/select';
     LayoutModule,
     MatSidenavModule,
     MatListModule,
-<<<<<<< HEAD
-    EditorModule
-=======
+    EditorModule,
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
     BrowserAnimationsModule,
     MatCheckboxModule,
     MatFormFieldModule,
-    MatInputModule,
     MatSelectModule,
     MatButtonModule
->>>>>>> 63e2d1bf605236ed5bd05d9eb2894a08a7d1eaa9
   ],
   providers: [ HttpInterceptorProviders, FirebaseService],
   bootstrap: [AppComponent]
