@@ -3,9 +3,7 @@ import { Observable } from 'rxjs';
 
 import { ApiService } from '../_services/api.service';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class RegisterService {
 
   constructor( private apiService: ApiService) { }

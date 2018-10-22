@@ -2,21 +2,17 @@
   <div class="col-md-6 col-md-offset-3">
     <div class="panel panel-default">
       <div class="panel-heading">
-          <h4><small>ID: </small> {{question.id}}
-            <small>USER: </small>{{question.user}}
-            <small>TYPE: </small>{{getQuestionTypeString(question.type)}}
-            <small>DIFFICULTY: </small>{{getQuestionDifficultyString(question.difficulty)}}</h4>
+          <h4><small>ID: </small> {{getId()}}
+            <small>USER: </small>{{getUser()}}
+            <small>TYPE: </small>{{getQuestionTypeString()}}
+            <small>DIFFICULTY: </small>{{getQuestionDifficultyString()}}</h4>
       </div>
       <div class="panel-body">
-        <h4>DESCRIPTION: {{question.description}} </h4>
+        <h4>DESCRIPTION: {{getDescription()}} </h4>
       </div>
       <div class="panel-footer">
-        <app-question-topics
-          [topics] = "question.topics"
-        ></app-question-topics>
-        <app-question-references
-          [references] = "question.references"
-        ></app-question-references>
+        <app-question-topics ></app-question-topics>
+        <app-question-references ></app-question-references>
       </div>
     </div>
   </div>
@@ -29,12 +25,10 @@
           <h4>QUESTION:</h4>
       </div>
       <div class="panel-body">
-        <h4>{{processQuestionText(question.text)}}</h4>
+        <h4>{{processQuestionText(getText())}}</h4>
       </div>
       <div class="panel-footer">
-        <app-question-choices
-          [choices] = "question.choices"
-        ></app-question-choices>
+        <app-question-choices ></app-question-choices>
       </div>
     </div>
   </div>

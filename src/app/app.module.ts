@@ -3,7 +3,6 @@ import { BrowserModule  } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 
-//import { RouterModule, Routes } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { LayoutModule } from '@angular/cdk/layout';
@@ -25,9 +24,14 @@ import { MatButtonModule,
         } from '@angular/material';
 
 //app level imports here
+import { NavigationModule } from './navigation/navigation.module'
+import { DataTableModule } from './data-table/data-table.module'
+
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { NavigationComponent } from './navigation/navigation.component';
+import { ApiService } from './_services/api.service';
+
+
 
 //page inports here
 import { HomePageComponent } from './home-page/home-page.component';
@@ -67,15 +71,14 @@ import { QuestionTypeComponent } from './questions/question/question-types/quest
     QuestionDifficultyComponent,
     QuestionTypeComponent,
     LoginComponent,
-    NavigationComponent,
+    //NavigationComponent,
     HomePageComponent,
     GenerateExamPageComponent,
     SearchForAnExamPageComponent,
     CreateExamPageComponent,
     CreateQuestionPageComponent,
     PageNotFoundComponent,
-    RegistrationComponent,
-    DataTableComponent
+    RegistrationComponent
   ],
   imports: [
     BrowserModule,
@@ -100,8 +103,10 @@ import { QuestionTypeComponent } from './questions/question/question-types/quest
     MatSortModule,
     MatTableModule,
     MatToolbarModule,
+    NavigationModule,
+    DataTableModule
 ],
-  providers: [ ],
+  providers: [ ApiService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

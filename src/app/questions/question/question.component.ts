@@ -26,22 +26,79 @@ export class QuestionComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.type = this.question.type;
-    this.topics = this.question.topics;
-    this.references = this.question.references;
-    this.choices = this.question.choices;
-    this.difficulty = this.question.difficulty;
+    if (this.question) {
+      this.type = this.question.type;
+      this.topics = this.question.topics;
+      this.references = this.question.references;
+      this.choices = this.question.choices;
+      this.difficulty = this.question.difficulty;
+    }
   }
 
   public getQuestionTypeString(index: number){
-    return QuestionTypes[index];
+    if (this.question)
+      return QuestionTypes[this.question.type];
+    else
+      return undefined;
   }
 
   public getQuestionDifficultyString(index: number){
-    return QuestionDifficulties[index];
+    if (this.question)
+      return QuestionTypes[this.question.difficulty];
+    else
+      return undefined;
   }
 
   public processQuestionText(text: string){
     return text.replace("&nbsp;","__________")
+  }
+
+  public getId() {
+    if (this.question)
+      return this.question.id;
+    else
+      return -1;
+  }
+
+  public getUser() {
+    if (this.question)
+      return this.question.user;
+    else
+      return undefined;
+  }
+
+  public getTopics() {
+    if (this.question)
+      return this.question.topics;
+    else
+      return [];
+  }
+
+  public getReferences() {
+    if (this.question)
+      return this.question.references;
+    else
+      return [];
+  }
+
+  public getChoices() {
+    if (this.question)
+      return this.question.choices;
+    else
+      return [];
+  }
+
+  public getText() {
+    if (this.question)
+      return this.question.text;
+    else
+      return '';
+  }
+
+  public getDescription() {
+    if (this.question)
+      return this.question.description;
+    else
+      return '';
   }
 }
