@@ -15,8 +15,9 @@ export class HomePageComponent implements OnInit {
   }
 
   onBtnClick() {
-  	this.apiService.post('http://localhost:8080/api/users/isUnique', {name: 'johnathan'}).subscribe((data) => {
-  		console.log(JSON.stringify(data));
+  	this.apiService.post('/api/users/isUnique', {name: 'johnathan'})
+      .subscribe((data) => {
+  		    console.log(JSON.stringify(data));
   	})
   }
 

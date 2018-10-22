@@ -12,18 +12,20 @@ export class RegisterService {
 
   isUniqueName( name: string ) : Observable<string> {
 
-    let isUniqueUrl = 'http://localhost:8080/api/users/isUnique';
+    let isUniqueUrl = '/api/users/isUnique';
     let isUniqueResult;
 
     this.apiService
       .post(isUniqueUrl, {name: name })
       .subscribe((data) => {
         isUniqueResult = data;
-        return isUniqueResult.name;
-        });
+        console.log("in isUniqueName line 22: isUniqueResult.name= " + isUniqueResult.name);
+      });
       // add error handler
-    return ;// not sure what to return here.
-  }
 
+    console.log("leaving isUniqueName line 26: isUniqueResult.name= " + isUniqueResult.name);
+
+    return isUniqueResult.name;// not sure what to return here.
+  }
 
 }

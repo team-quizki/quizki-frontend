@@ -1,5 +1,9 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http'
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+
+import { environment } from './../../environments/environment';
+
+const baseUrl = environment.apiUrl;
 
 @Injectable({
   providedIn: 'root',
@@ -9,7 +13,7 @@ export class ApiService {
   constructor(private http: HttpClient) { }
 
   getHttpHeaders() {
-  	let rtn = { 
+  	let rtn = {
   		headers: new HttpHeaders({
   			'Content-Type': 'application/json'
   		})
@@ -19,6 +23,7 @@ export class ApiService {
   }
 
   post(url, data) {
-  	return this.http.post(url, data, this.getHttpHeaders())
+  	return this.http.post(baseUrl + url, data, this.getHttpHeaders())
   }
+
 }
