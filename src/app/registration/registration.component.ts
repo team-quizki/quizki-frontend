@@ -14,47 +14,32 @@ export class RegistrationComponent implements OnInit {
 
   registerForm: FormGroup;
   hidePassword: boolean;
-  disableSubmit: boolean;
 
-  specificUserRegistration = new UserRegistration('','','',1,1,'','');
-    /* recall that the fields in UserRegistration are as follows.
-    public id: string,
-    public password: string,
-    public username: string,
-    public enabled : number,
-    public role_id: number,
-    public email: string,
-    public fullname: string,
-    public demographic?: string, // optional field
-    */
+  specificUserRegistration = new UserRegistration('','','','');
+  constructor(
+    private formBuilder: FormBuilder,
+    private registerService: RegisterService
+  ) {
+   // setting this is the key to initial select.
+  }
 
-
-
-    constructor(
-      private formBuilder: FormBuilder,
-      private registerService: RegisterService
-    ) {
-     // setting this is the key to initial select.
-    }
-
-    ngOnInit() {
-      this.hidePassword = true;
-      this.disableSubmit = true;
+  ngOnInit() {
+    this.hidePassword = true;
 
       // don't forget to add all the special characters to the password pattern
       // email validator still allows someEmail@somewhere because that is a valid emailValue
       // according to the documentation. reseach further later.
-      this.registerForm = this.formBuilder.group({
-        fullname:['', [Validators.required, Validators.minLength(5),
-          Validators.pattern("([a-zA-Z0-9])[a-zA-Z0-9]* ([a-zA-Z0-9])[a-zA-Z0-9., ]*")]],
-        email:['', [Validators.required, Validators.email]],
-        username: ['', [Validators.required, Validators.minLength(5),
-          Validators.pattern("([a-zA-Z])[a-zA-Z0-9]*")]],
-        password: ['', [Validators.required, Validators.minLength(5),
-          Validators.pattern("([a-zA-Z0-9_-])[a-zA-Z0-9_-]*")]]
-      });
+    this.registerForm = this.formBuilder.group({
+      fullname:['', [Validators.required, Validators.minLength(5),
+        Validators.pattern("([a-zA-Z0-9])[a-zA-Z0-9]* ([a-zA-Z0-9])[a-zA-Z0-9., ]*")]],
+      email:['', [Validators.required, Validators.email]],
+      username: ['', [Validators.required, Validators.minLength(5),
+        Validators.pattern("([a-zA-Z])[a-zA-Z0-9]*")]],
+      password: ['', [Validators.required, Validators.minLength(5),
+        Validators.pattern("([a-zA-Z0-9_-])[a-zA-Z0-9_-]*")]]
+    });
 
-    }
+  }
 
 //  getter for form fields
  get f() { return this.registerForm.controls; }
@@ -66,43 +51,33 @@ export class RegistrationComponent implements OnInit {
  get emailFC() {return this.registerForm.get('email');}
  get passwordFC() {return this.registerForm.get('password');}
 
+
 //methods used for enter key up and blur events
-public addFullname(fullnameValue: string){
-  if(this.fullnameFC.valid){
-    this.specificUserRegistration.fullname = fullnameValue;
-  }
-}
-
-public addEmail(emailValue: string){
+public isUniqueEmail(emailValue: string){
   if(this.emailFC.valid){
-    this.specificUserRegistration.email = emailValue;
+    // add check for unique email
   }
 }
 
 
-public addUsername(usernameValue: string){
+public isUniqueUsername(usernameValue: string){
   if(this.usernameFC.valid){
-    this.specificUserRegistration.username = usernameValue;
+
     //temporarily subscribing below to easily checkout the registerService
     //eventally needs to move to become a valadator
 
     let localUsername = usernameValue;
-    console.log("in addUserName localUserName = " + localUsername);
+    console.log("in isUniqueUsername localUserName = " + localUsername);
 
-    let resultOfCheck = this.registerService.isUniqueName(localUsername)
+    let resultOfCheck = this.registerService.isUniqueName(localUsername);
+    /*
         .subscribe((result) => {
           localUsername = result;
-          console.log("addUserName in subscribe localUsername= " + localUsername);
+          console.log("isUniqueUsername in subscribe localUsername= " + localUsername);
           });
+    */
+    console.log("out isUniqueUsername: " + localUsername + " " + resultOfCheck);
 
-    console.log("out addUserName: " + localUsername + " " + resultOfCheck);
-
-  }
-}
-
-public addPassword(passwordValue: string){
-  if(this.passwordFC.valid){
-    this.specificUserRegistration.password = passwordValue;
   }
 }
 
@@ -148,7 +123,10 @@ public addPassword(passwordValue: string){
   onSubmit() {
     if(this.registerForm.invalid) { return;} // should never be invalid at this point...
 
-    alert("In onSubmit: success thus far");
+    this.specificUserRegistration.fullname = this.fullnameFC.value;
+    this.specificUserRegistration.name = this.usernameFC.value;
+    this.specificUserRegistration.password = this.passwordFC.value;
+    this.specificUserRegistration.email = this.emailFC.value;
 
     //TODO: rmove alert add other funtionaliy like:
     // call to backend to created registration and send to login.
@@ -161,8 +139,9 @@ public addPassword(passwordValue: string){
     // consider asking the user for cancel confirmation.
     // really should write a reset method for UserRegistration
     this.registerForm.reset();
+
     this.specificUserRegistration.fullname = '';
-    this.specificUserRegistration.username = '';
+    this.specificUserRegistration.name = '';
     this.specificUserRegistration.password = '';
     this.specificUserRegistration.email = '';
     // routed to homepage is done on the button. of course eventually,

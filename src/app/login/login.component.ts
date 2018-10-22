@@ -48,20 +48,6 @@ export class LoginComponent implements OnInit {
    get usernameFC() {return this.loginForm.get('username');}
    get passwordFC() {return this.loginForm.get('password');}
 
-   public addUsername(usernameValue: string){
-     if(this.usernameFC.valid){
-       // taked some action here.
-       this.username = usernameValue;
-     }
-   }
-
-   public addPassword(passwordValue: string){
-     if(this.passwordFC.valid){
-       // take some action here
-       this.password = passwordValue;
-     }
-   }
-
   // need to change getErromMessage, so any form can use it.
   // yet solution works for the near term.
   public getLoginErrorMessage(formControlName: string) {
@@ -92,8 +78,13 @@ export class LoginComponent implements OnInit {
     // routed to homepage is done on the button. of course eventually,
     // routing should be back page the user was on orginially ...
   }
+
   private onSubmit() {
       if(this.loginForm.invalid) { return;} // form should never be invalid at this point.
+
+      this.username = this.usernameFC.value;
+      this.password = this.passwordFC.value;
+
       if(this.login()){
           this.loginForm.reset();
           // send to requested page
@@ -141,6 +132,5 @@ export class LoginComponent implements OnInit {
 
   // TODO: Remove these when done, it is just used to verify data capturing to correct variable
   get loginFormDiagnostic() { return JSON.stringify(this.loginForm.value); }
-
 
 }

@@ -15,7 +15,6 @@ TODO: remove after verifying data captured correctly loginForm.value: {{loginFor
               <mat-label for="username">username</mat-label>
               <input #usernameLogin matInput required minlength
                 type="text" class="form-control" id="username"
-                (blur)="addUsername(usernameLogin.value)"
                 formControlName="username"
                 placeholder="username">
               <mat-error *ngIf="usernameFC.touched && usernameFC.invalid && usernameFC.dirty">
@@ -31,7 +30,7 @@ TODO: remove after verifying data captured correctly loginForm.value: {{loginFor
               <mat-label for="passwordIn">password</mat-label>
               <input #passwordLogin matInput required minlength
                 type="password" class="form-control" id="passwordIn"
-                (blur)="hidePassword=true;addPassword(passwordLogin.value)"
+                (blur)="hidePassword=true;"
                 formControlName="password"
                 placeholder="Enter password" [type]="hidePassword ? 'password' : 'text'">
               <mat-icon matSuffix (click)="hidePassword = !hidePassword">{{hidePassword ? 'visibility' : 'visibility_off'}}</mat-icon>
