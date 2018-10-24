@@ -1,0 +1,112 @@
+<!--
+TODO: remove after verifying data captured correctly specificUserRegistration: {{diagnostic}}
+<br>
+TODO: remove after verifying data captured correctly registerForm.value: {{registerFormDiagnostic}}
+<br>
+-->
+
+<div class="mat-typography row">
+  <div class="col-md-4 col-md-offset-1">
+    <mat-card class="basic-container">
+      <mat-card-header class="basic-container basic-card-header">
+        <mat-card-title><h2 >REGISTER</h2></mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <form class="basic-container" [formGroup]="registerForm"
+          (ngSubmit)="onSubmit()">
+
+          <div class="basic-container">
+            <mat-form-field appearance="standard">
+              <mat-label for="fullname">Enter your full name</mat-label>
+              <input #fullnameInput matInput required minlength pattern
+                type="text" formControlName="fullname"
+                class="form-control" id="fullname"
+                placeholder="firstname lastname">
+              <mat-error *ngIf="fullnameFC.invalid && (fullnameFC.touched || fullnameFC.dirty)">
+                  {{getErrorMessage("fullname")}}
+              </mat-error>
+              <mat-hint>Example: Firstname Lastname</mat-hint>
+            </mat-form-field>
+          </div>
+
+          <div class="basic-container">
+            <mat-form-field appearance="standard">
+              <mat-label for="email">Enter email address</mat-label>
+              <input #emailInput matInput email required
+                type="email" class="form-control" id="email"
+                (blur)="isUniqueEmail(emailInput.value)"
+                formControlName="email"
+                placeholder="Enter your email.">
+              <mat-error *ngIf="emailFC.invalid && (emailFC.touched || emailFC.dirty)">
+                {{getErrorMessage("email")}}
+              </mat-error>
+              <mat-hint>Example: info@quizki.com</mat-hint>
+            </mat-form-field>
+          </div>
+          <p>isUniqueUsername is not working</p>
+          <div class="basic-container">
+            <mat-form-field appearance="standard">
+              <mat-label for="username">Enter username</mat-label>
+              <input #usernameInput matInput required minlength pattern
+                type="text" class="form-control" id="username"
+                (blur)="isUniqueUsername(usernameInput.value)"
+                formControlName="username"
+                placeholder="username">
+              <mat-error *ngIf="usernameFC.invalid && (usernameFC.touched || usernameFC.dirty)">
+                {{getErrorMessage("username")}}
+              </mat-error>
+              <mat-hint>Use letters, numbers and underscore. </mat-hint>
+            </mat-form-field>
+          </div>
+
+          <a class="basic-container">
+            <mat-form-field appearance="standard">
+              <mat-label for="password">Enter password</mat-label>
+              <input #passwordInput matInput required minlength pattern
+                type="text" class="form-control" id="password"
+                (blur)="hidePassword=true;"
+                formControlName="password"
+                placeholder="Enter password" [type]="hidePassword ? 'password' : 'text'">
+              <mat-icon matSuffix (click)="hidePassword = !hidePassword">{{hidePassword ? 'visibility' : 'visibility_off'}}</mat-icon>
+              <mat-error *ngIf="passwordFC.invalid && (passwordFC.touched ||  passwordFC.dirty)">
+                {{getErrorMessage("password")}}
+              </mat-error>
+              <mat-hint>Use 5 or more numbers, letters, and special characters.</mat-hint>
+            </mat-form-field>
+          </a>
+        </form>
+      </mat-card-content>
+      <mat-card-actions class="basic-container basic-card-actions">
+        <div class="button-row">
+          <button mat-raised-button
+            type="submit" class="btn btn-success btn-primary"
+            aria-label="submit button"
+            [disabled]="registerForm.invalid"
+            (click)="onSubmit()"
+            >Submit
+          </button>
+          &nbsp;
+          <button mat-raised-button
+            type="text" class="btn"
+            aria-label="cancel button"
+            (click)="cancelRegistration(registerForm)"
+            routerLink="/home-page"
+            >Cancel
+          </button>
+        </div>
+      </mat-card-actions>
+      <mat-card-footer class="basic-container basic-card-footer">
+        <div>
+          <p>Already registered?
+            &nbsp;
+            <a  (click)="registerForm.reset()"
+              routerLink="/login"
+              aria-label="login"
+              href ="/login">Login</a>
+          </p>
+          <br>
+        </div>
+      </mat-card-footer>
+    </mat-card>
+  </div>
+</div>

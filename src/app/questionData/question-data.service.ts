@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
 import {TestData} from "./data"
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class QuestionDataService {
 
   testdata: TestData;

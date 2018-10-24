@@ -16,10 +16,42 @@ export class QuestionChoiceComponent implements OnInit {
     console.log(this.choice);
   }
 
-  public getIsCorrectString(isCorrect: string){
-    if(isCorrect.toLowerCase() == "false")
-      return "Incorrect";
+  public getIsCorrectString(){
+    if (this.choice)
+      if(this.choice.isCorrect)
+        return "Correct";
+      else
+        return "Incorrect";
     else
-      return "Correct";
+      return undefined;
   }
+
+  public getId() {
+    if (this.choice)
+      return this.choice.id;
+    else
+      return -1;
+  }
+
+  public getText() {
+    if (this.choice)
+      return this.choice.text;
+    else
+      return '';
+  }
+
+  public getSequence() {
+    if (this.choice)
+      return this.choice.sequence;
+    else
+      return -1;
+  }
+
+  public getIsCorrect() {
+    if (this.choice)
+      return this.choice.isCorrect;
+    else
+      return false;
+  }
+
 }

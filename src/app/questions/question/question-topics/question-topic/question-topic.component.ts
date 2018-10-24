@@ -15,4 +15,10 @@ export class QuestionTopicComponent implements OnInit {
   ngOnInit() {
   }
 
+  public getText() {
+  	if (this.topic)
+  		return this.topic.text;
+  	else
+  		return undefined;
+  }
 }

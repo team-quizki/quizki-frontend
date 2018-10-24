@@ -15,4 +15,11 @@ export class QuestionReferenceComponent implements OnInit {
   ngOnInit() {
   }
 
+  public getText() {
+  	if (this.reference)
+  		return this.reference.text;
+  	else
+  		return undefined;
+  }
+
 }

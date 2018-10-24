@@ -1,29 +1,51 @@
-//angular imports here
+//angular inports here
 import { BrowserModule  } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http'
-import { EditorModule } from '@tinymce/tinymce-angular';
+//***********************************************************************************************************************************************************
+import { FirebaseService } from './create-question-page/firebase.service';
+//***********************************************************************************************************************************************************
 
-//angular Material imports here
-import { MatInputModule } from '@angular/material/input';
-import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatToolbarModule, MatButtonModule, MatIconModule, MatSidenavModule, MatListModule, MatSelectModule } from '@angular/material';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { LayoutModule } from '@angular/cdk/layout';
+import { MatButtonModule,
+         MatCardModule,
+         MatCheckboxModule,
+         MatExpansionModule,
+         MatFormFieldModule,
+         MatIconModule,
+         MatInputModule,
+         MatListModule,
+         MatMenuModule,
+         MatPaginatorModule,
+         MatSelectModule,
+         MatSidenavModule,
+         MatSortModule,
+         MatTableModule,
+         MatToolbarModule
+        } from '@angular/material';
 
 //app level imports here
+import { NavigationModule } from './navigation/navigation.module'
+import { DataTableModule } from './data-table/data-table.module'
+
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { NavigationComponent } from './navigation/navigation.component';
+import { ApiService } from './_services/api.service';
+import { EditorModule } from '@tinymce/tinymce-angular';
 
-//page imports here
+
+
+//page inports here
 import { HomePageComponent } from './home-page/home-page.component';
 import { GenerateExamPageComponent } from './generate-exam-page/generate-exam-page.component';
 import { SearchForAnExamPageComponent } from './search-for-an-exam-page/search-for-an-exam-page.component';
 import { CreateExamPageComponent } from './create-exam-page/create-exam-page.component';
 import { CreateQuestionPageComponent } from './create-question-page/create-question-page.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { LoginComponent} from './login/login.component';
+import { RegistrationComponent } from './registration/registration.component';
 import { DataTableComponent } from './data-table/data-table.component';
 
 //question imports
@@ -37,13 +59,7 @@ import { QuestionReferenceComponent } from './questions/question/question-refere
 import { QuestionTopicComponent } from './questions/question/question-topics/question-topic/question-topic.component';
 import { QuestionDifficultyComponent } from './questions/question/question-difficulties/question-difficulty.component';
 import { QuestionTypeComponent } from './questions/question/question-types/question-type.component';
-import { LoginComponent} from './login/login.component';
 
-import { HttpInterceptorProviders} from './http-interceptors/index';
-import { LayoutModule } from '@angular/cdk/layout';
-import { FirebaseService } from './create-question-page/firebase.service';
-import { MatTableModule, MatPaginatorModule, MatSortModule } from '@angular/material';
-import { MatFormFieldModule } from '@angular/material/form-field';
 
 @NgModule({
   declarations: [
@@ -59,41 +75,43 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     QuestionDifficultyComponent,
     QuestionTypeComponent,
     LoginComponent,
-    NavigationComponent,
+    //NavigationComponent,
     HomePageComponent,
     GenerateExamPageComponent,
     SearchForAnExamPageComponent,
     CreateExamPageComponent,
     CreateQuestionPageComponent,
     PageNotFoundComponent,
-    DataTableComponent
+    RegistrationComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    FormsModule,
-    HttpClientModule,
-    MatToolbarModule,
-    MatButtonModule,
-    MatIconModule,
-    MatSelectModule,
-    MatInputModule,
-    MatCheckboxModule,
     AppRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule,
     LayoutModule,
-    MatSidenavModule,
-    MatListModule,
-    EditorModule,
-    MatTableModule,
-    MatPaginatorModule,
-    MatSortModule,
-    BrowserAnimationsModule,
+    MatButtonModule,
+    MatCardModule,
     MatCheckboxModule,
+    MatExpansionModule,
     MatFormFieldModule,
+    MatIconModule,
+    MatInputModule,
+    MatListModule,
+    MatPaginatorModule,
+    MatMenuModule,
     MatSelectModule,
-    MatButtonModule
-  ],
-  providers: [ HttpInterceptorProviders, FirebaseService],
+    MatSidenavModule,
+    MatSortModule,
+    MatTableModule,
+    MatToolbarModule,
+    NavigationModule,
+    DataTableModule,
+    EditorModule
+],
+  providers: [ ApiService, FirebaseService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Subject} from 'rxjs';
 import { Question } from './question.model';
 
-@Injectable({providedIn: 'root'})
+@Injectable()
 export class DataService {
 
   private questionsUpdated = new Subject<Question[]>();

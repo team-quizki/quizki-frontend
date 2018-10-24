@@ -1,10 +1,10 @@
 <p>
   <button
     type="button"
-    name="choice + {{choice.id}}"
+    name="choice + {{getId()}}"
     class="btn btn-default">
-    {{choice.text}}
+    {{getText()}}
   </button>
-  <span class="badge">{{getIsCorrectString(choice.isCorrect)}}</span>
-  SEQ:{{choice.sequence}}
+  <span class="badge">{{getIsCorrectString()}}</span>
+  SEQ:{{getSequence()}}
 </p>

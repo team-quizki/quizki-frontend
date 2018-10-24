@@ -1,27 +1,42 @@
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TestBed, async } from '@angular/core/testing';
 import { AppComponent } from './app.component';
+
+import { 
+          MatIconModule,
+          MatListModule,
+          MatSidenavModule,
+          MatToolbarModule,
+        } from '@angular/material';
+
+import { Router } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing'
+
+import { NavigationComponent } from './navigation/navigation.component'
+import { NavigationService } from './navigation.service'
+
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [
-        AppComponent
+      imports: [
+        RouterTestingModule, BrowserAnimationsModule, MatIconModule, MatListModule, MatSidenavModule, MatToolbarModule
       ],
+      declarations: [
+        AppComponent, NavigationComponent
+      ],
+      providers: [{
+          provide: NavigationService,
+          useValue: {
+            setPageTitle: jasmine.createSpy('setPageTitle')
+          }
+        }
+      ]
     }).compileComponents();
   }));
+
   it('should create the app', async(() => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.debugElement.componentInstance;
     expect(app).toBeTruthy();
-  }));
-  it(`should have as title 'app'`, async(() => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.debugElement.componentInstance;
-    expect(app.title).toEqual('Quizki');
-  }));
-  it('should render title in a h1 tag', async(() => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('h1').textContent).toContain('Welcome to Quizki!');
   }));
 });
