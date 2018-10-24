@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AsyncValidator, AbstractControl, NG_ASYNC_VALIDATORS, ValidationErrors} from '@angular/forms';
 
 import { UserRegistration } from './../user/user-registration';
-import { RegisterService } from './register.service';
+import { RegisterService, ValidateUsernameNotTaken } from './register.service';
+import { map } from '../../../node_modules/rxjs/operators';
 
 @Component({
   selector: 'app-registration',
@@ -34,7 +36,11 @@ export class RegistrationComponent implements OnInit {
         Validators.pattern("([a-zA-Z0-9])[a-zA-Z0-9]* ([a-zA-Z0-9])[a-zA-Z0-9., ]*")]],
       email:['', [Validators.required, Validators.email]],
       username: ['', [Validators.required, Validators.minLength(5),
-        Validators.pattern("([a-zA-Z])[a-zA-Z0-9]*")]],
+        Validators.pattern("([a-zA-Z])[a-zA-Z0-9]*")],
+        {
+          asyncValidators: ValidateUsernameNotTaken.createValidator(this.registerService), updateOn: 'blur'
+        }
+      ],
       password: ['', [Validators.required, Validators.minLength(5),
         Validators.pattern("([a-zA-Z0-9_-])[a-zA-Z0-9_-]*")]]
     });
@@ -51,6 +57,20 @@ export class RegistrationComponent implements OnInit {
  get emailFC() {return this.registerForm.get('email');}
  get passwordFC() {return this.registerForm.get('password');}
 
+/*
+ validateUsernameNotTaken0(control: AbstractControl) {
+   return this.registerService.isUniqueUsername(control.value).map(res => {
+     return res ? null : { usernameTaken: true };
+   });
+ }
+ */
+
+ validateUsernameNotTaken(control: AbstractControl) {
+   return this.registerService.isUniqueUsername(control.value).pipe(
+     map((res) => {return res ? null : { usernameTaken: true };})
+   );
+ }
+
 
 //methods used for enter key up and blur events
 public isUniqueEmail(emailValue: string){
@@ -59,27 +79,6 @@ public isUniqueEmail(emailValue: string){
   }
 }
 
-
-public isUniqueUsername(usernameValue: string){
-  if(this.usernameFC.valid){
-
-    //temporarily subscribing below to easily checkout the registerService
-    //eventally needs to move to become a valadator
-
-    let localUsername = usernameValue;
-    console.log("in isUniqueUsername localUserName = " + localUsername);
-
-    let resultOfCheck = this.registerService.isUniqueName(localUsername);
-    /*
-        .subscribe((result) => {
-          localUsername = result;
-          console.log("isUniqueUsername in subscribe localUsername= " + localUsername);
-          });
-    */
-    console.log("out isUniqueUsername: " + localUsername + " " + resultOfCheck);
-
-  }
-}
 
  errorMessage: string;
 
@@ -103,6 +102,7 @@ public isUniqueUsername(usernameValue: string){
        this.errorMessage = this.usernameFC.hasError('required') ? 'You must enter a value' :
          this.usernameFC.hasError('minlength') ? 'Length must be at least 5 characters' :
          this.usernameFC.hasError('pattern') ? 'Use letters, numbers and underscores.' :
+         this.usernameFC.hasError('usernameTaken') ? 'Please pick a different username.' :
          '';
        break;
      case 'password':
