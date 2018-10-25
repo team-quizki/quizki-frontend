@@ -38,7 +38,7 @@ export class RegistrationComponent implements OnInit {
       username: ['', [Validators.required, Validators.minLength(5),
         Validators.pattern("([a-zA-Z])[a-zA-Z0-9]*")],
         {
-          asyncValidators: ValidateUsernameNotTaken.createValidator(this.registerService), updateOn: 'blur'
+          asyncValidators: ValidateUsernameNotTaken.createValidator(this.registerService)//, updateOn: 'blur'
         }
       ],
       password: ['', [Validators.required, Validators.minLength(5),

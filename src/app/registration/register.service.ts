@@ -20,7 +20,12 @@ export class RegisterService {
     // make post to backend to determine if isUniqueUsername
     this.apiService
       .post(isUniqueUrl, {name: name })
-        .subscribe((data) => {isUniqueResult = data;});
+        .subscribe((data) => {
+          isUniqueResult = data;
+          console.log("in " + JSON.stringify(data));
+        });
+
+    console.log("out " + JSON.stringify(isUniqueResult));
 
     if (isUniqueResult === undefined) {nameUnique = undefined;}
       else {nameUnique = isUniqueResult.name;};
