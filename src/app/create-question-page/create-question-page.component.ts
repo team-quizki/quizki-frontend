@@ -67,7 +67,7 @@ export class CreateQuestionPageComponent {
         "userId": 0,
         "text": "RequiredQuestionText",
         "description": "",
-        "type": 1,
+        "type": 0,
         "topics": ["string1", "string2", "stringN"],
         "references": ["ref1", "ref2", "refN"],
         "difficulty": 1,
