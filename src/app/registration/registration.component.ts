@@ -1,10 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AsyncValidator, AbstractControl, NG_ASYNC_VALIDATORS, ValidationErrors} from '@angular/forms';
+//import { AsyncValidator, AbstractControl, NG_ASYNC_VALIDATORS, ValidationErrors} from '@angular/forms';
 
 import { UserRegistration } from './../user/user-registration';
-import { RegisterService, ValidateUsernameNotTaken } from './register.service';
-import { map } from '../../../node_modules/rxjs/operators';
+import { RegisterService,
+  ValidateUsernameNotTaken,
+  ValidateEmailNotTaken} from './register.service';
+
+//import { map } from '../../../node_modules/rxjs/operators';
 
 @Component({
   selector: 'app-registration',
@@ -14,14 +17,15 @@ import { map } from '../../../node_modules/rxjs/operators';
 })
 export class RegistrationComponent implements OnInit {
 
+// variables
   registerForm: FormGroup;
   hidePassword: boolean;
-
+  errorMessage: string;
   specificUserRegistration = new UserRegistration('','','','');
+
   constructor(
     private formBuilder: FormBuilder,
     private registerService: RegisterService,
-//    private validateUsernameNotTaken: ValidateUsernameNotTaken
   ) {
    // setting this is the key to initial select.
   }
@@ -33,9 +37,21 @@ export class RegistrationComponent implements OnInit {
       // email validator still allows someEmail@somewhere because that is a valid emailValue
       // according to the documentation. reseach further later.
       this.registerForm = this.formBuilder.group({
-        fullname:['', [Validators.required, Validators.minLength(5),
+        fullname: ['', [Validators.required, Validators.minLength(5),
           Validators.pattern("([a-zA-Z0-9])[a-zA-Z0-9]* ([a-zA-Z0-9])[a-zA-Z0-9., ]*")]],
-        email:['', [Validators.required, Validators.email]],
+        email: ['',
+          {
+            validators:
+              [
+                Validators.email,
+                Validators.required
+              ],
+            asyncValidators:
+              [
+                ValidateEmailNotTaken.createValidator(this.registerService)
+              ],
+            updateOn: 'blur'
+          }],
         username: ['',
           {
             validators:
@@ -66,23 +82,14 @@ export class RegistrationComponent implements OnInit {
  get emailFC() {return this.registerForm.get('email');}
  get passwordFC() {return this.registerForm.get('password');}
 
-//methods used for enter key up and blur events
-public isUniqueEmail(emailValue: string){
-  if(this.emailFC.valid){
-    // add check for unique email
-  }
-}
-
-
- errorMessage: string;
-
-// need to change getErrorMessage, so any form can use it.
+// TODO: need to change getErrorMessage, so any form can use it.
 // yet solution works for the near term.
+
  public getErrorMessage(formControlName: string) {
 
    switch(formControlName){
      case 'fullname':
-         this.errorMessage = this.fullnameFC.hasError('required') ? 'You must enter a value' :
+       this.errorMessage = this.fullnameFC.hasError('required') ? 'You must enter a value' :
          this.fullnameFC.hasError('minlength') ? 'Length must be at least 5 characters' :
          this.fullnameFC.hasError('pattern') ? 'Use letters and with a space between FirstName and LastName' :
          '';
@@ -90,13 +97,14 @@ public isUniqueEmail(emailValue: string){
      case 'email':
        this.errorMessage = this.emailFC.hasError('required') ? 'Email is required.' :
          this.emailFC.hasError('email') ? 'Enter a valid email.' :
+         this.emailFC.hasError('emailTaken') ? 'Please choose a different email or login if this is your email.' :
          '';
        break;
      case 'username':
        this.errorMessage = this.usernameFC.hasError('required') ? 'You must enter a value' :
          this.usernameFC.hasError('minlength') ? 'Length must be at least 5 characters' :
          this.usernameFC.hasError('pattern') ? 'Use letters, numbers and underscores.' :
-         this.usernameFC.hasError('usernameTaken') ? 'Please pick a different username. The username you chose is taken.' :
+         this.usernameFC.hasError('usernameTaken') ? 'Please pick a different username or login if this is your username.' :
          '';
        break;
      case 'password':
@@ -123,7 +131,7 @@ public isUniqueEmail(emailValue: string){
     this.specificUserRegistration.password = this.passwordFC.value;
     this.specificUserRegistration.email = this.emailFC.value;
 
-    //TODO: rmove alert add other funtionaliy like:
+    //TODO: remove console.log and add other funtionaliy like:
     // call to backend to created registration and send to login.
     // perhaps route to login on the button after the registration completes
     // successfully
@@ -144,8 +152,11 @@ public isUniqueEmail(emailValue: string){
     // routing should be back page the user was on orginially ...
   }
 
-  // TODO: Remove these when done, it is just used to verify data capturing to correct variable
-  get diagnostic() { return JSON.stringify(this.specificUserRegistration); }
-  get registerFormDiagnostic() { return JSON.stringify(this.registerForm.value); }
+  /* saving this diagonostic example for future use. To use,
+    uncomment the get registerFormDiagnoctic line below and
+    uncomment the corresponding line at the top of the registration.component.html file.
+  */
+    //TODO: Remove these when done, it is just used to verify data capturing to correct variable
+    //get registerFormDiagnostic() { return JSON.stringify(this.registerForm.value); }
 
 }

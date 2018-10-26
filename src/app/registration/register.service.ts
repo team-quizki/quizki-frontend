@@ -11,6 +11,7 @@ export class RegisterService {
 
   constructor( private apiService: ApiService) { }
 
+  // methods for checking if username and email address are unique
   isUniqueUsername( name: string ) : Observable<any>
   {
     let isUniqueUrl = '/api/users/isUnique';
@@ -19,8 +20,17 @@ export class RegisterService {
       .post(isUniqueUrl, {name: name });
   }
 
+  isUniqueEmail( email: string ) : Observable<any>
+  {
+    let isUniqueUrl = '/api/users/isUnique';
+
+    return this.apiService
+      .post(isUniqueUrl, {email: email });
+  }
+
 }
 
+//asyncValidators classes for username and email addresses.
 export class ValidateUsernameNotTaken {
   static createValidator(registerService: RegisterService) {
     return (control: AbstractControl) => {
@@ -29,6 +39,21 @@ export class ValidateUsernameNotTaken {
         {
           //console.log(JSON.stringify(res));
           return res.name ? null : { usernameTaken: true };
+        }),
+        catchError(() => null)
+      )
+    };
+  }
+}
+
+export class ValidateEmailNotTaken {
+  static createValidator(registerService: RegisterService) {
+    return (control: AbstractControl) => {
+      return registerService.isUniqueEmail(control.value).pipe(
+        map((res) =>
+        {
+          //console.log(JSON.stringify(res));
+          return res.email ? null : { emailTaken: true };
         }),
         catchError(() => null)
       )

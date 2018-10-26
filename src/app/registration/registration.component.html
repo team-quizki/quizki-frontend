@@ -1,8 +1,5 @@
-<!--
-TODO: remove after verifying data captured correctly specificUserRegistration: {{diagnostic}}
-<br>
-TODO: remove after verifying data captured correctly registerForm.value: {{registerFormDiagnostic}}
-<br>
+<!-- saving for a future example of how to display data captured from a form
+  TODO: remove after verifying data captured correctly registerForm.value: {{registerFormDiagnostic}}
 -->
 
 <div class="mat-typography row">
@@ -32,17 +29,19 @@ TODO: remove after verifying data captured correctly registerForm.value: {{regis
           <div class="basic-container">
             <mat-form-field appearance="standard">
               <mat-label for="email">Enter email address</mat-label>
-              <input #emailInput matInput email required
+              <input #emailInput matInput email required emailTaken
                 type="email" class="form-control" id="email"
                 formControlName="email"
                 placeholder="Enter your email.">
+              <div *ngIf="emailFC.pending">Validating...</div>
+              <!--app-spinner *ngIf="emailFC.pending"></app-spinner-->
               <mat-error *ngIf="emailFC.invalid && (emailFC.touched || emailFC.dirty)">
                 {{getErrorMessage("email")}}
               </mat-error>
               <mat-hint>Example: info@quizki.com</mat-hint>
             </mat-form-field>
           </div>
-          <p>isUniqueUsername is not working</p>
+
           <div class="basic-container">
             <mat-form-field appearance="standard">
               <mat-label for="username">Enter username</mat-label>
