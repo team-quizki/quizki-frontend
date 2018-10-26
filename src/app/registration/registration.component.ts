@@ -20,7 +20,8 @@ export class RegistrationComponent implements OnInit {
   specificUserRegistration = new UserRegistration('','','','');
   constructor(
     private formBuilder: FormBuilder,
-    private registerService: RegisterService
+    private registerService: RegisterService,
+//    private validateUsernameNotTaken: ValidateUsernameNotTaken
   ) {
    // setting this is the key to initial select.
   }
@@ -31,21 +32,29 @@ export class RegistrationComponent implements OnInit {
       // don't forget to add all the special characters to the password pattern
       // email validator still allows someEmail@somewhere because that is a valid emailValue
       // according to the documentation. reseach further later.
-    this.registerForm = this.formBuilder.group({
-      fullname:['', [Validators.required, Validators.minLength(5),
-        Validators.pattern("([a-zA-Z0-9])[a-zA-Z0-9]* ([a-zA-Z0-9])[a-zA-Z0-9., ]*")]],
-      email:['', [Validators.required, Validators.email]],
-      username: ['', [Validators.required, Validators.minLength(5),
-        Validators.pattern("([a-zA-Z])[a-zA-Z0-9]*")],
-        {
-          asyncValidators: ValidateUsernameNotTaken.createValidator(this.registerService)//, updateOn: 'blur'
-        }
-      ],
-      password: ['', [Validators.required, Validators.minLength(5),
-        Validators.pattern("([a-zA-Z0-9_-])[a-zA-Z0-9_-]*")]]
-    });
+      this.registerForm = this.formBuilder.group({
+        fullname:['', [Validators.required, Validators.minLength(5),
+          Validators.pattern("([a-zA-Z0-9])[a-zA-Z0-9]* ([a-zA-Z0-9])[a-zA-Z0-9., ]*")]],
+        email:['', [Validators.required, Validators.email]],
+        username: ['',
+          {
+            validators:
+              [
+                Validators.required,
+                Validators.minLength(5),
+                Validators.pattern("([a-zA-Z])[a-zA-Z0-9]*")
+              ],
+            asyncValidators:
+              [
+                ValidateUsernameNotTaken.createValidator(this.registerService)
+              ],
+            updateOn: 'blur'
+          }],
+        password: ['', [Validators.required, Validators.minLength(5),
+          Validators.pattern("([a-zA-Z0-9_-])[a-zA-Z0-9_-]*")]]
+      });
 
-  }
+    }
 
 //  getter for form fields
  get f() { return this.registerForm.controls; }
@@ -56,21 +65,6 @@ export class RegistrationComponent implements OnInit {
  get usernameFC() {return this.registerForm.get('username');}
  get emailFC() {return this.registerForm.get('email');}
  get passwordFC() {return this.registerForm.get('password');}
-
-/*
- validateUsernameNotTaken0(control: AbstractControl) {
-   return this.registerService.isUniqueUsername(control.value).map(res => {
-     return res ? null : { usernameTaken: true };
-   });
- }
- */
-
- validateUsernameNotTaken(control: AbstractControl) {
-   return this.registerService.isUniqueUsername(control.value).pipe(
-     map((res) => {return res ? null : { usernameTaken: true };})
-   );
- }
-
 
 //methods used for enter key up and blur events
 public isUniqueEmail(emailValue: string){
@@ -102,7 +96,7 @@ public isUniqueEmail(emailValue: string){
        this.errorMessage = this.usernameFC.hasError('required') ? 'You must enter a value' :
          this.usernameFC.hasError('minlength') ? 'Length must be at least 5 characters' :
          this.usernameFC.hasError('pattern') ? 'Use letters, numbers and underscores.' :
-         this.usernameFC.hasError('usernameTaken') ? 'Please pick a different username.' :
+         this.usernameFC.hasError('usernameTaken') ? 'Please pick a different username. The username you chose is taken.' :
          '';
        break;
      case 'password':
@@ -121,8 +115,9 @@ public isUniqueEmail(emailValue: string){
 
   // Establish the controls and methods for the submit button
   onSubmit() {
-    if(this.registerForm.invalid) { return;} // should never be invalid at this point...
+    if(this.registerForm.invalid) { return;} // the form should never be invalid at this point...
 
+    console.log("Form Submitted");
     this.specificUserRegistration.fullname = this.fullnameFC.value;
     this.specificUserRegistration.name = this.usernameFC.value;
     this.specificUserRegistration.password = this.passwordFC.value;
@@ -130,20 +125,21 @@ public isUniqueEmail(emailValue: string){
 
     //TODO: rmove alert add other funtionaliy like:
     // call to backend to created registration and send to login.
-    // perhaps route to login on the buttong after the registration completes
+    // perhaps route to login on the button after the registration completes
     // successfully
 
   }
 
   public cancelRegistration(){
     // consider asking the user for cancel confirmation.
-    // really should write a reset method for UserRegistration
     this.registerForm.reset();
 
+    // TODO: write a reset method for UserRegistration
     this.specificUserRegistration.fullname = '';
     this.specificUserRegistration.name = '';
     this.specificUserRegistration.password = '';
     this.specificUserRegistration.email = '';
+
     // routed to homepage is done on the button. of course eventually,
     // routing should be back page the user was on orginially ...
   }
