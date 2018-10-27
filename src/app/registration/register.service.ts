@@ -34,6 +34,7 @@ export class RegisterService {
   registerUser( userRegistration: UserRegistration ) : Observable<any>
   {
     let apiUsersUrl = '/api/users';
+    console.log("in registerUser " + JSON.stringify(userRegistration));
     return this.apiService
       .post(apiUsersUrl, JSON.stringify(userRegistration));
   }

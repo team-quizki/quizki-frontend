@@ -17,7 +17,7 @@ TODO: remove after verifying data captured correctly loginForm.value: {{loginFor
                 type="text" class="form-control" id="username"
                 formControlName="username"
                 placeholder="username">
-              <mat-error *ngIf="usernameFC.touched && usernameFC.invalid && usernameFC.dirty">
+              <mat-error *ngIf="usernameFC.invalid && (usernameFC.touched || usernameFC.dirty)">
                 {{getLoginErrorMessage("username")}}
               </mat-error>
               <mat-hint>Enter your username.</mat-hint>
@@ -34,7 +34,7 @@ TODO: remove after verifying data captured correctly loginForm.value: {{loginFor
                 formControlName="password"
                 placeholder="Enter password" [type]="hidePassword ? 'password' : 'text'">
               <mat-icon matSuffix (click)="hidePassword = !hidePassword">{{hidePassword ? 'visibility' : 'visibility_off'}}</mat-icon>
-              <mat-error *ngIf="passwordFC.touched && passwordFC.invalid && passwordFC.dirty">
+              <mat-error *ngIf="passwordFC.invalid && (passwordFC.touched || passwordFC.dirty)">
                 {{getLoginErrorMessage("password")}}
               </mat-error>
               <mat-hint>Enter your password.</mat-hint>

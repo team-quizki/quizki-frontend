@@ -25,7 +25,7 @@ export class RegistrationComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private registerService: RegisterService,
+    private registerService: RegisterService
   ) {
    // setting this is the key to initial select.
   }
@@ -139,6 +139,12 @@ export class RegistrationComponent implements OnInit {
     this.specificUserRegistration.email = this.emailFC.value;
     this.specificUserRegistration.roleId = 2;
 
+    let localResult
+    this.registerService.registerUser(this.specificUserRegistration)
+        .subscribe((result) => {
+          localResult = result;
+          console.log("in onSubmit, result of registerUser = " + localResult);
+          });
 
     //TODO: remove console.log and add other funtionaliy like:
     // call to backend to created registration and send to login.
@@ -146,6 +152,7 @@ export class RegistrationComponent implements OnInit {
     // successfully
 
   }
+
 
   public cancelRegistration(){
     // consider asking the user for cancel confirmation.
