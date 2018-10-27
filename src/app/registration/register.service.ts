@@ -6,6 +6,8 @@ import { ApiService } from '../_services/api.service';
 import { Observable } from '../../../node_modules/rxjs';
 import { map, catchError } from '../../../node_modules/rxjs/operators';
 
+import { UserRegistration } from './../user/user-registration';
+
 @Injectable()
 export class RegisterService {
 
@@ -28,9 +30,17 @@ export class RegisterService {
       .post(isUniqueUrl, {email: email });
   }
 
+  // method for creating a new user on the backend
+  registerUser( userRegistration: UserRegistration ) : Observable<any>
+  {
+    let apiUsersUrl = '/api/users';
+    return this.apiService
+      .post(apiUsersUrl, JSON.stringify(userRegistration));
+  }
+
 }
 
-//asyncValidators classes for username and email addresses.
+//asyncValidators classes for usernameTaken and emailTaken
 export class ValidateUsernameNotTaken {
   static createValidator(registerService: RegisterService) {
     return (control: AbstractControl) => {

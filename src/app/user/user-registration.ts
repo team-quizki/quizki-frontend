@@ -8,8 +8,7 @@ export class UserRegistration {
     public fullname: string,
     public id?: string,
     public roleId?: number,
-    public enabled?: number,
-
+    public enabled?: number
   ) {  }
 
 }

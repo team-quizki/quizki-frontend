@@ -33,44 +33,51 @@ export class RegistrationComponent implements OnInit {
   ngOnInit() {
     this.hidePassword = true;
 
-      // don't forget to add all the special characters to the password pattern
-      // email validator still allows someEmail@somewhere because that is a valid emailValue
-      // according to the documentation. reseach further later.
-      this.registerForm = this.formBuilder.group({
-        fullname: ['', [Validators.required, Validators.minLength(5),
-          Validators.pattern("([a-zA-Z0-9])[a-zA-Z0-9]* ([a-zA-Z0-9])[a-zA-Z0-9., ]*")]],
-        email: ['',
-          {
-            validators:
-              [
-                Validators.email,
-                Validators.required
-              ],
-            asyncValidators:
-              [
-                ValidateEmailNotTaken.createValidator(this.registerService)
-              ],
-            updateOn: 'blur'
-          }],
-        username: ['',
-          {
-            validators:
-              [
-                Validators.required,
-                Validators.minLength(5),
-                Validators.pattern("([a-zA-Z])[a-zA-Z0-9]*")
-              ],
-            asyncValidators:
-              [
-                ValidateUsernameNotTaken.createValidator(this.registerService)
-              ],
-            updateOn: 'blur'
-          }],
-        password: ['', [Validators.required, Validators.minLength(5),
-          Validators.pattern("([a-zA-Z0-9_-])[a-zA-Z0-9_-]*")]]
-      });
+    // email validator still allows someEmail@somewhere because that is a valid emailValue
+    // according to the documentation. reseach further later.
+    this.registerForm = this.formBuilder.group({
+      fullname: ['',
+        [
+          Validators.required,
+          Validators.minLength(5),
+          Validators.pattern("([a-zA-Z0-9])[a-zA-Z0-9]* ([a-zA-Z0-9])[a-zA-Z0-9., ]*")
+        ]],
+      email: ['',
+        {
+          validators:
+            [
+              Validators.email,
+              Validators.required
+            ],
+          asyncValidators:
+            [
+              ValidateEmailNotTaken.createValidator(this.registerService)
+            ],
+          updateOn: 'blur'
+        }],
+      username: ['',
+        {
+          validators:
+            [
+              Validators.required,
+              Validators.minLength(5),
+              Validators.pattern("([a-zA-Z])[a-zA-Z0-9]*")
+            ],
+          asyncValidators:
+            [
+              ValidateUsernameNotTaken.createValidator(this.registerService)
+            ],
+          updateOn: 'blur'
+        }],
+      password: ['',
+        [
+          Validators.required,
+          Validators.minLength(5),
+          Validators.pattern("([a-zA-Z0-9_-])[a-zA-Z0-9_-]*")
+        ]]
+    });
 
-    }
+  }
 
 //  getter for form fields
  get f() { return this.registerForm.controls; }
@@ -130,6 +137,8 @@ export class RegistrationComponent implements OnInit {
     this.specificUserRegistration.name = this.usernameFC.value;
     this.specificUserRegistration.password = this.passwordFC.value;
     this.specificUserRegistration.email = this.emailFC.value;
+    this.specificUserRegistration.roleId = 2;
+
 
     //TODO: remove console.log and add other funtionaliy like:
     // call to backend to created registration and send to login.
@@ -152,11 +161,10 @@ export class RegistrationComponent implements OnInit {
     // routing should be back page the user was on orginially ...
   }
 
-  /* saving this diagonostic example for future use. To use,
-    uncomment the get registerFormDiagnoctic line below and
-    uncomment the corresponding line at the top of the registration.component.html file.
-  */
-    //TODO: Remove these when done, it is just used to verify data capturing to correct variable
-    //get registerFormDiagnostic() { return JSON.stringify(this.registerForm.value); }
+
+
+  // Saving the following diagonostic example for future use.
+  // TODO: Remove these when done, it is just used to verify data capturing to correct variable
+  //get registerFormDiagnostic() { return JSON.stringify(this.registerForm.value); }
 
 }
