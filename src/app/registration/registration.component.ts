@@ -21,7 +21,7 @@ export class RegistrationComponent implements OnInit {
   registerForm: FormGroup;
   hidePassword: boolean;
   errorMessage: string;
-  specificUserRegistration = new UserRegistration('','','','');
+  specificUserRegistration = new UserRegistration('','',2,'','');
 
   constructor(
     private formBuilder: FormBuilder,
@@ -133,13 +133,19 @@ export class RegistrationComponent implements OnInit {
     if(this.registerForm.invalid) { return;} // the form should never be invalid at this point...
 
     console.log("Form Submitted");
-    this.specificUserRegistration.fullname = this.fullnameFC.value;
-    this.specificUserRegistration.name = this.usernameFC.value;
-    this.specificUserRegistration.password = this.passwordFC.value;
-    this.specificUserRegistration.email = this.emailFC.value;
-    this.specificUserRegistration.roleId = 2;
 
-    let localResult
+    //consider writing a set method
+    this.specificUserRegistration.password = this.passwordFC.value;
+    this.specificUserRegistration.name = this.usernameFC.value;
+    this.specificUserRegistration.roleId = 2;
+    this.specificUserRegistration.email = this.emailFC.value;
+    this.specificUserRegistration.fullname = this.fullnameFC.value;
+
+    let localResult;
+
+    //need to add failure processing
+    //for examples 1) username invalid, or 2) username valid & password invalid
+    
     this.registerService.registerUser(this.specificUserRegistration)
         .subscribe((result) => {
           localResult = result;

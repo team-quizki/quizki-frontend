@@ -9,6 +9,6 @@ export class UserRegistration {
     public fullname: string,
     public id?: string,
     public enabled?: number
-  ) {  }
+  ) { }
 
 }
