@@ -37,8 +37,8 @@ export class CreateQuestionPageComponent {
     showAnswers:string = "";
     
      // Data Transfer Object
-    CreateQuestionDTO:any =
-    [{
+    createQuestionDTO =
+    {
         "userId": 0,
         "text": "RequiredQuestionText",
         "description": "",
@@ -52,7 +52,7 @@ export class CreateQuestionPageComponent {
                     {"text":"", "isCorrect":null},
                     {"text":"", "isCorrect":null}
                    ]
-    }];
+    };
     
     topics: Topics[] = [
         {value: 'topic-0', viewValue: 'Topic 0'},   // topics placeholder, otherwise obtained from DB when user loads page.  
@@ -97,7 +97,7 @@ export class CreateQuestionPageComponent {
     
     constructor(){
         this.tinyMCEeditorData;
-        this.CreateQuestionDTO[0].userId = this.GETid;
+        this.createQuestionDTO.userId = this.GETid;
     };
   
     updateCurrentTopic(){
@@ -106,32 +106,32 @@ export class CreateQuestionPageComponent {
     
     clickedTopic(topicChoice:any){
         this.currentTopic = topicChoice;
-        this.CreateQuestionDTO[0].topics = topicChoice;
+        this.createQuestionDTO.topics = topicChoice;
     }
     
     clickedQuestionType(quesType:any){
-        this.CreateQuestionDTO[0].type = quesType;
+        this.createQuestionDTO.type = quesType;
     }
    
     onSaveQuestions() {
           
-        this.CreateQuestionDTO[0].text = this.tinyMCEeditorData;  
-        this.CreateQuestionDTO[0].description = this.briefQuestionDesc;
-        this.CreateQuestionDTO[0].choices[0].text = this.answer1 + ":";
-        this.CreateQuestionDTO[0].choices[0].isCorrect = this.answer1isCorrect + ", ";
-        this.CreateQuestionDTO[0].choices[1].text = this.answer2;
-        this.CreateQuestionDTO[0].choices[1].isCorrect = this.answer2isCorrect;
-        this.CreateQuestionDTO[0].choices[2].text = this.answer3;
-        this.CreateQuestionDTO[0].choices[2].isCorrect = this.answer3isCorrect;
-        this.CreateQuestionDTO[0].choices[3].text = this.answer4;
-        this.CreateQuestionDTO[0].choices[3].isCorrect = this.answer4isCorrect;
+        this.createQuestionDTO.text = this.tinyMCEeditorData;  
+        this.createQuestionDTO.description = this.briefQuestionDesc;
+        this.createQuestionDTO.choices[0].text = this.answer1 + ":";
+        this.createQuestionDTO.choices[0].isCorrect = this.answer1isCorrect + ", ";
+        this.createQuestionDTO.choices[1].text = this.answer2;
+        this.createQuestionDTO.choices[1].isCorrect = this.answer2isCorrect;
+        this.createQuestionDTO.choices[2].text = this.answer3;
+        this.createQuestionDTO.choices[2].isCorrect = this.answer3isCorrect;
+        this.createQuestionDTO.choices[3].text = this.answer4;
+        this.createQuestionDTO.choices[3].isCorrect = this.answer4isCorrect;
         
-        this.CreateQuestionDTO[0].references[0] = this.reference1;
-        this.CreateQuestionDTO[0].references[1] = this.reference2;
-        this.CreateQuestionDTO[0].references[2] = this.reference3;
-        this.CreateQuestionDTO[0].references[3] = this.reference4;
+        this.createQuestionDTO.references[0] = this.reference1;
+        this.createQuestionDTO.references[1] = this.reference2;
+        this.createQuestionDTO.references[2] = this.reference3;
+        this.createQuestionDTO.references[3] = this.reference4;
                 
-        this.showReferences = JSON.stringify(this.CreateQuestionDTO[0].references); 
-        this.showAnswers = JSON.stringify(this.CreateQuestionDTO[0].choices); 
+        this.showReferences = JSON.stringify(this.createQuestionDTO.references); 
+        this.showAnswers = JSON.stringify(this.createQuestionDTO.choices); 
     }    
 }
