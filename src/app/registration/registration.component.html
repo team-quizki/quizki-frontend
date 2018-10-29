@@ -34,7 +34,6 @@
                 formControlName="email"
                 placeholder="Enter your email.">
               <div *ngIf="emailFC.pending">Validating...</div>
-              <!--app-spinner *ngIf="emailFC.pending"></app-spinner-->
               <mat-error *ngIf="emailFC.invalid && (emailFC.touched || emailFC.dirty)">
                 {{getErrorMessage("email")}}
               </mat-error>
@@ -50,7 +49,6 @@
                 formControlName="username"
                 placeholder="username">
               <div *ngIf="usernameFC.pending">Validating...</div>
-              <!--app-spinner *ngIf="usernameFC.pending"></app-spinner-->
               <mat-error *ngIf="usernameFC.invalid && (usernameFC.touched || usernameFC.dirty)">
                 {{getErrorMessage("username")}}
               </mat-error>
@@ -80,7 +78,7 @@
           <button mat-raised-button
             type="submit" class="btn btn-success btn-primary"
             aria-label="submit button"
-            [disabled]="registerForm.invalid"
+            [disabled]="!registerForm.valid || registerSubmitted"
             (click)="onSubmit()"
             >Submit
           </button>
@@ -95,6 +93,7 @@
         </div>
       </mat-card-actions>
       <mat-card-footer class="basic-container basic-card-footer">
+        <div *ngIf="registerSubmitted">Registering ...</div>
         <div>
           <p>Already registered?
             &nbsp;

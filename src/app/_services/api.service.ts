@@ -21,7 +21,7 @@ export class ApiService {
   }
 
   // http.get needs an Authorization in header
-  setHttpHeaders(username:string, password: string) {
+  getHttpHeadersWithBase64Authorization(username:string, password: string) {
   	let rtn = {
   		headers: new HttpHeaders({
         'Authorization': "Basic " + btoa(`${username}:${password}`),
@@ -34,9 +34,9 @@ export class ApiService {
   }
 
   get(url:string, username:string, password:string) {
-    return this.http.get<any>(baseUrl + url, this.setHttpHeaders(username, password))
+    return this.http.get<any>(baseUrl + url,
+      this.getHttpHeadersWithBase64Authorization(username, password))
   }
-
 
   post(url, data) {
   	return this.http.post(baseUrl + url, data, this.getHttpHeaders())

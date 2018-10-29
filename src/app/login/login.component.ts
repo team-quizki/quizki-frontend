@@ -20,6 +20,7 @@ export class LoginComponent implements OnInit {
 
   hidePassword: boolean;
   loginErrorMessage: string;
+  loginSubmitted: boolean;
 
   constructor(private formBuilder: FormBuilder,
       private loginService: LoginService) { }
@@ -31,6 +32,7 @@ export class LoginComponent implements OnInit {
 
     this.hidePassword = true;
     this.loginErrorMessage = "";
+    this.loginSubmitted = false;
 
     this.loginForm = this.formBuilder.group({
       username: ['', [Validators.required, Validators.minLength(5)]],
@@ -81,12 +83,14 @@ export class LoginComponent implements OnInit {
 
   private onSubmit() {
       if(this.loginForm.invalid) { return;} // form should never be invalid at this point.
+      this.loginSubmitted = true;
 
       this.username = this.usernameFC.value;
       // need to encrypt password???
       this.password = this.passwordFC.value;
 
       if(this.login()){
+          this.loginSubmitted = false;
           this.loginForm.reset();
           // send to requested page
         }

@@ -6,6 +6,7 @@ import { UserRegistration } from './../user/user-registration';
 import { RegisterService,
   ValidateUsernameNotTaken,
   ValidateEmailNotTaken} from './register.service';
+import { map } from '../../../node_modules/rxjs/operators';
 
 //import { map } from '../../../node_modules/rxjs/operators';
 
@@ -21,6 +22,7 @@ export class RegistrationComponent implements OnInit {
   registerForm: FormGroup;
   hidePassword: boolean;
   errorMessage: string;
+  registerSubmitted: boolean;
   specificUserRegistration = new UserRegistration('','',2,'','');
 
   constructor(
@@ -32,7 +34,7 @@ export class RegistrationComponent implements OnInit {
 
   ngOnInit() {
     this.hidePassword = true;
-
+    this.registerSubmitted = false;
     // email validator still allows someEmail@somewhere because that is a valid emailValue
     // according to the documentation. reseach further later.
     this.registerForm = this.formBuilder.group({
@@ -61,7 +63,7 @@ export class RegistrationComponent implements OnInit {
             [
               Validators.required,
               Validators.minLength(5),
-              Validators.pattern("([a-zA-Z])[a-zA-Z0-9]*")
+              Validators.pattern("([a-zA-Z0-9_])[a-zA-Z0-9_]*")
             ],
           asyncValidators:
             [
@@ -131,6 +133,7 @@ export class RegistrationComponent implements OnInit {
   // Establish the controls and methods for the submit button
   onSubmit() {
     if(this.registerForm.invalid) { return;} // the form should never be invalid at this point...
+    this.registerSubmitted = true; // temporarily prevent multiple submits
 
     console.log("Form Submitted");
 
@@ -145,13 +148,28 @@ export class RegistrationComponent implements OnInit {
 
     //need to add failure processing
     //for examples 1) username invalid, or 2) username valid & password invalid
-    
+
+    this.registerService.registerUser(this.specificUserRegistration)
+        .subscribe(
+          (result) => {
+            localResult = result;
+            console.log("in onSubmit, SUCCESS registerUser = " + JSON.stringify(localResult));
+      //      this.registerSubmitted=false;
+          },
+          (resultError) => {
+            console.log("in onSubmit, resultError of registerUser = " + JSON.stringify(resultError));
+            console.log("need to write code for error sending back")
+          }
+        );
+
+/* SAVE WORKING ORIGINAL
     this.registerService.registerUser(this.specificUserRegistration)
         .subscribe((result) => {
           localResult = result;
           console.log("in onSubmit, result of registerUser = " + localResult);
           });
 
+*/
     //TODO: remove console.log and add other funtionaliy like:
     // call to backend to created registration and send to login.
     // perhaps route to login on the button after the registration completes

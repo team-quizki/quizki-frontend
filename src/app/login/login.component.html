@@ -48,7 +48,7 @@ TODO: remove after verifying data captured correctly loginForm.value: {{loginFor
           <button mat-raised-button
             type="submit" class="btn btn-success btn-primary"
             aria-label="login button"
-            [disabled]="loginForm.invalid"
+            [disabled]="loginForm.invalid || loginSubmitted"
             (click)="onSubmit()"
             >Login
           </button>
@@ -63,6 +63,7 @@ TODO: remove after verifying data captured correctly loginForm.value: {{loginFor
         </div>
       </mat-card-actions>
       <mat-card-footer class="basic-container basic-card-footer">
+        <div *ngIf="loginSubmitted">Logging in ...</div>
         <div>
           <p>User: {{username}}  Password: {{password}} </p>
           <p>New to Quizki?

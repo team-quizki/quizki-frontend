@@ -33,6 +33,7 @@ export class RegisterService {
   // method for creating a new user on the backend
   registerUser( userRegistration: UserRegistration ) : Observable<any>
   {
+
     let apiUsersUrl = '/api/users';
     console.log("in registerUser " + JSON.stringify(userRegistration));
     return this.apiService
