@@ -48,74 +48,123 @@
             </td>    
         </tr><br>
     </table>
-<br>
-<br>
 
 <div id="tinyEditor" style="width:92%; margin:0px auto;">
     <editor apiKey="lzlkf4t1qvjtid356kafllkafx5quoci0htkh5pxp41ilf73" [init]="{plugins: 'link'}" initialValue="Enter Question Here..." [(ngModel)]="tinyMCEeditorData" ></editor>
 </div>  
-<br><br>
+<br>
 
-    <table style="width:50%; font-size:1.0em; margin-left:4%;">
-        <tr>
-            <th>
-                Enter Answers:
-            </th>
-            <th>
-                is Correct:
-            </th>
-        </tr>
-        <tr>
-            <td title="Enter (correct or incorrect) answer to your question" style="width:70%;">
-                <mat-form-field style="width:80%;">
-                    <input matInput  [(ngModel)]="answer1"> 
-                </mat-form-field>
-            </td>    
-            <td title="Check this if answer entered is a correct answer" style="width:30%;">
-             <mat-checkbox [(ngModel)]="answer1isCorrect"></mat-checkbox>   
-            </td>
-
-        </tr>  
-        <tr>
-            <td title="Enter (correct or incorrect) answer to your question" style="width:40%;">
-                <mat-form-field style="width:80%;">
-                    <input matInput  [(ngModel)]="answer2"> 
-                </mat-form-field>
-            </td>    
-            <td title="Check this if answer entered is a correct answer">
-             <mat-checkbox [(ngModel)]="answer2isCorrect"></mat-checkbox>   
-            </td>
-        </tr>  
-        <tr>
-            <td title="Enter (correct or incorrect) answer to your question" style="width:40%;">
-                <mat-form-field style="width:80%;">
-                    <input matInput  [(ngModel)]="answer3"> 
-                </mat-form-field>
-            </td>    
-            <td title="Check this if answer entered is a correct answer">
-             <mat-checkbox [(ngModel)]="answer3isCorrect"></mat-checkbox>   
-            </td>
-        </tr>  
-        <tr>
-            <td title="Enter (correct or incorrect) answer to your question" style="width:40%;">
-                <mat-form-field style="width:80%;">
-                    <input matInput  [(ngModel)]="answer4"> 
-                </mat-form-field>
-            </td>    
-            <td title="Check this if answer entered is a correct answer">
-             <mat-checkbox [(ngModel)]="answer4isCorrect"></mat-checkbox>   
-            </td>
-        </tr>  
-    </table>
-    
-<table>
+<table style="width:95%;">
     <tr>
-        <td style="width:20%; text-align:center;">
-            &nbsp;&nbsp;<br>
-            <button (click)="onSaveQuestions()" mat-raised-button style="width:90%;">Save Question</button>
+        <td style="width:50%;">
+           <table style="width:100%; font-size:1.0em; margin-left:4%;">
+                <tr>
+                    <th title="Provide correct and incorrect answers and check mark the correct answers">
+                        Enter Answers:
+                    </th>
+                    <th>
+                        is Correct:
+                    </th>
+                </tr>
+                <tr>
+                    <td title="Enter (correct or incorrect) answer to your question" style="width:85%;">
+                        <mat-form-field style="width:80%;">
+                            <input matInput  [(ngModel)]="answer1"> 
+                        </mat-form-field>
+                    </td>    
+                    <td title="Check this if answer entered is a correct answer" style="width:15%;">
+                     <mat-checkbox [(ngModel)]="answer1isCorrect"></mat-checkbox>   
+                    </td>
+
+                </tr>  
+                <tr>
+                    <td title="Enter (correct or incorrect) answer to your question" style="width:40%;">
+                        <mat-form-field style="width:80%;">
+                            <input matInput  [(ngModel)]="answer2"> 
+                        </mat-form-field>
+                    </td>    
+                    <td title="Check this if answer entered is a correct answer">
+                     <mat-checkbox [(ngModel)]="answer2isCorrect"></mat-checkbox>   
+                    </td>
+                </tr>  
+                <tr>
+                    <td title="Enter (correct or incorrect) answer to your question" style="width:40%;">
+                        <mat-form-field style="width:80%;">
+                            <input matInput  [(ngModel)]="answer3"> 
+                        </mat-form-field>
+                    </td>    
+                    <td title="Check this if answer entered is a correct answer">
+                     <mat-checkbox [(ngModel)]="answer3isCorrect"></mat-checkbox>   
+                    </td>
+                </tr>  
+                <tr>
+                    <td title="Enter (correct or incorrect) answer to your question" style="width:40%;">
+                        <mat-form-field style="width:80%;">
+                            <input matInput  [(ngModel)]="answer4"> 
+                        </mat-form-field>
+                    </td>    
+                    <td title="Check this if answer entered is a correct answer">
+                     <mat-checkbox [(ngModel)]="answer4isCorrect"></mat-checkbox>   
+                    </td>
+                </tr>  
+            </table> 
+        </td>
+        <td style="width:5%;">
+        </td>
+        <td style="width:45%;">
+            <table style="width:95%; font-size:1.0em; margin-left:4%;">
+                <tr>
+                    <th>
+                        <span title="List your citations / references here" style="float:left;">Enter References:</span>
+                        <span style="float:right;">
+                            <button disabled="false" mat-raised-button>Add Reference</button>
+                        </span>
+                    </th>
+                </tr>
+                <tr>
+                    <td title="Enter reference to support your answer(s)" >
+                        <mat-form-field style="width:100%;">
+                            <input matInput  [(ngModel)]="reference1"> 
+                        </mat-form-field>
+                    </td>    
+                </tr>  
+                <tr>
+                    <td title="Enter reference to support your answer(s)">
+                        <mat-form-field style="width:100%;">
+                            <input matInput  [(ngModel)]="reference2"> 
+                        </mat-form-field>
+                    </td>    
+                </tr>  
+                <tr>
+                    <td title="Enter reference to support your answer(s)">
+                        <mat-form-field style="width:100%;">
+                            <input matInput  [(ngModel)]="reference3"> 
+                        </mat-form-field>
+                    </td>    
+                </tr>  
+                <tr>
+                    <td title="Enter reference to support your answer(s)">
+                        <mat-form-field style="width:100%;">
+                            <input matInput  [(ngModel)]="reference4"> 
+                        </mat-form-field>
+                    </td>    
+                </tr>  
+            </table>
         </td>
     </tr>
 </table>
+    
+    
+<table style="width:100%;">
+    <tr>
+        <td style="width:30%"></td>
+        <td style="width:40%; text-align:center;">
+            &nbsp;&nbsp;<br>
+            <button (click)="onSaveQuestions()" mat-raised-button style="width:90%;">Save Question</button>
+        </td>
+        <td style="width:30%"></td>
+    </tr>
+</table> 
 <br><br>
 
     <div style="color:blue;">   
@@ -149,7 +198,7 @@
             </tr>
             <tr>
                 <td class="dto">References:</td>
-                <td class="dto">{{CreateQuestionDTO[0].references}}</td>
+                <td class="dto">{{showReferences}}</td>
             </tr>
             <tr>
                 <td class="dto">Difficulty:</td>
@@ -157,9 +206,11 @@
             </tr>
             <tr>
                 <td class="dto">Choices:</td>
-                <td class="dto">{{showDTO}}</td>
+                <td class="dto">{{showAnswers}}</td>
             </tr>
         </table>
         
     </div>
+<br>
 </div>
+<br><br>

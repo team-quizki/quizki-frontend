@@ -33,7 +33,8 @@ export class CreateQuestionPageComponent {
     dataSentResponse:any = "";
     dataReceivedResponse = "";
     currentTopic:string = "";
-    showDTO:string = "";
+    showReferences:string = "";
+    showAnswers:string = "";
     
      // Data Transfer Object
     CreateQuestionDTO:any =
@@ -43,7 +44,7 @@ export class CreateQuestionPageComponent {
         "description": "",
         "type": 0,
         "topics": ["string1", "string2", "stringN"],
-        "references": ["ref1", "ref2", "refN"],
+        "references": ["ref1", "ref2", "ref3", "ref4"],
         "difficulty": 1,
         "choices": [
                     {"text":"", "isCorrect":null}, 
@@ -85,6 +86,11 @@ export class CreateQuestionPageComponent {
     answer4:string = "answer 4";
     answer4isCorrect = false;
     
+    reference1:string = "reference 1";
+    reference2:string = "reference 2";
+    reference3:string = "reference 3";
+    reference4:string = "reference 4";
+    
     
     checked:boolean = true;
     id:string = "checkbox1";
@@ -120,6 +126,12 @@ export class CreateQuestionPageComponent {
         this.CreateQuestionDTO[0].choices[3].text = this.answer4;
         this.CreateQuestionDTO[0].choices[3].isCorrect = this.answer4isCorrect;
         
-        this.showDTO = JSON.stringify(this.CreateQuestionDTO[0].choices); 
+        this.CreateQuestionDTO[0].references[0] = this.reference1;
+        this.CreateQuestionDTO[0].references[1] = this.reference2;
+        this.CreateQuestionDTO[0].references[2] = this.reference3;
+        this.CreateQuestionDTO[0].references[3] = this.reference4;
+                
+        this.showReferences = JSON.stringify(this.CreateQuestionDTO[0].references); 
+        this.showAnswers = JSON.stringify(this.CreateQuestionDTO[0].choices); 
     }    
 }
