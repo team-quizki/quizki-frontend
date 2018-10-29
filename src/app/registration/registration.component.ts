@@ -23,6 +23,9 @@ export class RegistrationComponent implements OnInit {
   hidePassword: boolean;
   errorMessage: string;
   registerSubmitted: boolean;
+  registerStatus: string;
+  hideWhileRegistering: boolean;
+  hideLoginButton: boolean;
   specificUserRegistration = new UserRegistration('','',2,'','');
 
   constructor(
@@ -35,6 +38,9 @@ export class RegistrationComponent implements OnInit {
   ngOnInit() {
     this.hidePassword = true;
     this.registerSubmitted = false;
+    this.registerStatus = null;
+    this.hideWhileRegistering = false;
+    this.hideLoginButton = true;
     // email validator still allows someEmail@somewhere because that is a valid emailValue
     // according to the documentation. reseach further later.
     this.registerForm = this.formBuilder.group({
@@ -134,7 +140,8 @@ export class RegistrationComponent implements OnInit {
   onSubmit() {
     if(this.registerForm.invalid) { return;} // the form should never be invalid at this point...
     this.registerSubmitted = true; // temporarily prevent multiple submits
-
+    this.hideWhileRegistering = true; // hides controles during registration
+    this.registerStatus = "Registering ... Please wait a moment!"
     console.log("Form Submitted");
 
     //consider writing a set method
@@ -145,20 +152,29 @@ export class RegistrationComponent implements OnInit {
     this.specificUserRegistration.fullname = this.fullnameFC.value;
 
     let localResult;
-
+    let localError;
     //need to add failure processing
     //for examples 1) username invalid, or 2) username valid & password invalid
 
     this.registerService.registerUser(this.specificUserRegistration)
         .subscribe(
           (result) => {
-            localResult = result;
+            localResult = result
             console.log("in onSubmit, SUCCESS registerUser = " + JSON.stringify(localResult));
-      //      this.registerSubmitted=false;
+            this.hideWhileRegistering = false;
+            this.registerStatus = "Registration complete. Please login."
+            this.hideLoginButton = false;
+          //  this.registerSubmitted=false;
           },
           (resultError) => {
+            //this.registerSubmitted=false;
+            this.hideLoginButton = true;
+            this.hideWhileRegistering = false;
+            this.registerStatus = "Registration failed."
             console.log("in onSubmit, resultError of registerUser = " + JSON.stringify(resultError));
-            console.log("need to write code for error sending back")
+            localError = JSON.parse(resultError["errors"]);
+            console.log("resultError['errors']= " + JSON.stringify(localError));
+            console.log("need to write code for error sending back");
           }
         );
 

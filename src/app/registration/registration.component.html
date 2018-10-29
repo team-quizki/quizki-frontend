@@ -74,7 +74,7 @@
         </form>
       </mat-card-content>
       <mat-card-actions class="basic-container basic-card-actions">
-        <div class="button-row">
+        <div [hidden]=hideWhileRegistering class="button-row">
           <button mat-raised-button
             type="submit" class="btn btn-success btn-primary"
             aria-label="submit button"
@@ -90,11 +90,21 @@
             routerLink="/home-page"
             >Cancel
           </button>
+          &nbsp;
+          <button [hidden]=hideLoginButton mat-raised-button
+            type="text" class="btn"
+            aria-label="cancel button"
+            (click)="login()"
+            routerLink="/login"
+            >Login
+          </button>
+
         </div>
       </mat-card-actions>
       <mat-card-footer class="basic-container basic-card-footer">
-        <div *ngIf="registerSubmitted">Registering ...</div>
-        <div>
+        <div *ngIf="registerSubmitted">{{registerStatus}}</div>
+        <!--div [hidden]=!hideWhileRegistering>{{registerStatus}}</div-->
+        <div [hidden]=hideWhileRegistering>
           <p>Already registered?
             &nbsp;
             <a  (click)="registerForm.reset()"
