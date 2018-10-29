@@ -6,7 +6,7 @@ import { UserRegistration } from './../user/user-registration';
 import { RegisterService,
   ValidateUsernameNotTaken,
   ValidateEmailNotTaken} from './register.service';
-import { map } from '../../../node_modules/rxjs/operators';
+//import { map } from '../../../node_modules/rxjs/operators';
 
 //import { map } from '../../../node_modules/rxjs/operators';
 
