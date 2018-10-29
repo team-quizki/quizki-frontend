@@ -1,11 +1,13 @@
 <div style="border:1px solid black; margin-top:2vh; width:95%;">
-<h1 style="text-indent:1%;">
-    <span style="float:left;"> Welcome to {{ title }}</span><span style="float:right; padding:.50% 5% 0% 0%; font-size:0.5em ">Hello User Number: {{CreateQuestionDTO[0].userId}}</span>
+<h1 style="text-indent:1%; margin-top:1vh;">
+    <span style="float:left;"> Welcome to {{ title }}</span>
+    <button title="Help Menu Goes Here" mat-mini-fab style="float:right; margin-right:1%; font-size:0.5em;"> ? </button>
+    <span style="float:right; padding:.50% 5% 0% 0%; font-size:0.5em ">Hello User Number: {{CreateQuestionDTO[0].userId}}</span>
 </h1>
 <br><br>
     <table style="width:95%; font-size:1.0em; margin:0px auto;">
         <tr>
-            <td style="width:33%; text-align:center;">
+            <td title="Select topic applicable to your question" style="width:33%; text-align:center;">
                 <mat-form-field style='width:80%;' >
                     <mat-select placeholder="Select Topic">
                         <mat-option *ngFor="let topic of topics" [value]="topic.value" (click)="clickedTopic(topic.value)">
@@ -15,25 +17,20 @@
                 </mat-form-field>
             </td>
             
-            <td style="width:33%; text-align:center;">
+            <td title="Enter new topic" style="width:33%; text-align:center;">
                 <mat-form-field style="width:50%;">
                   <input matInput placeholder="New Topic" [(ngModel)]="newTopic">
                 </mat-form-field>&nbsp;&nbsp;&nbsp;
                 <button mat-raised-button (click)="updateCurrentTopic()">Set as current topic</button>
-                <!--<div>{{newTopic}}</div>-->
             </td>
             
-            <td style="width:33%; text-align:center; vertical-align:top;">
+            <td title="Topic chosen for your question" style="width:33%; text-align:center; vertical-align:top;">
                 Current Topic:<br>{{currentTopic}}
             </td>    
         </tr><br>
         
-<!--https://stackoverflow.com/questions/48404329/angular-material-input-two-way-data-binding-with-ngmodel-is-not-working-in-p            -->
-<!--https://lishman.io/angular-2-input-binding-->        
-        
-        
         <tr>
-            <td style="width:33%; text-align:center;">
+            <td title="Select question type (see help for examples)" style="width:33%; text-align:center;">
                 <mat-form-field style='width:80%;' >
                     <mat-select placeholder="Select Question Type">
                         <mat-option *ngFor="let quesType of questionType" [value]="quesType.value" (click)="clickedQuestionType(quesType.value)">
@@ -42,15 +39,12 @@
                     </mat-select>
                 </mat-form-field>
             </td>
-            <td style="width:33%; text-align:center;">
+            <td title="(optional) Enter a short description of the question " style="width:33%; text-align:center;">
                 <mat-form-field style="width:80%;">
-                    <input matInput  [(ngModel)]="questionDesc">
+                    <input matInput  [(ngModel)]="briefQuestionDesc">
                 </mat-form-field>
-                <!--<div>{{questionDesc}}</div>-->
             </td>
             <td style="width:33%; text-align:center;">
-                <!--<button (click)="test()">Click for test</button>-->
-                <!--{{ test() }}-->
             </td>    
         </tr><br>
     </table>
@@ -58,156 +52,114 @@
 <br>
 
 <div id="tinyEditor" style="width:92%; margin:0px auto;">
-    <editor apiKey="lzlkf4t1qvjtid356kafllkafx5quoci0htkh5pxp41ilf73" [init]="{plugins: 'link'}" initialValue="Enter Question Here..." [(ngModel)]="editorData" ></editor>
+    <editor apiKey="lzlkf4t1qvjtid356kafllkafx5quoci0htkh5pxp41ilf73" [init]="{plugins: 'link'}" initialValue="Enter Question Here..." [(ngModel)]="tinyMCEeditorData" ></editor>
 </div>  
-<!--<div>{{editorData}}</div>-->
 <br><br>
 
-<table style="width:95%; font-size:1.0em; margin:0px auto;">
-    <tr>
-        <th>
-            Enter Answers:
-        </th>
-        <th>
-            is Correct:
-        </th>
-    </tr>
-    <tr>
-        <td style="width:40%;">
-            <mat-form-field style="width:80%;">
-                <input matInput  [(ngModel)]="answerChoice1"> 
-            </mat-form-field>
-        </td>    
-        <td style>
-         <mat-checkbox [(ngModel)]="checked" [(ngModel)]="id" ></mat-checkbox>   
-        </td>
-    </tr>  
-    <tr>
-        <td style="width:40%;">
-            <mat-form-field style="width:80%;">
-                <input matInput  [(ngModel)]="answerChoice1"> 
-            </mat-form-field>
-        </td>    
-        <td style>
-         <mat-checkbox checked="true" ></mat-checkbox>   
-        </td>
-    </tr>  
-    <tr>
-        <td style="width:40%;">
-            <mat-form-field style="width:80%;">
-                <input matInput  [(ngModel)]="answerChoice1"> 
-            </mat-form-field>
-        </td>    
-        <td style>
-         <mat-checkbox></mat-checkbox>   
-        </td>
-    </tr>  
-    <tr>
-        <td style="width:40%;">
-            <mat-form-field style="width:80%;">
-                <input matInput  [(ngModel)]="answerChoice1"> 
-            </mat-form-field>
-        </td>    
-        <td style>
-         <mat-checkbox></mat-checkbox>   
-        </td>
-    </tr>  
-</table>
-    
-    
+    <table style="width:50%; font-size:1.0em; margin-left:4%;">
+        <tr>
+            <th>
+                Enter Answers:
+            </th>
+            <th>
+                is Correct:
+            </th>
+        </tr>
+        <tr>
+            <td title="Enter (correct or incorrect) answer to your question" style="width:70%;">
+                <mat-form-field style="width:80%;">
+                    <input matInput  [(ngModel)]="answer1"> 
+                </mat-form-field>
+            </td>    
+            <td title="Check this if answer entered is a correct answer" style="width:30%;">
+             <mat-checkbox [(ngModel)]="answer1isCorrect"></mat-checkbox>   
+            </td>
+
+        </tr>  
+        <tr>
+            <td title="Enter (correct or incorrect) answer to your question" style="width:40%;">
+                <mat-form-field style="width:80%;">
+                    <input matInput  [(ngModel)]="answer2"> 
+                </mat-form-field>
+            </td>    
+            <td title="Check this if answer entered is a correct answer">
+             <mat-checkbox [(ngModel)]="answer2isCorrect"></mat-checkbox>   
+            </td>
+        </tr>  
+        <tr>
+            <td title="Enter (correct or incorrect) answer to your question" style="width:40%;">
+                <mat-form-field style="width:80%;">
+                    <input matInput  [(ngModel)]="answer3"> 
+                </mat-form-field>
+            </td>    
+            <td title="Check this if answer entered is a correct answer">
+             <mat-checkbox [(ngModel)]="answer3isCorrect"></mat-checkbox>   
+            </td>
+        </tr>  
+        <tr>
+            <td title="Enter (correct or incorrect) answer to your question" style="width:40%;">
+                <mat-form-field style="width:80%;">
+                    <input matInput  [(ngModel)]="answer4"> 
+                </mat-form-field>
+            </td>    
+            <td title="Check this if answer entered is a correct answer">
+             <mat-checkbox [(ngModel)]="answer4isCorrect"></mat-checkbox>   
+            </td>
+        </tr>  
+    </table>
     
 <table>
     <tr>
         <td style="width:20%; text-align:center;">
             &nbsp;&nbsp;<br>
-            <button (click)="onSaveQuestions()" style="width:90%;">Save Question</button>
-        </td>
-        <td style="width:20%; text-align:center;">
-            &nbsp;&nbsp;<br>
-            <button (click)="onGetQuestions()" style="width:90%;">Get Questions - This Topic</button> 
+            <button (click)="onSaveQuestions()" mat-raised-button style="width:90%;">Save Question</button>
         </td>
     </tr>
 </table>
-
-
 <br><br>
 
-<!--<span style="color:red">{{dataSentResponse}}</span>-->
-<br><br>
-
-
-
-<div style="color:blue;">   
-    <table class="dto" style="width:70%; border:1px solid black;">
-        <tr>
-            <th class="dto" colspan="2" style="text-align:center;">DTO (to be) sent to Firebase</th>
-        </tr>
-        <tr>
-            <th class="dto" style="width:15%; text-align:left; text-indent:2%;">Property</th>
-            <th class="dto" style="text-align:left; text-indent:2%;">Value</th>
-        </tr>
-        <tr>
-            <td class="dto" style="width:15%">UserId:</td>
-            <td class="dto">{{CreateQuestionDTO[0].userId}}</td>
-        </tr>
-        <tr>
-            <td class="dto">Text:</td>
-            <td class="dto">{{CreateQuestionDTO[0].text}}</td>
-        </tr>
-        <tr>
-            <td class="dto">Description:</td>
-            <td class="dto">{{questionDesc}} and: {{CreateQuestionDTO[0].description}}</td> 
-        </tr>
-        <tr>
-            <td class="dto">Type:</td>
-            <td class="dto">{{CreateQuestionDTO[0].type}}</td>
-        </tr>
-        <tr>
-            <td class="dto">Topics:</td>
-            <td class="dto">{{CreateQuestionDTO[0].topics}}</td>
-        </tr>
-        <tr>
-            <td class="dto">References:</td>
-            <td class="dto">{{CreateQuestionDTO[0].references}}</td>
-        </tr>
-        <tr>
-            <td class="dto">Difficulty:</td>
-            <td class="dto">{{CreateQuestionDTO[0].difficulty}}</td>
-        </tr>
-        <tr>
-            <td class="dto">Choices:</td>
-            <td class="dto">{{CreateQuestionDTO[0].choices}}</td>
-        </tr>
-    </table>
-    
-<!--
-    UserId:     {{CreateQuestionDTO[0].userId}}<br>
-    Text:       {{CreateQuestionDTO[0].text}}<br>
-    Description:{{CreateQuestionDTO[0].description}}<br>
-    Type:       {{CreateQuestionDTO[0].type}}<br>
-    Topics:     {{CreateQuestionDTO[0].topics}}<br>
-    References: {{CreateQuestionDTO[0].references}}<br>
-    Difficulty: {{CreateQuestionDTO[0].difficulty}}<br>
-    Choices:    {{CreateQuestionDTO[0].choices}}<br>
--->
-</div>
-                        
-
-<br><br>
-<div>{{dataReceivedResponse}}</div>
-
-</div>
-    
-<!--
-
-<div class="container">
-  <div class="row">
-    <div class="col-md-12">
-
-      <app-questions ></app-questions>
-
+    <div style="color:blue;">   
+        <table class="dto" style="margin:0% auto; width:70%; border:1px solid black;">
+            <tr>
+                <th class="dto" colspan="2" style="text-align:center;">Data Transfer Object</th>
+            </tr>
+            <tr>
+                <th class="dto" style="width:15%; text-align:left; text-indent:2%;">Property</th>
+                <th class="dto" style="text-align:left; text-indent:2%;">Value</th>
+            </tr>
+            <tr>
+                <td class="dto" style="width:15%">UserId:</td>
+                <td class="dto">{{CreateQuestionDTO[0].userId}}</td>
+            </tr>
+            <tr>
+                <td class="dto">Text:</td>
+                <td class="dto">{{CreateQuestionDTO[0].text}}</td>
+            </tr>
+            <tr>
+                <td class="dto">Description:</td>
+                <td class="dto">{{CreateQuestionDTO[0].description}}</td> 
+            </tr>
+            <tr>
+                <td class="dto">Type:</td>
+                <td class="dto">{{CreateQuestionDTO[0].type}}</td>
+            </tr>
+            <tr>
+                <td class="dto">Topics:</td>
+                <td class="dto">{{CreateQuestionDTO[0].topics}}</td>
+            </tr>
+            <tr>
+                <td class="dto">References:</td>
+                <td class="dto">{{CreateQuestionDTO[0].references}}</td>
+            </tr>
+            <tr>
+                <td class="dto">Difficulty:</td>
+                <td class="dto">{{CreateQuestionDTO[0].difficulty}}</td>
+            </tr>
+            <tr>
+                <td class="dto">Choices:</td>
+                <td class="dto">{{showDTO}}</td>
+            </tr>
+        </table>
+        
     </div>
-  </div>
 </div>
-
--->

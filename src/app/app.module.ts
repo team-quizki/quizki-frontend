@@ -2,9 +2,6 @@
 import { BrowserModule  } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
-//***********************************************************************************************************************************************************
-import { FirebaseService } from './create-question-page/firebase.service';
-//***********************************************************************************************************************************************************
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
@@ -111,7 +108,7 @@ import { QuestionTypeComponent } from './questions/question/question-types/quest
     DataTableModule,
     EditorModule
 ],
-  providers: [ ApiService, FirebaseService ],
+  providers: [ ApiService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

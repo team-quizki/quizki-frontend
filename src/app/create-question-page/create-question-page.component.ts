@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { FirebaseService } from './firebase.service';
 import { HttpResponse } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
@@ -30,38 +29,13 @@ export interface QuestionType {
 export class CreateQuestionPageComponent {
     
     title:string = "Create a Question:";
-    GETid:number = 23; // placeholder, otherwise obtained when user logs in
+    GETid:number = 23;                              // user ID placeholder, otherwise obtained from DB when user logs in.
     dataSentResponse:any = "";
     dataReceivedResponse = "";
     currentTopic:string = "";
+    showDTO:string = "";
     
-    topics: Topics[] = [
-        {value: 'topic-0', viewValue: 'Topic 0'},
-        {value: 'topic-1', viewValue: 'Topic 1'},
-        {value: 'topic-2', viewValue: 'Topic 2'},
-        {value: 'topic-3', viewValue: 'Topic 3'},
-        {value: 'topic-4', viewValue: 'Topic 4'},
-        {value: 'topic-5', viewValue: 'Topic 5'}
-    ];
-  
-    newTopic:string = "";
-    
-    questionType: QuestionType[] = [
-        {value: "1",    viewValue: 'Single'},
-        {value: "2",    viewValue: 'Multiple'},
-        {value: "3",    viewValue: 'Phrase'},
-        {value: "4",    viewValue: 'Sequence'},
-        {value: "5",    viewValue: 'Set'}
-    ];
-  
-    questionDesc:string = "A brief question overview";
-  
-    editorData:string = "Enter your question here:";
-    
-    checked:boolean = true;
-    id:string = "checkbox1";
-  
-    // Data Transfer Object
+     // Data Transfer Object
     CreateQuestionDTO:any =
     [{
         "userId": 0,
@@ -71,11 +45,52 @@ export class CreateQuestionPageComponent {
         "topics": ["string1", "string2", "stringN"],
         "references": ["ref1", "ref2", "refN"],
         "difficulty": 1,
-        "choices": [{"text":"choiceText1", "isCorrect":true}, {"text":"choiceText2", "isCorrect":false}]
+        "choices": [
+                    {"text":"", "isCorrect":null}, 
+                    {"text":"", "isCorrect":null},
+                    {"text":"", "isCorrect":null},
+                    {"text":"", "isCorrect":null}
+                   ]
     }];
     
-    constructor(private firebaseService: FirebaseService){
-        this.editorData;
+    topics: Topics[] = [
+        {value: 'topic-0', viewValue: 'Topic 0'},   // topics placeholder, otherwise obtained from DB when user loads page.  
+        {value: 'topic-1', viewValue: 'Topic 1'},
+        {value: 'topic-2', viewValue: 'Topic 2'},
+        {value: 'topic-3', viewValue: 'Topic 3'},
+        {value: 'topic-4', viewValue: 'Topic 4'},
+        {value: 'topic-5', viewValue: 'Topic 5'}
+    ];
+  
+    newTopic:string = "";                           // currently not part of the DTO
+    
+    questionType: QuestionType[] = [
+        {value: "1",    viewValue: 'Single'},
+        {value: "2",    viewValue: 'Multiple'},
+        {value: "3",    viewValue: 'Phrase'},
+        {value: "4",    viewValue: 'Sequence'},
+        {value: "5",    viewValue: 'Set'}
+    ];
+  
+    briefQuestionDesc:string = "Question overview";
+  
+    tinyMCEeditorData:string = "Enter your question here:";
+    
+    answer1:string = "answer 1";
+    answer1isCorrect = false;
+    answer2:string = "answer 2";
+    answer2isCorrect = false;
+    answer3:string = "answer 3";
+    answer3isCorrect = false;
+    answer4:string = "answer 4";
+    answer4isCorrect = false;
+    
+    
+    checked:boolean = true;
+    id:string = "checkbox1";
+    
+    constructor(){
+        this.tinyMCEeditorData;
         this.CreateQuestionDTO[0].userId = this.GETid;
     };
   
@@ -84,11 +99,9 @@ export class CreateQuestionPageComponent {
     }
     
     clickedTopic(topicChoice:any){
-    this.currentTopic = topicChoice;
-    this.CreateQuestionDTO[0].topics = topicChoice;
-   // console.log(this.CreateQuestionDTO[0].topics);
-   // console.log(JSON.stringify(this.CreateQuestionDTO));
-  }
+        this.currentTopic = topicChoice;
+        this.CreateQuestionDTO[0].topics = topicChoice;
+    }
     
     clickedQuestionType(quesType:any){
         this.CreateQuestionDTO[0].type = quesType;
@@ -96,50 +109,17 @@ export class CreateQuestionPageComponent {
    
     onSaveQuestions() {
           
-        this.CreateQuestionDTO[0].text = this.editorData;  
-        this.CreateQuestionDTO[0].description = this.questionDesc;
-        //alert(this.CreateQuestionDTO[0].description);
-        //console.log(JSON.stringify(this.CreateQuestionDTO));
-
-        this.firebaseService.storeQuestions(this.CreateQuestionDTO)
-        .subscribe(
-            (response) => { this.dataSent(response); console.log(response);},
-            (error) => console.log("** " + JSON.stringify(error))
-        );
-    };
-    
-    onGetQuestions(){
-          this.firebaseService.getQuestions()
-          .subscribe(
-              (response: HttpResponse<any[]>) => { 
-               const data = response;
-               this.dataReceived(data);
-               console.log(data);
-              },
-              (error) => console.log("get error is: " + JSON.stringify(error))
-          )
-    }
-    
-    dataSent(dataSentResponse:any){
-        // this.dataSentResponse = "Data base created on Firebase is: " + JSON.stringify(dataSentResponse);
-        this.dataSentResponse = "Data base created on Firebase is: " + dataSentResponse.name;
-    }
-    
-    //responseC:string = "";
-    
-    dataReceived(dataReceivedResponse:any){
-        this.dataReceivedResponse = "Data received from Firebase is: " + JSON.stringify(dataReceivedResponse); //working line
-    }
+        this.CreateQuestionDTO[0].text = this.tinyMCEeditorData;  
+        this.CreateQuestionDTO[0].description = this.briefQuestionDesc;
+        this.CreateQuestionDTO[0].choices[0].text = this.answer1 + ":";
+        this.CreateQuestionDTO[0].choices[0].isCorrect = this.answer1isCorrect + ", ";
+        this.CreateQuestionDTO[0].choices[1].text = this.answer2;
+        this.CreateQuestionDTO[0].choices[1].isCorrect = this.answer2isCorrect;
+        this.CreateQuestionDTO[0].choices[2].text = this.answer3;
+        this.CreateQuestionDTO[0].choices[2].isCorrect = this.answer3isCorrect;
+        this.CreateQuestionDTO[0].choices[3].text = this.answer4;
+        this.CreateQuestionDTO[0].choices[3].isCorrect = this.answer4isCorrect;
+        
+        this.showDTO = JSON.stringify(this.CreateQuestionDTO[0].choices); 
+    }    
 }
-
-    
-
-// This error shows when I try to use the map feature as per its use in firebase.service.ts 
-/* 
-ERROR in src/app/app.component.ts(65,13): error TS2345: Argument of type '(theQuestions: any[]) => void' is not assignable to parameter of type '(value: HttpResponse<any[]>) => void'.
-  Types of parameters 'theQuestions' and 'value' are incompatible.
-    Type 'HttpResponse<any[]>' is not assignable to type 'any[]'.
-      Property 'includes' is missing in type 'HttpResponse<any[]>'.
-*/
-    
-    
