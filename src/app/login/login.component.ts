@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormControlName, FormGroup, Validators } from '@angular/forms';
 
 import { LoginService } from './login.service'
-import {User} from '../user/user';
+import {User, Roles} from '../user/user';
 
 @Component({
   selector: 'app-login',
@@ -14,7 +14,10 @@ export class LoginComponent implements OnInit {
   username: string;
   password: string;
   loginStatus: string;
-  user: User;
+  roles = new Roles(0,"");
+  user = new User(0,this.roles,"","",1,"","",false);
+
+  loginUserStatus: string;
 
   loginForm: FormGroup;
 
@@ -33,6 +36,8 @@ export class LoginComponent implements OnInit {
     this.hidePassword = true;
     this.loginErrorMessage = "";
     this.loginSubmitted = false;
+    this.loginUserStatus = "";
+
 
     this.loginForm = this.formBuilder.group({
       username: ['', [Validators.required, Validators.minLength(5)]],
@@ -48,7 +53,7 @@ export class LoginComponent implements OnInit {
    get usernameFC() {return this.loginForm.get('username');}
    get passwordFC() {return this.loginForm.get('password');}
 
-  // need to change getErromMessage, so any form can use it.
+  // Consider changing getErrorMessage, so any form can use it.
   // yet solution works for the near term.
   public getLoginErrorMessage(formControlName: string) {
 
@@ -74,7 +79,6 @@ export class LoginComponent implements OnInit {
     // consider asking the user for cancel confirmation.
     this.loginForm.reset();
 
-    // consider writing a reset function.
     this.username = "";
     this.password = "";
     // routed to homepage is done on the button. of course eventually,
@@ -84,28 +88,45 @@ export class LoginComponent implements OnInit {
   private onSubmit() {
       if(this.loginForm.invalid) { return;} // form should never be invalid at this point.
       this.loginSubmitted = true;
-
+      this.loginUserStatus = "Logging In ..."
       this.username = this.usernameFC.value;
       // need to encrypt password???
       this.password = this.passwordFC.value;
 
       if(this.login()){
-          this.loginSubmitted = false;
+          this.loginUserStatus = "Logged in."
+          this.user.loginUser();
+          console.log("this.user.loginUser = " + this.user.loggedIn);
           this.loginForm.reset();
+        //this.user.loggedIn = true;
           // send to requested page
         }
+      else {
+        this.loginUserStatus = "Login failed."
+        this.user.logoutUser();
+        //this.user.loggedIn = false;
+      }
+
+      this.loginSubmitted = false;
+
   }
 
   public login(){
     // need to add an error for when login doesn't occure
-    this.loginStatus = "Requested"
+    this.loginStatus = "Requested";
     this.loginService.requestUserLogin(this.username, this.password)
-      .subscribe((res: User) => {
-        console.log("in login res= " + JSON.stringify(res));
-        this.loginStatus = `${res.name} Logged In`;
-      });
+      .subscribe(
+        (res: User) => {
+            console.log("in login res= " + JSON.stringify(res));
+            this.loginStatus = `${res.name} Logged In`;
+          },
+        (error) => {
+          console.log("in login failed errors = " + JSON.stringify(error["error"]));
+          this.loginStatus = "Login failed!!!";
+          }
+        );
+      }
 
-  }
 
   // TODO: Remove these when done, it is just used to verify data capturing to correct variable
   get loginFormDiagnostic() { return JSON.stringify(this.loginForm.value); }

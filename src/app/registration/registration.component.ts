@@ -205,7 +205,7 @@ export class RegistrationComponent implements OnInit {
     this.specificUserRegistration.email = '';
 
     // routed to homepage is done on the button. of course eventually,
-    // routing should be back page the user was on orginially ...
+    // routing should be back to page the user was on orginially ...
   }
 
 
