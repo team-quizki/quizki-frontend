@@ -38,7 +38,7 @@ export class RegistrationComponent implements OnInit {
   ngOnInit() {
     this.hidePassword = true;
     this.registerSubmitted = false;
-    this.registerStatus = null;
+    this.registerStatus = "Fill in form.";
     this.hideWhileRegistering = false;
     this.hideLoginButton = true;
     // email validator still allows someEmail@somewhere because that is a valid emailValue
@@ -172,20 +172,10 @@ export class RegistrationComponent implements OnInit {
             this.hideWhileRegistering = false;
             this.registerStatus = "Registration failed."
             console.log("in onSubmit, resultError of registerUser = " + JSON.stringify(resultError));
-            localError = JSON.parse(resultError["errors"]);
-            console.log("resultError['errors']= " + JSON.stringify(localError));
-            console.log("need to write code for error sending back");
+            console.log("resultError['errors']= " + JSON.stringify(resultError["errors"]));
           }
         );
 
-/* SAVE WORKING ORIGINAL
-    this.registerService.registerUser(this.specificUserRegistration)
-        .subscribe((result) => {
-          localResult = result;
-          console.log("in onSubmit, result of registerUser = " + localResult);
-          });
-
-*/
     //TODO: remove console.log and add other funtionaliy like:
     // call to backend to created registration and send to login.
     // perhaps route to login on the button after the registration completes

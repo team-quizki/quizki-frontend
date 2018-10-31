@@ -6,7 +6,7 @@
   <div class="col-md-4 col-md-offset-1">
     <mat-card class="basic-container">
       <mat-card-header class="basic-container basic-card-header">
-        <mat-card-title><h2 >REGISTER</h2></mat-card-title>
+        <mat-card-title><h2>REGISTER STATUS: {{registerStatus}}</h2></mat-card-title>
       </mat-card-header>
       <mat-card-content>
         <form class="basic-container" [formGroup]="registerForm"
@@ -60,7 +60,7 @@
             <mat-form-field appearance="standard">
               <mat-label for="password">Enter password</mat-label>
               <input #passwordInput matInput required minlength pattern
-                type="text" class="form-control" id="password"
+                type="password" class="form-control" id="password"
                 (blur)="hidePassword=true;"
                 formControlName="password"
                 placeholder="Enter password" [type]="hidePassword ? 'password' : 'text'">
