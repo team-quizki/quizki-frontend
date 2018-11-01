@@ -141,7 +141,7 @@ export class RegistrationComponent implements OnInit {
     if(this.registerForm.invalid) { return;} // the form should never be invalid at this point...
     this.registerSubmitted = true; // temporarily prevent multiple submits
     this.hideWhileRegistering = true; // hides controles during registration
-    this.registerStatus = "Registering ... Please wait a moment!"
+    this.registerStatus = "Processing. Please wait a moment!"
     console.log("Form Submitted");
 
     //consider writing a set method

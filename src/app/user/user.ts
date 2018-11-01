@@ -14,16 +14,15 @@ export class User {
   ){}
 
 
-  public logoutUser(){
-    this.loggedIn = false;
+  public loggedOutNow(){
+    return this.loggedIn = false;
   }
 
-  public loginUser(){
-    this.loggedIn = true;
+  public loggedInNow(){
+    return this.loggedIn = true;
   }
 
   public isUserLoggedIn(){
-    if (this.loggedIn === undefined) return false;
     return this.loggedIn;
   }
 
@@ -46,6 +45,7 @@ export class User {
   }
 
 }
+
 
 export class Roles {
   constructor(

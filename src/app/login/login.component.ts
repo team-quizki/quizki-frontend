@@ -17,8 +17,6 @@ export class LoginComponent implements OnInit {
   roles = new Roles(0,"");
   user = new User(0,this.roles,"","",1,"","",false);
 
-  loginUserStatus: string;
-
   loginForm: FormGroup;
 
   hidePassword: boolean;
@@ -42,7 +40,7 @@ export class LoginComponent implements OnInit {
 
     this.loginErrorMessage = "";
     this.loginSubmitted = false;
-    this.loginUserStatus = "";
+
 
 
     this.loginForm = this.formBuilder.group({
@@ -80,8 +78,6 @@ export class LoginComponent implements OnInit {
      this.hidePassword = true;
    }
 
-  // Consider changing getErrorMessage, so any form can use it.
-  // yet solution works for the near term.
   public getLoginErrorMessage(formControlName: string) {
 
     switch(formControlName){
@@ -115,27 +111,13 @@ export class LoginComponent implements OnInit {
   private onSubmit() {
       if(this.loginForm.invalid) { return;} // form should never be invalid at this point.
       this.loginSubmitted = true;
-      this.loginUserStatus = "Logging In ..."
 
       this.username = this.usernameFC.value;
       this.password = this.passwordFC.value;
 
       if(this.login()){
-          this.loginUserStatus = "Logged in."
-          this.user.loginUser();
-          console.log("this.user.loginUser = " + this.user.loggedIn);
-          this.loginForm.reset();
-        //this.user.loggedIn = true;
-          // send to requested page
-        }
-      else {
-        this.loginUserStatus = "Login failed."
-        this.user.logoutUser();
-        console.log("isUserLoggedIn= " + this.user.isUserLoggedIn())
-        //this.user.loggedIn = false;
+        //note sure why this is in an if...
       }
-
-      this.loginSubmitted = false;
 
   }
 
@@ -145,16 +127,20 @@ export class LoginComponent implements OnInit {
     this.loginService.requestUserLogin(this.username, this.password)
       .subscribe(
         (res: User) => {
-            console.log("in login res= " + JSON.stringify(res));
-            this.loginStatus = `${res.name} Logged In`;
-          },
+          console.log("in login res= " + JSON.stringify(res));
+          this.loginStatus = `${res.name} Logged In`;
+          this.user.loggedInNow();
+        },
         (error) => {
-            console.log("in login failed error = " + JSON.stringify(error));
-            console.log("in login failed errors = " + JSON.stringify(error["error"]));
-            this.loginStatus = "Login failed - try re-entering username and password.";
-          }
-        );
-      }
+          console.log("in login failed error = " + JSON.stringify(error));
+          console.log("in login failed errors = " + JSON.stringify(error["error"]));
+          this.loginStatus = "Please correct username and password.";
+          this.loginForm.setErrors({'invalid': true});
+          this.loginSubmitted = false;
+        },
+        () => {this.loginForm.reset(); /*route somewhere*/ }
+      );
+  }
 
 
   // TODO: Remove these when done, it is just used to verify data capturing to correct variable

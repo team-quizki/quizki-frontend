@@ -63,9 +63,7 @@ TODO: remove after verifying data captured correctly loginForm.value: {{loginFor
         </div>
       </mat-card-actions>
       <mat-card-footer class="basic-container basic-card-footer">
-        <div *ngIf="loginSubmitted">{{loginUserStatus}}</div>
         <div>
-          <p>User: {{username}}  Password: {{password}} </p>
           <p>New to Quizki?
             &nbsp;
             <a  (click)="cancelLogin()"
