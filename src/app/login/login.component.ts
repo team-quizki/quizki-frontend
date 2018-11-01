@@ -116,8 +116,8 @@ export class LoginComponent implements OnInit {
       if(this.loginForm.invalid) { return;} // form should never be invalid at this point.
       this.loginSubmitted = true;
       this.loginUserStatus = "Logging In ..."
+
       this.username = this.usernameFC.value;
-      // need to encrypt password???
       this.password = this.passwordFC.value;
 
       if(this.login()){
@@ -131,6 +131,7 @@ export class LoginComponent implements OnInit {
       else {
         this.loginUserStatus = "Login failed."
         this.user.logoutUser();
+        console.log("isUserLoggedIn= " + this.user.isUserLoggedIn())
         //this.user.loggedIn = false;
       }
 
@@ -148,8 +149,9 @@ export class LoginComponent implements OnInit {
             this.loginStatus = `${res.name} Logged In`;
           },
         (error) => {
-          console.log("in login failed errors = " + JSON.stringify(error["error"]));
-          this.loginStatus = "Login failed!!!";
+            console.log("in login failed error = " + JSON.stringify(error));
+            console.log("in login failed errors = " + JSON.stringify(error["error"]));
+            this.loginStatus = "Login failed - try re-entering username and password.";
           }
         );
       }
