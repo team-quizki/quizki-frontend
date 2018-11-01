@@ -30,11 +30,11 @@ TODO: remove after verifying data captured correctly loginForm.value: {{loginFor
               <mat-label for="passwordIn">password</mat-label>
               <input #passwordLogin matInput required minlength
                 type="password" class="form-control" id="passwordIn"
-                (blur)="hidePassword=true;"
+                (blur)="hidePasswordOnBlur()"
                 formControlName="password"
-                placeholder="Enter password" [type]="hidePassword ? 'password' : 'text'">
-              <mat-icon matSuffix (click)="hidePassword = !hidePassword">{{hidePassword ? 'visibility' : 'visibility_off'}}</mat-icon>
-              <mat-error *ngIf="passwordFC.invalid && (passwordFC.touched || passwordFC.dirty)">
+                placeholder="Enter password" [type]="changeTypeToTextOrPassword()">
+              <mat-icon matSuffix (click)="changePasswordVisiblility()">{{changeVisiblilityIcon()}}</mat-icon>
+              <mat-error *ngIf= isInvalidWithTouchedOrDirtyControl>
                 {{getLoginErrorMessage("password")}}
               </mat-error>
               <mat-hint>Enter your password.</mat-hint>

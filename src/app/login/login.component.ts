@@ -22,6 +22,9 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
 
   hidePassword: boolean;
+  displayVisabiltyIconStatus: string;
+  displayTypeTextOrPassword: string;
+
   loginErrorMessage: string;
   loginSubmitted: boolean;
 
@@ -34,6 +37,9 @@ export class LoginComponent implements OnInit {
     this.password = '';
 
     this.hidePassword = true;
+    this.displayVisabiltyIconStatus = 'visibility';
+    this.displayTypeTextOrPassword = 'password';
+
     this.loginErrorMessage = "";
     this.loginSubmitted = false;
     this.loginUserStatus = "";
@@ -52,6 +58,27 @@ export class LoginComponent implements OnInit {
   // getters for for form controls by form control name
    get usernameFC() {return this.loginForm.get('username');}
    get passwordFC() {return this.loginForm.get('password');}
+
+   public changePasswordVisiblility(){
+     this.hidePassword = !this.hidePassword;
+   }
+
+   public changeTypeToTextOrPassword():string {
+     return this.hidePassword ? 'password' : 'text';
+   }
+
+   public changeVisiblilityIcon():string {
+     return this.hidePassword ? 'visibility' : 'visibility_off';
+   }
+
+   public isInvalidWithTouchedOrDirtyControl(fcName:string):boolean {
+     return this.loginForm.get(fcName).invalid
+        && (this.loginForm.get(fcName).touched || this.loginForm.get(fcName).dirty);
+   }
+
+   public hidePasswordOnBlur(){
+     this.hidePassword = true;
+   }
 
   // Consider changing getErrorMessage, so any form can use it.
   // yet solution works for the near term.
