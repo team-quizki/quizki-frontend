@@ -34,7 +34,7 @@ TODO: remove after verifying data captured correctly loginForm.value: {{loginFor
                 formControlName="password"
                 placeholder="Enter password" [type]="changeTypeToTextOrPassword()">
               <mat-icon matSuffix (click)="changePasswordVisiblility()">{{changeVisiblilityIcon()}}</mat-icon>
-              <mat-error *ngIf= isInvalidWithTouchedOrDirtyControl>
+              <mat-error *ngIf="isInvalidWithTouchedOrDirtyControl('password')">
                 {{getLoginErrorMessage("password")}}
               </mat-error>
               <mat-hint>Enter your password.</mat-hint>
