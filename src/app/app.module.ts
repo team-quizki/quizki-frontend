@@ -31,6 +31,7 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { ApiService } from './_services/api.service';
 import { EditorModule } from '@tinymce/tinymce-angular';
+import { FirebaseService } from './create-question-page/create-question-http.service';
 
 
 
@@ -108,7 +109,7 @@ import { QuestionTypeComponent } from './questions/question/question-types/quest
     DataTableModule,
     EditorModule
 ],
-  providers: [ ApiService ],
+  providers: [ ApiService, FirebaseService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

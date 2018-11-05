@@ -5,6 +5,8 @@ import { MatInputModule } from '@angular/material/input';
 import { EditorModule } from '@tinymce/tinymce-angular';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 
+import { FirebaseService } from './create-question-http.service';
+
 export interface questiontype {
     value: string;
     viewValue: string;
@@ -38,7 +40,7 @@ export class CreateQuestionPageComponent {
     
      // Data Transfer Object
     createQuestionDTO =
-    {
+    [{
         "userId": 0,
         "text": "RequiredQuestionText",
         "description": "",
@@ -52,7 +54,7 @@ export class CreateQuestionPageComponent {
                     {"text":"", "isCorrect":null},
                     {"text":"", "isCorrect":null}
                    ]
-    };
+    }];
     
     topics: Topics[] = [
         {value: 'topic-0', viewValue: 'Topic 0'},   // topics placeholder, otherwise obtained from DB when user loads page.  
@@ -95,9 +97,9 @@ export class CreateQuestionPageComponent {
     checked:boolean = true;
     id:string = "checkbox1";
     
-    constructor(){
+    constructor(private firebaseService: FirebaseService){
         this.tinyMCEeditorData;
-        this.createQuestionDTO.userId = this.GETid;
+        this.createQuestionDTO[0].userId = this.GETid;
     };
   
     updateCurrentTopic(){
@@ -106,32 +108,43 @@ export class CreateQuestionPageComponent {
     
     clickedTopic(topicChoice:any){
         this.currentTopic = topicChoice;
-        this.createQuestionDTO.topics = topicChoice;
+        this.createQuestionDTO[0].topics = topicChoice;
     }
     
     clickedQuestionType(quesType:any){
-        this.createQuestionDTO.type = quesType;
+        this.createQuestionDTO[0].type = quesType;
     }
    
     onSaveQuestions() {
           
-        this.createQuestionDTO.text = this.tinyMCEeditorData;  
-        this.createQuestionDTO.description = this.briefQuestionDesc;
-        this.createQuestionDTO.choices[0].text = this.answer1 + ":";
-        this.createQuestionDTO.choices[0].isCorrect = this.answer1isCorrect + ", ";
-        this.createQuestionDTO.choices[1].text = this.answer2;
-        this.createQuestionDTO.choices[1].isCorrect = this.answer2isCorrect;
-        this.createQuestionDTO.choices[2].text = this.answer3;
-        this.createQuestionDTO.choices[2].isCorrect = this.answer3isCorrect;
-        this.createQuestionDTO.choices[3].text = this.answer4;
-        this.createQuestionDTO.choices[3].isCorrect = this.answer4isCorrect;
+        this.createQuestionDTO[0].text = this.tinyMCEeditorData;  
+        this.createQuestionDTO[0].description = this.briefQuestionDesc;
+        this.createQuestionDTO[0].choices[0].text = this.answer1 + ":";
+        this.createQuestionDTO[0].choices[0].isCorrect = this.answer1isCorrect + ", ";
+        this.createQuestionDTO[0].choices[1].text = this.answer2;
+        this.createQuestionDTO[0].choices[1].isCorrect = this.answer2isCorrect;
+        this.createQuestionDTO[0].choices[2].text = this.answer3;
+        this.createQuestionDTO[0].choices[2].isCorrect = this.answer3isCorrect;
+        this.createQuestionDTO[0].choices[3].text = this.answer4;
+        this.createQuestionDTO[0].choices[3].isCorrect = this.answer4isCorrect;
         
-        this.createQuestionDTO.references[0] = this.reference1;
-        this.createQuestionDTO.references[1] = this.reference2;
-        this.createQuestionDTO.references[2] = this.reference3;
-        this.createQuestionDTO.references[3] = this.reference4;
+        this.createQuestionDTO[0].references[0] = this.reference1;
+        this.createQuestionDTO[0].references[1] = this.reference2;
+        this.createQuestionDTO[0].references[2] = this.reference3;
+        this.createQuestionDTO[0].references[3] = this.reference4;
                 
-        this.showReferences = JSON.stringify(this.createQuestionDTO.references); 
-        this.showAnswers = JSON.stringify(this.createQuestionDTO.choices); 
-    }    
+        this.showReferences = JSON.stringify(this.createQuestionDTO[0].references); 
+        this.showAnswers = JSON.stringify(this.createQuestionDTO[0].choices); 
+        
+        this.firebaseService.storeQuestions(this.createQuestionDTO)
+        .subscribe(
+            (response:any) => { this.dataSent(response); console.log(response);},
+            (error:any) => console.log("** " + JSON.stringify(error))
+        );
+    }   
+    
+    dataSent(dataSentResponse:any){
+        // this.dataSentResponse = "Data base created on Firebase is: " + JSON.stringify(dataSentResponse);
+        this.dataSentResponse = "Data base created on Firebase is: " + dataSentResponse.name;
+    } 
 }

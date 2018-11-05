@@ -2,7 +2,7 @@
 <h1 style="text-indent:1%; margin-top:1vh;">
     <span style="float:left;"> Welcome to {{ title }}</span>
     <button title="Help Menu Goes Here" mat-mini-fab style="float:right; margin-right:1%; font-size:0.5em;"> ? </button>
-    <span style="float:right; padding:.50% 5% 0% 0%; font-size:0.5em ">Hello User Number: {{createQuestionDTO.userId}}</span>
+    <span style="float:right; padding:.50% 5% 0% 0%; font-size:0.5em ">Hello User Number: {{createQuestionDTO[0].userId}}</span>
 </h1>
 <br><br>
     <table style="width:95%; font-size:1.0em; margin:0px auto;">
@@ -178,23 +178,23 @@
             </tr>
             <tr>
                 <td class="dto" style="width:15%">UserId:</td>
-                <td class="dto">{{createQuestionDTO.userId}}</td>
+                <td class="dto">{{createQuestionDTO[0].userId}}</td>
             </tr>
             <tr>
                 <td class="dto">Text:</td>
-                <td class="dto">{{createQuestionDTO.text}}</td>
+                <td class="dto">{{createQuestionDTO[0].text}}</td>
             </tr>
             <tr>
                 <td class="dto">Description:</td>
-                <td class="dto">{{createQuestionDTO.description}}</td> 
+                <td class="dto">{{createQuestionDTO[0].description}}</td> 
             </tr>
             <tr>
                 <td class="dto">Type:</td>
-                <td class="dto">{{createQuestionDTO.type}}</td>
+                <td class="dto">{{createQuestionDTO[0].type}}</td>
             </tr>
             <tr>
                 <td class="dto">Topics:</td>
-                <td class="dto">{{createQuestionDTO.topics}}</td>
+                <td class="dto">{{createQuestionDTO[0].topics}}</td>
             </tr>
             <tr>
                 <td class="dto">References:</td>
@@ -202,7 +202,7 @@
             </tr>
             <tr>
                 <td class="dto">Difficulty:</td>
-                <td class="dto">{{createQuestionDTO.difficulty}}</td>
+                <td class="dto">{{createQuestionDTO[0].difficulty}}</td>
             </tr>
             <tr>
                 <td class="dto">Choices:</td>
