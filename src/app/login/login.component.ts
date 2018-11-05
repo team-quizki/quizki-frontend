@@ -127,13 +127,11 @@ export class LoginComponent implements OnInit {
     this.loginService.requestUserLogin(this.username, this.password)
       .subscribe(
         (res: User) => {
-          console.log("in login res= " + JSON.stringify(res));
           this.loginStatus = `${res.name} Logged In`;
           this.user.loggedInNow();
         },
         (error) => {
           console.log("in login failed error = " + JSON.stringify(error));
-          console.log("in login failed errors = " + JSON.stringify(error["error"]));
           this.loginStatus = "Please correct username and password.";
           this.loginForm.setErrors({'invalid': true});
           this.loginSubmitted = false;

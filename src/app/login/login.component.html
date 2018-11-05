@@ -30,7 +30,6 @@ TODO: remove after verifying data captured correctly loginForm.value: {{loginFor
               <mat-label for="passwordIn">password</mat-label>
               <input #passwordLogin matInput required minlength
                 type="password" class="form-control" id="passwordIn"
-                (blur)="hidePasswordOnBlur()"
                 formControlName="password"
                 placeholder="Enter password" [type]="changeTypeToTextOrPassword()">
               <mat-icon matSuffix (click)="changePasswordVisiblility()">{{changeVisiblilityIcon()}}</mat-icon>
