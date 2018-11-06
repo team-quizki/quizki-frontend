@@ -57,25 +57,36 @@ export class LoginComponent implements OnInit {
    get usernameFC() {return this.loginForm.get('username');}
    get passwordFC() {return this.loginForm.get('password');}
 
-   public changePasswordVisiblility(){
-     this.hidePassword = !this.hidePassword;
+   public hidePasswordInField(){
+     return this.hidePassword = true;
    }
 
-   public changeTypeToTextOrPassword():string {
+   public showPasswordInField(){
+     return this.hidePassword = false;
+   }
+
+   public getPasswordFieldType():string {
      return this.hidePassword ? 'password' : 'text';
    }
 
-   public changeVisiblilityIcon():string {
-     return this.hidePassword ? 'visibility' : 'visibility_off';
+   public isPasswordField(){
+     return this.hidePassword === true;
+   }
+
+   public hidePasswordClick($event){
+     if(this.isPasswordField())
+       this.showPasswordInField();
+     else
+       this.hidePasswordInField();
+   }
+
+   public getIconVisiblityString(){
+     return this.isPasswordField() ? 'visibility_off' : 'visibility';
    }
 
    public isInvalidWithTouchedOrDirtyControl(fcName:string):boolean {
      return this.loginForm.get(fcName).invalid
         && (this.loginForm.get(fcName).touched || this.loginForm.get(fcName).dirty);
-   }
-
-   public hidePasswordOnBlur(){
-     this.hidePassword = true;
    }
 
   public getLoginErrorMessage(formControlName: string) {

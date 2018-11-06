@@ -31,8 +31,8 @@ TODO: remove after verifying data captured correctly loginForm.value: {{loginFor
               <input #passwordLogin matInput required minlength
                 type="password" class="form-control" id="passwordIn"
                 formControlName="password"
-                placeholder="Enter password" [type]="changeTypeToTextOrPassword()">
-              <mat-icon matSuffix (click)="changePasswordVisiblility()">{{changeVisiblilityIcon()}}</mat-icon>
+                placeholder="Enter password" [type]="getPasswordFieldType()">
+              <mat-icon matSuffix (click)="hidePasswordClick($event)">{{getIconVisiblityString()}}</mat-icon>
               <mat-error *ngIf="isInvalidWithTouchedOrDirtyControl('password')">
                 {{getLoginErrorMessage("password")}}
               </mat-error>
