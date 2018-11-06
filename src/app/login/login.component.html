@@ -17,11 +17,10 @@ TODO: remove after verifying data captured correctly loginForm.value: {{loginFor
                 type="text" class="form-control" id="username"
                 formControlName="username"
                 placeholder="username">
-              <mat-error *ngIf="usernameFC.invalid && (usernameFC.touched || usernameFC.dirty)">
+              <mat-error *ngIf="isInvalidWithTouchedOrDirtyControl('username')">
                 {{getLoginErrorMessage("username")}}
               </mat-error>
               <mat-hint>Enter your username.</mat-hint>
-
             </mat-form-field>
           </div>
 

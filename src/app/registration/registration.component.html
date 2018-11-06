@@ -61,7 +61,6 @@
               <mat-label for="password">Enter password</mat-label>
               <input #passwordInput matInput required minlength pattern
                 type="password" class="form-control" id="password"
-                (blur)="hidePassword=true;"
                 formControlName="password"
                 placeholder="Enter password" [type]="hidePassword ? 'password' : 'text'">
               <mat-icon matSuffix (click)="hidePassword = !hidePassword">{{hidePassword ? 'visibility' : 'visibility_off'}}</mat-icon>
