@@ -17,7 +17,7 @@ TODO: remove after verifying data captured correctly loginForm.value: {{loginFor
                 type="text" class="form-control" id="username"
                 formControlName="username"
                 placeholder="username">
-              <mat-error *ngIf="usernameFC.touched && usernameFC.invalid && usernameFC.dirty">
+              <mat-error *ngIf="usernameFC.invalid && (usernameFC.touched || usernameFC.dirty)">
                 {{getLoginErrorMessage("username")}}
               </mat-error>
               <mat-hint>Enter your username.</mat-hint>
@@ -30,11 +30,10 @@ TODO: remove after verifying data captured correctly loginForm.value: {{loginFor
               <mat-label for="passwordIn">password</mat-label>
               <input #passwordLogin matInput required minlength
                 type="password" class="form-control" id="passwordIn"
-                (blur)="hidePassword=true;"
                 formControlName="password"
-                placeholder="Enter password" [type]="hidePassword ? 'password' : 'text'">
-              <mat-icon matSuffix (click)="hidePassword = !hidePassword">{{hidePassword ? 'visibility' : 'visibility_off'}}</mat-icon>
-              <mat-error *ngIf="passwordFC.touched && passwordFC.invalid && passwordFC.dirty">
+                placeholder="Enter password" [type]="getPasswordFieldType()">
+              <mat-icon matSuffix (click)="hidePasswordClick($event)">{{getIconVisiblityString()}}</mat-icon>
+              <mat-error *ngIf="isInvalidWithTouchedOrDirtyControl('password')">
                 {{getLoginErrorMessage("password")}}
               </mat-error>
               <mat-hint>Enter your password.</mat-hint>
@@ -48,7 +47,7 @@ TODO: remove after verifying data captured correctly loginForm.value: {{loginFor
           <button mat-raised-button
             type="submit" class="btn btn-success btn-primary"
             aria-label="login button"
-            [disabled]="loginForm.invalid"
+            [disabled]="loginForm.invalid || loginSubmitted"
             (click)="onSubmit()"
             >Login
           </button>
@@ -64,7 +63,6 @@ TODO: remove after verifying data captured correctly loginForm.value: {{loginFor
       </mat-card-actions>
       <mat-card-footer class="basic-container basic-card-footer">
         <div>
-          <p>User: {{username}}  Password: {{password}} </p>
           <p>New to Quizki?
             &nbsp;
             <a  (click)="cancelLogin()"

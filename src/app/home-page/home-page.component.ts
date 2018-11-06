@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ApiService } from '../_services/api.service';
 
 @Component({
   selector: 'app-home-page',
@@ -8,17 +7,10 @@ import { ApiService } from '../_services/api.service';
 })
 export class HomePageComponent implements OnInit {
 
-  constructor(private apiService: ApiService) { }
+  constructor() { }
 
   ngOnInit() {
 
-  }
-
-  onBtnClick() {
-  	this.apiService.post('/api/users/isUnique', {name: 'johnathan'})
-      .subscribe((data) => {
-  		    console.log(JSON.stringify(data));
-  	})
   }
 
 }
