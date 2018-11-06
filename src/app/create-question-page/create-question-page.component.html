@@ -158,9 +158,13 @@
 <table style="width:100%;">
     <tr>
         <td style="width:30%"></td>
-        <td style="width:40%; text-align:center;">
+        <td style="width:20%; text-align:center;">
             &nbsp;&nbsp;<br>
             <button (click)="onSaveQuestions()" mat-raised-button style="width:90%;">Save Question</button>
+        </td>
+        <td style="width:20%; text-align:center;">
+            &nbsp;&nbsp;<br>
+            <button (click)="onGetQuestions()" style="width:90%;">Get Questions - This Topic</button> 
         </td>
         <td style="width:30%"></td>
     </tr>
@@ -212,5 +216,10 @@
         
     </div>
 <br>
+
+<br><br>
+<div>{{dataReceivedResponse}}</div>
+
+
 </div>
 <br><br>

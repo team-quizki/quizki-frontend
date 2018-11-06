@@ -141,10 +141,26 @@ export class CreateQuestionPageComponent {
             (response:any) => { this.dataSent(response); console.log(response);},
             (error:any) => console.log("** " + JSON.stringify(error))
         );
-    }   
+    } 
+    
+    onGetQuestions(){
+          this.firebaseService.getQuestions()
+          .subscribe(
+              (response: HttpResponse<any[]>) => { 
+               const data = response;
+               this.dataReceived(data);
+               console.log(data);
+              },
+              (error) => console.log("get error is: " + JSON.stringify(error))
+          )
+    }  
     
     dataSent(dataSentResponse:any){
         // this.dataSentResponse = "Data base created on Firebase is: " + JSON.stringify(dataSentResponse);
         this.dataSentResponse = "Data base created on Firebase is: " + dataSentResponse.name;
     } 
+    
+    dataReceived(dataReceivedResponse:any){
+        this.dataReceivedResponse = "Data received from Firebase is: " + JSON.stringify(dataReceivedResponse); //working line
+    }
 }
