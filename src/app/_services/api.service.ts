@@ -26,7 +26,7 @@ export class ApiService {
   getHttpHeadersWithBase64Authorization(username:string, password: string) {
   	let rtn = {
   		headers: new HttpHeaders({
-        'Authorization': "Basic " + btoa(`${username}:${password}`),
+                        'Authorization': "Basic " + btoa(`${username}:${password}`),
   			'Content-Type': 'application/json'
   		})//,
       //responseType: 'json'
@@ -43,8 +43,14 @@ export class ApiService {
       );
   }
 
-  post(url, data) {
-  	return this.http.post(baseUrl + url, data, this.getHttpHeaders())
+  post(url:any, data:any) {
+      
+        var username = "johnathan";
+        var password = "password";
+        // alert(baseUrl + "" + url);
+   	// return this.http.post(baseUrl + url, data, this.getHttpHeadersWithBase64Authorization(username, password))
+        return this.http.post('http://localhost:8080/api/question', data, this.getHttpHeadersWithBase64Authorization(username, password))
+  	// return this.http.post(baseUrl + url, data, this.getHttpHeaders())
   }
 
   private handleError(error: HttpErrorResponse) {
