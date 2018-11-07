@@ -5,7 +5,7 @@ import { MatInputModule } from '@angular/material/input';
 import { EditorModule } from '@tinymce/tinymce-angular';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 
-import { FirebaseService } from './create-question-http.service';
+import { CreateQuestionHTTPService } from './create-question-http.service';
 
 export interface questiontype {
     value: string;
@@ -97,7 +97,7 @@ export class CreateQuestionPageComponent {
     checked:boolean = true;
     id:string = "checkbox1";
     
-    constructor(private firebaseService: FirebaseService){
+    constructor(private createQuestionHTTPservice: CreateQuestionHTTPService){
         this.tinyMCEeditorData;
         this.createQuestionDTO[0].userId = this.GETid;
     };
@@ -136,7 +136,7 @@ export class CreateQuestionPageComponent {
         this.showReferences = JSON.stringify(this.createQuestionDTO[0].references); 
         this.showAnswers = JSON.stringify(this.createQuestionDTO[0].choices); 
         
-        this.firebaseService.storeQuestions(this.createQuestionDTO)
+        this.createQuestionHTTPservice.storeQuestions(this.createQuestionDTO)
         .subscribe(
             (response:any) => { this.dataSent(response); console.log(response);},
             (error:any) => console.log("** " + JSON.stringify(error))
@@ -144,7 +144,7 @@ export class CreateQuestionPageComponent {
     } 
     
     onGetQuestions(){
-          this.firebaseService.getQuestions()
+          this.createQuestionHTTPservice.getQuestions()
           .subscribe(
               (response: HttpResponse<any[]>) => { 
                const data = response;
