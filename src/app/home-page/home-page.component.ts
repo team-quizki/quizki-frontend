@@ -9,7 +9,7 @@ import { ApiService } from '../_services/api.service';
 })
 export class HomePageComponent implements OnInit {
 
-  constructor(apiService: ApiService) { }
+  constructor(private apiService: ApiService) { }
 
   ngOnInit() {
 
