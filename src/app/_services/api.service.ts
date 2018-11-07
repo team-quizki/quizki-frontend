@@ -52,6 +52,19 @@ export class ApiService {
         return this.http.post('http://localhost:8080/api/question', data, this.getHttpHeadersWithBase64Authorization(username, password))
   	// return this.http.post(baseUrl + url, data, this.getHttpHeaders())
   }
+  
+/*   
+post(url, data) {
+    // TODO: get the username and password from a service instead.
+    var username = "johnathan";
+    var password = "password";
+
+  	return this.http.post(baseUrl + url, data, this.getHttpHeadersWithBase64Authorization(username, password))
+  }  
+
+*/
+  
+  
 
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
