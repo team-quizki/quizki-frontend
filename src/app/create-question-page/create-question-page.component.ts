@@ -91,7 +91,6 @@ export class CreateQuestionPageComponent {
     }
     
     clickedQuestionType(quesType:any){
-        alert(quesType);
         this.createQuestionDTO.type = quesType;
     }
     
