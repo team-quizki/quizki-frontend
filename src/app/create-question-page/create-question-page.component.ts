@@ -4,24 +4,9 @@ import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { EditorModule } from '@tinymce/tinymce-angular';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatSnackBar } from '@angular/material';
 
-// import { CreateQuestionHTTPService } from './create-question-http.service';
 import { ApiService } from './../_services/api.service';
-
-export interface questiontype {
-    value: string;
-    viewValue: string;
-}
-
-export interface Topics {
-    value: string;
-    viewValue: string;
-}
-
-export interface QuestionType {
-    value: string;
-    viewValue: string;
-}
 
 @Component({
     selector: 'app-create-question-page',
@@ -32,32 +17,28 @@ export interface QuestionType {
 export class CreateQuestionPageComponent {
     
     title:string = "Create a Question:";
-    GETid:number = 23;                              // user ID placeholder, otherwise obtained from DB when user logs in.
-    dataSentResponse:any = "";
-    dataReceivedResponse = "";
+    GETid:number = 1;                              // user ID placeholder, otherwise obtained from DB when user logs in.
     currentTopic:string = "";
-    showReferences:string = "";
-    showAnswers:string = "";
     
      // Data Transfer Object
     createQuestionDTO =
     {
-        "userId": 0,
+        "userId": 1,
         "text": "RequiredQuestionText",
         "description": "",
-        "type": 0,
-        "topics": ["string1", "string2", "stringN"],
-        "references": ["ref1", "ref2", "ref3", "ref4"],
+        "type": 1,
+        "topics": ["default"],
+        "references": ["reference1", "reference2", "reference3", "reference4"],
         "difficulty": 1,
         "choices": [
-                    {"text":"", "isCorrect":null}, 
-                    {"text":"", "isCorrect":null},
-                    {"text":"", "isCorrect":null},
-                    {"text":"", "isCorrect":null}
+                    {"text":"", "isCorrect":true}, 
+                    {"text":"", "isCorrect":false},
+                    {"text":"", "isCorrect":false},
+                    {"text":"", "isCorrect":false}
                    ]
     };
     
-    topics: Topics[] = [
+    topics = [
         {value: 'topic-0', viewValue: 'Topic 0'},   // topics placeholder, otherwise obtained from DB when user loads page.  
         {value: 'topic-1', viewValue: 'Topic 1'},
         {value: 'topic-2', viewValue: 'Topic 2'},
@@ -66,9 +47,9 @@ export class CreateQuestionPageComponent {
         {value: 'topic-5', viewValue: 'Topic 5'}
     ];
   
-    newTopic:string = "";                           // currently not part of the DTO
+    newTopic:string = "";                           
     
-    questionType: QuestionType[] = [
+    questionType = [
         {value: "1",    viewValue: 'Single'},
         {value: "2",    viewValue: 'Multiple'},
         {value: "3",    viewValue: 'Phrase'},
@@ -77,18 +58,15 @@ export class CreateQuestionPageComponent {
     ];
   
     briefQuestionDesc:string = "Question overview";
-  
     tinyMCEeditorData:string = "Enter your question here:";
-    
     answer1:string = "answer 1";
-    answer1isCorrect = false;
+    answer1isCorrect = true;
     answer2:string = "answer 2";
     answer2isCorrect = false;
     answer3:string = "answer 3";
     answer3isCorrect = false;
     answer4:string = "answer 4";
     answer4isCorrect = false;
-    
     reference1:string = "reference 1";
     reference2:string = "reference 2";
     reference3:string = "reference 3";
@@ -98,66 +76,69 @@ export class CreateQuestionPageComponent {
     checked:boolean = true;
     id:string = "checkbox1";
     
-    constructor(private apiService: ApiService){
-        this.tinyMCEeditorData;
+    constructor(private apiService: ApiService, public snackBar: MatSnackBar){
         this.createQuestionDTO.userId = this.GETid;
     };
   
     updateCurrentTopic(){
         this.currentTopic = this.newTopic;
+        this.createQuestionDTO.topics.push(this.newTopic);
     }
     
     clickedTopic(topicChoice:any){
         this.currentTopic = topicChoice;
-        this.createQuestionDTO.topics = topicChoice;
+        this.createQuestionDTO.topics.push(topicChoice);
     }
     
     clickedQuestionType(quesType:any){
+        alert(quesType);
         this.createQuestionDTO.type = quesType;
     }
-   
+    
     onSaveQuestions() {
           
         this.createQuestionDTO.text = this.tinyMCEeditorData;  
         this.createQuestionDTO.description = this.briefQuestionDesc;
-        this.createQuestionDTO.choices[0].text = this.answer1 + ":";
-        this.createQuestionDTO.choices[0].isCorrect = this.answer1isCorrect + ", ";
-        this.createQuestionDTO.choices[1].text = this.answer2;
-        this.createQuestionDTO.choices[1].isCorrect = this.answer2isCorrect;
-        this.createQuestionDTO.choices[2].text = this.answer3;
-        this.createQuestionDTO.choices[2].isCorrect = this.answer3isCorrect;
-        this.createQuestionDTO.choices[3].text = this.answer4;
-        this.createQuestionDTO.choices[3].isCorrect = this.answer4isCorrect;
+         
+        this.createQuestionDTO.choices.length = 0;       
+        this.createQuestionDTO.choices.push({"text":this.answer1, "isCorrect":this.answer1isCorrect});
+        this.createQuestionDTO.choices.push({"text":this.answer2, "isCorrect":this.answer2isCorrect});
+        this.createQuestionDTO.choices.push({"text":this.answer3, "isCorrect":this.answer3isCorrect});
+        this.createQuestionDTO.choices.push({"text":this.answer4, "isCorrect":this.answer4isCorrect});
         
-        this.createQuestionDTO.references[0] = this.reference1;
-        this.createQuestionDTO.references[1] = this.reference2;
-        this.createQuestionDTO.references[2] = this.reference3;
-        this.createQuestionDTO.references[3] = this.reference4;
-                
-        this.showReferences = JSON.stringify(this.createQuestionDTO.references); 
-        this.showAnswers = JSON.stringify(this.createQuestionDTO.choices); 
-        
+        this.createQuestionDTO.references.push(this.reference1);
+        this.createQuestionDTO.references.push(this.reference2);
+        this.createQuestionDTO.references.push(this.reference3);
+        this.createQuestionDTO.references.push(this.reference4);
+          
+        this.createQuestionDTO.type = 1;    
         this.apiService.post('/api/question', this.createQuestionDTO)
         .subscribe(
-            (response:any) => {console.log(JSON.stringify(response));},
-            (error:any) => {console.log(JSON.stringify(error));}
+            (response:any) => {console.log(JSON.stringify(response));
+                               this.clearDTO(); 
+                               this.showStatusMsg("success")},
+            (error:any) => {console.log(JSON.stringify(error));
+                            this.showStatusMsg("failure");
+                            }
         );
-    } 
+    };
+    
+    clearDTO(){
+        this.tinyMCEeditorData = "Enter your question here:";
+        this.createQuestionDTO.topics.length = 0;
+        this.createQuestionDTO.topics.push("default");
+        this.createQuestionDTO.references.length = 0;
+        this.createQuestionDTO.choices.length = 0;
+   
+    };
+    
+    showStatusMsg(status:string){
+        if(status === "success"){
+            this.snackBar.open("Question Saved!", "", {panelClass:['success-msg'], verticalPosition:'top', duration:2000, });
+        }
+        if(status === "failure"){
+            this.snackBar.open("Question Failure", "Check entries", {panelClass:['failure-msg'],  verticalPosition:'top', duration:2000, });
+        }
+    };
+    
 }
-/* 
-this.apiService.post('/api/question', 
-      {
-      "userId": 1,
-      "text": "To be or not to be, that is the question!",
-      "description": "Testing create question endpoint",
-      "type": 1,
-      "topics": ["Shakespeare", "Existentialism", "Suicide"],
-      "references": ["http://www.somesite.com/hamlet", "a plain text reference"],
-      "difficulty": 1,
-      "choices": [{"text":"To Be", "isCorrect":true}, {"text":"Not to be", "isCorrect":false}]
-      })
-      .subscribe((data) => {
-          console.log(JSON.stringify(data));
-    })
-*/
-        

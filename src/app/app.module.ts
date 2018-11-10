@@ -20,7 +20,8 @@ import { MatButtonModule,
          MatSidenavModule,
          MatSortModule,
          MatTableModule,
-         MatToolbarModule
+         MatToolbarModule,
+         MatSnackBarModule
         } from '@angular/material';
 
 //app level imports here
@@ -105,6 +106,7 @@ import { QuestionTypeComponent } from './questions/question/question-types/quest
     MatSortModule,
     MatTableModule,
     MatToolbarModule,
+    MatSnackBarModule,
     NavigationModule,
     DataTableModule,
     EditorModule
