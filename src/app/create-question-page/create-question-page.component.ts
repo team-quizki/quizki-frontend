@@ -50,11 +50,11 @@ export class CreateQuestionPageComponent {
     newTopic:string = "";                           
     
     questionType = [
-        {value: "1",    viewValue: 'Single'},
-        {value: "2",    viewValue: 'Multiple'},
-        {value: "3",    viewValue: 'Phrase'},
-        {value: "4",    viewValue: 'Sequence'},
-        {value: "5",    viewValue: 'Set'}
+        {value: "1",    viewValue: 'Single',   notAvailable: false},
+        {value: "2",    viewValue: 'Multiple', notAvailable: true},
+        {value: "3",    viewValue: 'Phrase',   notAvailable: true},
+        {value: "4",    viewValue: 'Sequence', notAvailable: true},
+        {value: "5",    viewValue: 'Set',      notAvailable: true}
     ];
   
     briefQuestionDesc:string = "Question overview";
@@ -110,7 +110,6 @@ export class CreateQuestionPageComponent {
         this.createQuestionDTO.references.push(this.reference3);
         this.createQuestionDTO.references.push(this.reference4);
           
-        this.createQuestionDTO.type = 1;    
         this.apiService.post('/api/question', this.createQuestionDTO)
         .subscribe(
             (response:any) => {console.log(JSON.stringify(response));

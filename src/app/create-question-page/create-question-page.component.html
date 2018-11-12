@@ -33,7 +33,7 @@
             <td title="Select question type (see help for examples)" style="width:33%; text-align:center;">
                 <mat-form-field style='width:80%;' >
                     <mat-select placeholder="Select Question Type">
-                        <mat-option *ngFor="let quesType of questionType" [value]="quesType.value" (click)="clickedQuestionType(quesType.value)">
+                        <mat-option *ngFor="let quesType of questionType" [value]="quesType.value" [disabled]="quesType.notAvailable" (click)="clickedQuestionType(quesType.value)">
                             {{quesType.viewValue}}
                         </mat-option>
                     </mat-select>
