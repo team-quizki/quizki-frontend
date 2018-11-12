@@ -6,9 +6,7 @@ import { UserRegistration } from './../user/user-registration';
 import { RegisterService,
   ValidateUsernameNotTaken,
   ValidateEmailNotTaken} from './register.service';
-//import { map } from '../../../node_modules/rxjs/operators';
-
-//import { map } from '../../../node_modules/rxjs/operators';
+  import { CommonFieldControlsService } from '../_services/common-field-controls.service';
 
 @Component({
   selector: 'app-registration',
@@ -20,15 +18,22 @@ export class RegistrationComponent implements OnInit {
 
 // variables
   registerForm: FormGroup;
+
   hidePassword: boolean;
+  displayVisabiltyIconStatus: string;
+  displayTypeTextOrPassword: string;
+
   errorMessage: string;
+
   registerSubmitted: boolean;
   registerStatus: string;
+
   hideWhileRegistering: boolean;
   hideLoginButton: boolean;
   specificUserRegistration = new UserRegistration('','',2,'','');
 
   constructor(
+    public commonFCS: CommonFieldControlsService,
     private formBuilder: FormBuilder,
     private registerService: RegisterService
   ) {
@@ -36,7 +41,11 @@ export class RegistrationComponent implements OnInit {
   }
 
   ngOnInit() {
+
     this.hidePassword = true;
+    this.displayVisabiltyIconStatus = 'visibility';
+    this.displayTypeTextOrPassword = 'password';
+
     this.registerSubmitted = false;
     this.registerStatus = "Fill in form.";
     this.hideWhileRegistering = false;
@@ -96,6 +105,11 @@ export class RegistrationComponent implements OnInit {
  get usernameFC() {return this.registerForm.get('username');}
  get emailFC() {return this.registerForm.get('email');}
  get passwordFC() {return this.registerForm.get('password');}
+
+ public isPossibleInvalidRegisterControl(fcName:string):boolean {
+   return this.registerForm.get(fcName).invalid
+      && (this.registerForm.get(fcName).touched || this.registerForm.get(fcName).dirty);
+ }
 
 // TODO: need to change getErrorMessage, so any form can use it.
 // yet solution works for the near term.

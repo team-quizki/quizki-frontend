@@ -62,9 +62,9 @@
               <input #passwordInput matInput required minlength pattern
                 type="password" class="form-control" id="password"
                 formControlName="password"
-                placeholder="Enter password" [type]="hidePassword ? 'password' : 'text'">
-              <mat-icon matSuffix (click)="hidePassword = !hidePassword">{{hidePassword ? 'visibility' : 'visibility_off'}}</mat-icon>
-              <mat-error *ngIf="passwordFC.invalid && (passwordFC.touched ||  passwordFC.dirty)">
+                placeholder="Enter password" [type]="commonFCS.getPasswordFieldType()">
+              <mat-icon matSuffix (click)="commonFCS.hidePasswordClick($event)">{{commonFCS.getIconVisiblityString()}}</mat-icon>
+              <mat-error *ngIf="usernameFC.invalid && (usernameFC.touched || usernameFC.dirty)">
                 {{getErrorMessage("password")}}
               </mat-error>
               <mat-hint>Use 5 or more numbers, letters, and special characters.</mat-hint>
@@ -93,7 +93,7 @@
           <button [hidden]=hideLoginButton mat-raised-button
             type="text" class="btn"
             aria-label="login button"
-            routerLink="/login"
+            routerLink="/dialog101/login"
             >Login
           </button>
 
@@ -104,9 +104,9 @@
           <p>Already registered?
             &nbsp;
             <a  (click)="registerForm.reset()"
-              routerLink="/login"
+              routerLink="/dialog101/login"
               aria-label="login"
-              href ="/login">Login</a>
+              href ="/dialog101/login">Login</a>
           </p>
           <br>
         </div>
