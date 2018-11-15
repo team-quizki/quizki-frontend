@@ -10,6 +10,7 @@ import { CreateExamPageComponent } from './create-exam-page/create-exam-page.com
 import { CreateQuestionPageComponent } from './create-question-page/create-question-page.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { LoginComponent} from './login/login.component';
+import { LoginDialogHostComponent } from './login-dialog-host/login-dialog-host.component';
 import { RegistrationComponent} from './registration/registration.component';
 
 //question imports
@@ -35,6 +36,7 @@ const appRoutes: Routes = [
   { path: 'create-question-page', component: CreateQuestionPageComponent, data: {pageTitle: "Create Question"} },
   { path: 'create-exam-page', component: CreateExamPageComponent, data: {pageTitle: "Create Exam"} },
   { path: 'login', component: LoginComponent, data: {pageTitle: "Login"} },
+  { path: ':id/login', component: LoginDialogHostComponent, data: {pageTitle: "Login Dialog"} },
   { path: 'registration', component: RegistrationComponent, data: {pageTitle: "Register"} },
 
   // add new pages for the router above this comment line.

@@ -9,6 +9,7 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { MatButtonModule,
          MatCardModule,
          MatCheckboxModule,
+         MatDialogModule,
          MatExpansionModule,
          MatFormFieldModule,
          MatIconModule,
@@ -55,6 +56,8 @@ import { QuestionReferenceComponent } from './questions/question/question-refere
 import { QuestionTopicComponent } from './questions/question/question-topics/question-topic/question-topic.component';
 import { QuestionDifficultyComponent } from './questions/question/question-difficulties/question-difficulty.component';
 import { QuestionTypeComponent } from './questions/question/question-types/question-type.component';
+import { LoginDialogHostComponent } from './login-dialog-host/login-dialog-host.component';
+import { CommonFieldControlsService } from './_services/common-field-controls.service';
 
 
 @NgModule({
@@ -78,7 +81,8 @@ import { QuestionTypeComponent } from './questions/question/question-types/quest
     CreateExamPageComponent,
     CreateQuestionPageComponent,
     PageNotFoundComponent,
-    RegistrationComponent
+    RegistrationComponent,
+    LoginDialogHostComponent
   ],
   imports: [
     BrowserModule,
@@ -91,6 +95,7 @@ import { QuestionTypeComponent } from './questions/question/question-types/quest
     MatButtonModule,
     MatCardModule,
     MatCheckboxModule,
+    MatDialogModule,
     MatExpansionModule,
     MatFormFieldModule,
     MatIconModule,
@@ -106,7 +111,7 @@ import { QuestionTypeComponent } from './questions/question/question-types/quest
     NavigationModule,
     DataTableModule
 ],
-  providers: [ ApiService ],
-  bootstrap: [AppComponent]
+  providers: [ ApiService, CommonFieldControlsService ],
+  bootstrap: [ AppComponent ]
 })
 export class AppModule { }

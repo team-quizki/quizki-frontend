@@ -1,8 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { FormBuilder, FormControl, FormControlName, FormGroup, Validators } from '@angular/forms';
 
 import { LoginService } from './login.service'
 import {User, Roles} from '../user/user';
+import { MAT_DIALOG_DATA, MatDialogRef } from '../../../node_modules/@angular/material';
+import { LoginDialogHostService } from '../login-dialog-host/login-dialog-host.service';
+import { CommonFieldControlsService } from '../_services/common-field-controls.service';
 
 @Component({
   selector: 'app-login',
@@ -17,6 +20,7 @@ export class LoginComponent implements OnInit {
   roles = new Roles(0,"");
   user = new User(0,this.roles,"","",1,"","",false);
 
+  routeOnCloseUrl: string;
   loginForm: FormGroup;
 
   hidePassword: boolean;
@@ -26,13 +30,21 @@ export class LoginComponent implements OnInit {
   loginErrorMessage: string;
   loginSubmitted: boolean;
 
-  constructor(private formBuilder: FormBuilder,
-      private loginService: LoginService) { }
+  constructor(
+      public commonFCS: CommonFieldControlsService,
+      public loginDHS:LoginDialogHostService,
+      private formBuilder: FormBuilder,
+      private loginService: LoginService,
+      public dialogRef: MatDialogRef<LoginComponent>, @Inject(MAT_DIALOG_DATA) public data: any
+    ) {
+        console.log('Injected data', data)
+    }
 
   ngOnInit() {
     this.loginStatus = "Logged Out";
     this.username = '';
     this.password = '';
+    this.loginDHS.setRouteOnCloseToUrl('/home-page');
 
     this.hidePassword = true;
     this.displayVisabiltyIconStatus = 'visibility';
@@ -40,8 +52,6 @@ export class LoginComponent implements OnInit {
 
     this.loginErrorMessage = "";
     this.loginSubmitted = false;
-
-
 
     this.loginForm = this.formBuilder.group({
       username: ['', [Validators.required, Validators.minLength(5)]],
@@ -57,6 +67,7 @@ export class LoginComponent implements OnInit {
    get usernameFC() {return this.loginForm.get('username');}
    get passwordFC() {return this.loginForm.get('password');}
 
+/*
    public hidePasswordInField(){
      return this.hidePassword = true;
    }
@@ -83,6 +94,7 @@ export class LoginComponent implements OnInit {
    public getIconVisiblityString(){
      return this.isPasswordField() ? 'visibility_off' : 'visibility';
    }
+*/
 
    public isInvalidWithTouchedOrDirtyControl(fcName:string):boolean {
      return this.loginForm.get(fcName).invalid
@@ -109,14 +121,22 @@ export class LoginComponent implements OnInit {
       return this.loginErrorMessage;
   }
 
+
   private cancelLogin(){
     // consider asking the user for cancel confirmation.
     this.loginForm.reset();
 
     this.username = "";
     this.password = "";
-    // routed to homepage is done on the button. of course eventually,
-    // routing should be back page the user was on orginially ...
+
+    this.dialogRef.close();
+
+  }
+
+  private prepareToTransferToRegistation(){
+    // consider asking the user for cancel confirmation.
+    this.loginDHS.setRouteOnCloseToUrl('/registration');
+    this.cancelLogin()
   }
 
   private onSubmit() {
@@ -127,7 +147,7 @@ export class LoginComponent implements OnInit {
       this.password = this.passwordFC.value;
 
       if(this.login()){
-        //note sure why this is in an if...
+        this.dialogRef.close(); // not sure this ever gets executed
       }
 
   }
@@ -147,10 +167,13 @@ export class LoginComponent implements OnInit {
           this.loginForm.setErrors({'invalid': true});
           this.loginSubmitted = false;
         },
-        () => {this.loginForm.reset(); /*route somewhere*/ }
+        () => {this.loginForm.reset(); this.dialogRef.close() }
       );
   }
 
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
 
   // TODO: Remove these when done, it is just used to verify data capturing to correct variable
   get loginFormDiagnostic() { return JSON.stringify(this.loginForm.value); }
