@@ -1,7 +1,3 @@
-<!--
-TODO: remove after verifying data captured correctly loginForm.value: {{loginFormDiagnostic}}
-<br>
--->
 <div class="mat-typography row">
   <div>
     <mat-card>
@@ -24,21 +20,6 @@ TODO: remove after verifying data captured correctly loginForm.value: {{loginFor
               <mat-hint>Enter your username.</mat-hint>
             </mat-form-field>
           </div>
-
-          <!--a class="basic-container">
-            <mat-form-field appearance="standard">
-              <mat-label for="passwordIn">password</mat-label>
-              <input #passwordLogin matInput required minlength
-                type="password" class="form-control" id="passwordIn"
-                formControlName="password"
-                placeholder="Enter password" [type]="getPasswordFieldType()">
-              <mat-icon matSuffix (click)="hidePasswordClick($event)">{{getIconVisiblityString()}}</mat-icon>
-              <mat-error *ngIf="isInvalidWithTouchedOrDirtyControl('password')">
-                {{getLoginErrorMessage("password")}}
-              </mat-error>
-              <mat-hint>Enter your password.</mat-hint>
-            </mat-form-field>
-          </a-->
 
           <a class="basic-container">
             <mat-form-field appearance="standard">
