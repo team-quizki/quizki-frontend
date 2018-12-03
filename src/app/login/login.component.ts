@@ -2,8 +2,8 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { FormBuilder, FormControl, FormControlName, FormGroup, Validators } from '@angular/forms';
 
 import { LoginService } from './login.service'
-import {User, Roles} from '../user/user';
-import { MAT_DIALOG_DATA, MatDialogRef } from '../../../node_modules/@angular/material';
+import { User, Roles} from '../user/user';
+import { MatDialogModule, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { LoginDialogHostService } from '../login-dialog-host/login-dialog-host.service';
 import { CommonFieldControlsService } from '../_services/common-field-controls.service';
 
