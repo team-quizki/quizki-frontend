@@ -114,9 +114,7 @@ export class LoginComponent implements OnInit {
       this.username = this.usernameFC.value;
       this.password = this.passwordFC.value;
 
-      if(this.login()){
-        this.dialogRef.close(); // not sure this ever gets executed
-      }
+      this.login();
 
   }
 
