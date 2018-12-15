@@ -22,7 +22,7 @@ describe('ApiService', () => {
     // Inject the http service and test controller for each test
     httpClient = TestBed.get(HttpClient);
     httpTestingController = TestBed.get(HttpTestingController);
-    service = new ApiService(httpClient);
+    service = TestBed.get(ApiService);
   });
 
   afterEach(() => {
@@ -35,13 +35,12 @@ describe('ApiService', () => {
   });
 
   it('#getHttpHeadersWithBase64Authorization should return httpHeaders json object ', () => {
-    const paramUsername = "username";
-    const paramPassword = "password";
+    const paramUsername = 'username';
+    const paramPassword = 'password';
     expect(service.getHttpHeadersWithBase64Authorization(paramUsername, paramPassword)).toBeDefined();
   });
 
   it('should be created', () => {
-    const service: ApiService = TestBed.get(ApiService);
     expect(service).toBeTruthy();
   });
 });
