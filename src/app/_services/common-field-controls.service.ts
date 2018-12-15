@@ -5,17 +5,17 @@ import { Injectable } from '@angular/core';
 })
 export class CommonFieldControlsService {
 
-hidePassword:boolean;
+hidePassword: boolean;
 
   constructor() {
     this.hidePassword = true;
   }
 
-  public hidePasswordInField(){
+  public hidePasswordInField() {
     return this.hidePassword = true;
   }
 
-  public showPasswordInField(){
+  public showPasswordInField() {
     return this.hidePassword = false;
   }
 
@@ -28,10 +28,11 @@ hidePassword:boolean;
   }
 
   public hidePasswordClick($event): boolean {
-    if(this.isPasswordField())
+    if (this.isPasswordField()) {
       return this.showPasswordInField();
-    else
+    } else {
       return this.hidePasswordInField();
+    }
   }
 
   public getIconVisiblityString(): string {

@@ -6,7 +6,10 @@ describe('CommonFieldControlsService', () => {
 
   let service: CommonFieldControlsService;
 
-  beforeEach(() => { service = new CommonFieldControlsService(); });
+  beforeEach(() => {
+    TestBed.configureTestingModule({});
+    service = TestBed.get(CommonFieldControlsService);
+  });
 
   it('#hidePasswordInField should return boolean true', () => {
     expect(service.hidePasswordInField()).toBe(true);
@@ -45,7 +48,6 @@ describe('CommonFieldControlsService', () => {
   });
 
   it('should be created', () => {
-//    const service: CommonFieldControlsService = TestBed.get(CommonFieldControlsService);
     expect(service).toBeTruthy();
   });
 });
