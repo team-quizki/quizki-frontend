@@ -52,7 +52,7 @@ export const appRoutes: Routes = [
       // { enableTracing: false }
       )
   ],
-  exports: [ RouterModule, appRoutes ]
+  exports: [ RouterModule ]
 })
 
 export class AppRoutingModule { }
