@@ -2,8 +2,8 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { FormBuilder, FormControl, FormControlName, FormGroup, Validators } from '@angular/forms';
 
 import { LoginService } from './login.service'
-import {User, Roles} from '../user/user';
-import { MAT_DIALOG_DATA, MatDialogRef } from '../../../node_modules/@angular/material';
+import { User, Roles} from '../user/user';
+import { MatDialogModule, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { LoginDialogHostService } from '../login-dialog-host/login-dialog-host.service';
 import { CommonFieldControlsService } from '../_services/common-field-controls.service';
 
@@ -24,8 +24,6 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
 
   hidePassword: boolean;
-  displayVisabiltyIconStatus: string;
-  displayTypeTextOrPassword: string;
 
   loginErrorMessage: string;
   loginSubmitted: boolean;
@@ -37,7 +35,7 @@ export class LoginComponent implements OnInit {
       private loginService: LoginService,
       public dialogRef: MatDialogRef<LoginComponent>, @Inject(MAT_DIALOG_DATA) public data: any
     ) {
-        console.log('Injected data', data)
+        //console.log('Injected data: ', data)
     }
 
   ngOnInit() {
@@ -47,8 +45,6 @@ export class LoginComponent implements OnInit {
     this.loginDHS.setRouteOnCloseToUrl('/home-page');
 
     this.hidePassword = true;
-    this.displayVisabiltyIconStatus = 'visibility';
-    this.displayTypeTextOrPassword = 'password';
 
     this.loginErrorMessage = "";
     this.loginSubmitted = false;
@@ -67,34 +63,6 @@ export class LoginComponent implements OnInit {
    get usernameFC() {return this.loginForm.get('username');}
    get passwordFC() {return this.loginForm.get('password');}
 
-/*
-   public hidePasswordInField(){
-     return this.hidePassword = true;
-   }
-
-   public showPasswordInField(){
-     return this.hidePassword = false;
-   }
-
-   public getPasswordFieldType():string {
-     return this.hidePassword ? 'password' : 'text';
-   }
-
-   public isPasswordField(){
-     return this.hidePassword === true;
-   }
-
-   public hidePasswordClick($event){
-     if(this.isPasswordField())
-       this.showPasswordInField();
-     else
-       this.hidePasswordInField();
-   }
-
-   public getIconVisiblityString(){
-     return this.isPasswordField() ? 'visibility_off' : 'visibility';
-   }
-*/
 
    public isInvalidWithTouchedOrDirtyControl(fcName:string):boolean {
      return this.loginForm.get(fcName).invalid
@@ -146,9 +114,7 @@ export class LoginComponent implements OnInit {
       this.username = this.usernameFC.value;
       this.password = this.passwordFC.value;
 
-      if(this.login()){
-        this.dialogRef.close(); // not sure this ever gets executed
-      }
+      this.login();
 
   }
 
@@ -162,7 +128,6 @@ export class LoginComponent implements OnInit {
           this.user.loggedInNow();
         },
         (error) => {
-          console.log("in login failed error = " + JSON.stringify(error));
           this.loginStatus = "Please correct username and password.";
           this.loginForm.setErrors({'invalid': true});
           this.loginSubmitted = false;
@@ -174,8 +139,5 @@ export class LoginComponent implements OnInit {
   onNoClick(): void {
     this.dialogRef.close();
   }
-
-  // TODO: Remove these when done, it is just used to verify data capturing to correct variable
-  get loginFormDiagnostic() { return JSON.stringify(this.loginForm.value); }
 
 }

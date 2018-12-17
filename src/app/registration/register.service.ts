@@ -35,7 +35,6 @@ export class RegisterService {
   {
 
     let apiUsersUrl = '/api/users';
-    console.log("in registerUser " + JSON.stringify(userRegistration));
     return this.apiService
       .post(apiUsersUrl, JSON.stringify(userRegistration));
   }
@@ -49,7 +48,6 @@ export class ValidateUsernameNotTaken {
       return registerService.isUniqueUsername(control.value).pipe(
         map((res) =>
         {
-          //console.log(JSON.stringify(res));
           return res.name ? null : { usernameTaken: true };
         }),
         catchError(() => null)
@@ -64,7 +62,6 @@ export class ValidateEmailNotTaken {
       return registerService.isUniqueEmail(control.value).pipe(
         map((res) =>
         {
-          //console.log(JSON.stringify(res));
           return res.email ? null : { emailTaken: true };
         }),
         catchError(() => null)

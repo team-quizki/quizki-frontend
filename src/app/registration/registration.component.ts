@@ -20,8 +20,6 @@ export class RegistrationComponent implements OnInit {
   registerForm: FormGroup;
 
   hidePassword: boolean;
-  displayVisabiltyIconStatus: string;
-  displayTypeTextOrPassword: string;
 
   errorMessage: string;
 
@@ -43,8 +41,6 @@ export class RegistrationComponent implements OnInit {
   ngOnInit() {
 
     this.hidePassword = true;
-    this.displayVisabiltyIconStatus = 'visibility';
-    this.displayTypeTextOrPassword = 'password';
 
     this.registerSubmitted = false;
     this.registerStatus = "Fill in form.";
@@ -156,7 +152,6 @@ export class RegistrationComponent implements OnInit {
     this.registerSubmitted = true; // temporarily prevent multiple submits
     this.hideWhileRegistering = true; // hides controles during registration
     this.registerStatus = "Processing. Please wait a moment!"
-    console.log("Form Submitted");
 
     //consider writing a set method
     this.specificUserRegistration.password = this.passwordFC.value;
@@ -166,15 +161,12 @@ export class RegistrationComponent implements OnInit {
     this.specificUserRegistration.fullname = this.fullnameFC.value;
 
     let localResult;
-    let localError;
     //need to add failure processing
     //for examples 1) username invalid, or 2) username valid & password invalid
 
     this.registerService.registerUser(this.specificUserRegistration)
         .subscribe(
           (result) => {
-            localResult = result
-            console.log("in onSubmit, SUCCESS registerUser = " + JSON.stringify(localResult));
             this.hideWhileRegistering = false;
             this.registerStatus = "Registration complete. Please login."
             this.hideLoginButton = false;
@@ -185,15 +177,8 @@ export class RegistrationComponent implements OnInit {
             this.hideLoginButton = true;
             this.hideWhileRegistering = false;
             this.registerStatus = "Registration failed."
-            console.log("in onSubmit, resultError of registerUser = " + JSON.stringify(resultError));
-            console.log("resultError['errors']= " + JSON.stringify(resultError["errors"]));
           }
         );
-
-    //TODO: remove console.log and add other funtionaliy like:
-    // call to backend to created registration and send to login.
-    // perhaps route to login on the button after the registration completes
-    // successfully
 
   }
 

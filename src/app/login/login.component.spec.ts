@@ -1,6 +1,8 @@
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+
 import { HttpClient } from '@angular/common/http';
 import {
          MatCardModule,
@@ -23,15 +25,23 @@ describe('LoginComponent', () => {
   let component: LoginComponent;
   let fixture: ComponentFixture<LoginComponent>;
   let apiServiceSpyObj = undefined;
+  let dialogRefStub = undefined;
+  let dialogDataStub = undefined;
 
   beforeEach(async(() => {
     apiServiceSpyObj = jasmine.createSpyObj('apiService', ['get'])
 
+    dialogDataStub = jasmine.createSpyObj('loginDialogDataStub',['dialogData'])
+    dialogRefStub = jasmine.createSpyObj('loginDialogRefStub', ['dialogRef'] )
+
     TestBed.configureTestingModule({
       imports : [ ReactiveFormsModule, BrowserAnimationsModule,
-        MatCardModule, MatFormFieldModule, MatIconModule, MatInputModule ],
+        MatCardModule, MatFormFieldModule, MatIconModule, MatInputModule,
+        MatDialogModule],
       declarations: [ LoginComponent ],
       providers: [
+        { provide: MAT_DIALOG_DATA, useValue: dialogDataStub },
+        { provide: MatDialogRef, useValue: dialogRefStub },
         { provide: LoginService, useValue: { requestUserLogin: jasmine.createSpy('get')}},
         { provide: ApiService, useValue: apiServiceSpyObj}
       ]

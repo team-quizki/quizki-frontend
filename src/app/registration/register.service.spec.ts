@@ -6,7 +6,7 @@ import { ApiService } from '../_services/api.service';
 describe('RegisterService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [ 
+      providers: [
       	{ provide: RegisterService, useClass: RegisterService },
 		    { provide: ApiService, useValue: { post: jasmine.createSpy('post') }},
        ]

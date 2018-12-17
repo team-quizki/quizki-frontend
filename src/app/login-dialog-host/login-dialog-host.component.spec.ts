@@ -1,9 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { LoginDialogHostComponent } from './login-dialog-host.component';
-import { MatDialog } from '@angular/material';
-import { Router } from '@angular/router';
-import { Subject } from 'rxjs';
+import { MatDialogModule } from '@angular/material';
+import { RouterTestingModule } from '@angular/router/testing';
+//import { Subject } from 'rxjs';
 
 
 
@@ -16,9 +16,9 @@ describe('LoginDialogHostComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ LoginDialogHostComponent ],
       imports: [
-        MatDialog,
-        Router,
-        Subject
+        MatDialogModule ,
+        RouterTestingModule//,
+        //Subject
       ],
       providers: [
         //{ provide: LoginDialogHostService, useValue: { routeToUrl: routeToUrlSpyObj, setRouteOnCloseToUrl: setRouteOnCloseToUrlSpyObj }}

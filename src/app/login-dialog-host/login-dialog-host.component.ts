@@ -33,8 +33,6 @@ export class LoginDialogHostComponent {
         data: { id: params.id }
       });
       this.currentDialog.afterClosed().subscribe((result) => {
-          console.log(" After Close of Dialog: " + JSON.stringify(result));
-          //need a conditional route here incase a known route exists
           router.navigateByUrl(loginDHS.routeToUrl());
       })
     })
