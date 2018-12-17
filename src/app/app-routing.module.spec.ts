@@ -32,6 +32,7 @@ import { CreateQuestionPageComponent } from './create-question-page/create-quest
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { LoginComponent } from './login/login.component';
 import { LoginDialogHostComponent } from './login-dialog-host/login-dialog-host.component';
+import { LoginDialogHostService } from './login-dialog-host/login-dialog-host.service';
 import { RegistrationComponent } from './registration/registration.component';
 import { AppRoutingModule, appRoutes } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -105,9 +106,16 @@ describe('AppRoutingModule', () => {
         QuestionChoicesComponent
       ],
       providers: [
-        { provide: NavigationService,
+        {
+          provide: NavigationService,
           useValue: {
             setPageTitle: jasmine.createSpy('setPageTitle')
+          }
+        },
+        {
+          provide: LoginDialogHostService,
+          useValue: {
+            setRouteOnCloseToUrl: jasmine.createSpy('setRouteOnCloseToUrl')
           }
         }
       ]
@@ -123,13 +131,67 @@ describe('AppRoutingModule', () => {
     router.initialNavigation();
   });
 
-  it('#app-rounting navigate to "" redirects to /home-page', fakeAsync(() => {
+  it('#app-routing navigate to "" redirects to /home-page', fakeAsync(() => {
     router.navigate(['']);
     tick();
     expect(location.path()).toBe('/home-page');
   }));
 
-  it('should create an instance', () => {
+  xit('#app-routing navigate to "home-page" takes you to /home-page', fakeAsync(() => {
+    router.navigate(['/home-page']);
+    tick();
+    expect(location.path()).toBe('/home-page');
+  }));
+
+  xit('#app-routing navigate to "generate-exam-page" takes you to /generate-exam-page', fakeAsync(() => {
+    router.navigate(['/generate-exam-page']);
+    tick();
+    expect(location.path()).toBe('/generate-exam-page');
+  }));
+
+  xit('#app-routing navigate to "search-for-an-exam-page" takes you to /search-for-an-exam-page', fakeAsync(() => {
+    router.navigate(['/search-for-an-exam-page']);
+    tick();
+    expect(location.path()).toBe('/search-for-an-exam-page');
+  }));
+
+  xit('#app-routing navigate to "create-question-page" takes you to /create-question-page', fakeAsync(() => {
+    router.navigate(['/create-question-page']);
+    tick();
+    expect(location.path()).toBe('/create-question-page');
+  }));
+
+  xit('#app-routing navigate to "create-exam-page" takes you to /create-exam-page', fakeAsync(() => {
+    router.navigate(['/create-exam-page']);
+    tick();
+    expect(location.path()).toBe('/create-exam-page');
+  }));
+
+  xit('#app-routing navigate to "login" takes you to /login', fakeAsync(() => {
+    router.navigate(['/login']);
+    tick();
+    expect(location.path()).toBe('/login');
+  }));
+
+  xit('#app-routing navigate to ":dialog101/login" takes you to /:dialog101/login', fakeAsync(() => {
+    router.navigate(['/:dialog101/login']);
+    tick();
+    expect(location.path()).toBe('/:dialog101/login');
+  }));
+
+  xit('#app-routing navigate to "registration" takes you to /registration', fakeAsync(() => {
+    router.navigate(['/registration']);
+    tick();
+    expect(location.path()).toBe('/registration');
+  }));
+
+  it('#app-routing navigate to "**" takes you to /page-not-found', fakeAsync(() => {
+    router.navigate(['/page-not-found']);
+    tick();
+    expect(location.path()).toBe('/page-not-found');
+  }));
+
+  it('#app-routing should create an instance', () => {
     expect(appRoutingModule).toBeTruthy();
   });
 
