@@ -13,7 +13,7 @@ import { LoginComponent} from './login/login.component';
 import { LoginDialogHostComponent } from './login-dialog-host/login-dialog-host.component';
 import { RegistrationComponent} from './registration/registration.component';
 
-//question imports
+// question imports
 /* saving these imports for use when processing original QuizkiTest functionality
 import { QuestionComponent } from './questions/question/question.component';
 import { QuestionTopicsComponent } from './questions/question/question-topics/question-topics.component';
@@ -28,28 +28,28 @@ import { QuestionTypeComponent } from './questions/question/question-types/quest
 */
 
 
-//for each component page add the path, component, and pageTitle
-const appRoutes: Routes = [
-  { path: 'home-page', component: HomePageComponent, data: {pageTitle: "Home"} },
-  { path: 'generate-exam-page', component: GenerateExamPageComponent, data: {pageTitle: "Generate Exam"} },
-  { path: 'search-for-an-exam-page', component: SearchForAnExamPageComponent, data: {pageTitle: "Search for an Exam"} },
-  { path: 'create-question-page', component: CreateQuestionPageComponent, data: {pageTitle: "Create Question"} },
-  { path: 'create-exam-page', component: CreateExamPageComponent, data: {pageTitle: "Create Exam"} },
-  { path: 'login', component: LoginComponent, data: {pageTitle: "Login"} },
-  { path: ':id/login', component: LoginDialogHostComponent, data: {pageTitle: "Login Dialog"} },
-  { path: 'registration', component: RegistrationComponent, data: {pageTitle: "Register"} },
+// for each component page add the path, component, and pageTitle
+export const appRoutes: Routes = [
+  { path: 'home-page', component: HomePageComponent, data: {pageTitle: 'Home'} },
+  { path: 'generate-exam-page', component: GenerateExamPageComponent, data: {pageTitle: 'Generate Exam'} },
+  { path: 'search-for-an-exam-page', component: SearchForAnExamPageComponent, data: {pageTitle: 'Search for an Exam'} },
+  { path: 'create-question-page', component: CreateQuestionPageComponent, data: {pageTitle: 'Create Question'} },
+  { path: 'create-exam-page', component: CreateExamPageComponent, data: {pageTitle: 'Create Exam'} },
+  { path: 'login', component: LoginComponent, data: {pageTitle: 'Login'} },
+  { path: ':id/login', component: LoginDialogHostComponent, data: {pageTitle: 'Login Dialog'} },
+  { path: 'registration', component: RegistrationComponent, data: {pageTitle: 'Register'} },
 
   // add new pages for the router above this comment line.
   // the empty path should always list as 2nd to last path.
   { path: '', redirectTo: '/home-page', pathMatch: 'full'},
   // Wild card route is always listed last and used when page is not found.
   { path: '**', component: PageNotFoundComponent }
-]
+];
 
 @NgModule({
   imports: [ RouterModule.forRoot(appRoutes,
       // to see the router events change enableTracing: true
-      //{ enableTracing: false }
+      // { enableTracing: false }
       )
   ],
   exports: [ RouterModule ]
