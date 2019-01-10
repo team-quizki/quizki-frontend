@@ -1,8 +1,16 @@
 
+export class Role {
+  constructor(
+    public id: number,
+    public name: string
+  ){}
+
+}
+
 export class User {
   constructor(
     public id: number,
-    public roles: Roles,
+    public role: Role,
     public password: string,
     public name: string,
     public enabled: number,
@@ -26,31 +34,16 @@ export class User {
     return this.loggedIn;
   }
 
-
   public setUserData(user:User){
     this.id = user.id;
-    this.roles.id = user.roles.id;
-    this.roles.name = user.roles.name;
+    this.role.id = user.role.id;
+    this.role.name = user.role.name;
     this.password = user.password;
     this.name = user.name;
     this.enabled = user.enabled;
     this.email = user.email;
     this.fullname = user.fullname;
-    if (user.demographic !== undefined){
-        this.demographic = user.demographic;
-    }
-    if (user.loggedIn !== undefined){
-        this.loggedIn = user.loggedIn;
-    }
+    this.demographic = user.demographic;
   }
-
-}
-
-
-export class Roles {
-  constructor(
-    public id: number,
-    public name: string
-  ){}
 
 }

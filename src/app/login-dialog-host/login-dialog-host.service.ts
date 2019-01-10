@@ -5,17 +5,17 @@ import { Injectable } from '@angular/core';
 })
 export class LoginDialogHostService {
 
-  routeOnCloseUrl:string;
+  routeOnCloseUrl: string;
 
   constructor() {
     this.setRouteOnCloseToUrl('/home-page');
   }
-  
+
   public routeToUrl(): string {
     return this.routeOnCloseUrl;
   }
 
-  public setRouteOnCloseToUrl(url: string){
+  public setRouteOnCloseToUrl(url: string) {
     this.routeOnCloseUrl = url;
   }
 }
