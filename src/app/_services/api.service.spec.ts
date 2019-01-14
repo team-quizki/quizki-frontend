@@ -14,11 +14,11 @@ describe('ApiService', () => {
   let httpClient: HttpClient;
   let httpTestingController: HttpTestingController;
 
-  const testFackUrl = '/api/testFackUrl';
-  const testBaseFackUrl = environment.apiUrl + testFackUrl;
+  const testFakeUrl = '/api/testFakeUrl';
+  const testBaseFakeUrl = environment.apiUrl + testFakeUrl;
   const testUsername = 'username';
   const testPassword = 'password';
-  const testFackData = {name: 'Test Fack Data'};
+  const testFakeData = {name: 'Test Fake Data'};
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -46,37 +46,37 @@ describe('ApiService', () => {
   });
 
   it('#api.get should be defined ', () => {
-    expect(service.get(testFackUrl, testUsername, testPassword)).toBeDefined();
+    expect(service.get(testFakeUrl, testUsername, testPassword)).toBeDefined();
   });
 
   it('#api.get can test HttpClient.get', () => {
-  //  const testFackData = {name: 'Test Fack Data'};
+  //  const testFakeData = {name: 'Test Fake Data'};
     const testHeader = service.getHttpHeadersWithBase64Authorization(testUsername, testPassword);
     // Make an HTTP GET request
-    httpClient.get<any>(testBaseFackUrl, testHeader)
+    httpClient.get<any>(testBaseFakeUrl, testHeader)
       .subscribe(data =>
         // When observable resolves, result should match test data
-        expect(data).toEqual(testFackData)
+        expect(data).toEqual(testFakeData)
       );
 
     // The following `expectOne()` will match the request's URL.
     // If no requests or multiple requests matched that URL
     // `expectOne()` would throw.
-    const req = httpTestingController.expectOne(testBaseFackUrl);
+    const req = httpTestingController.expectOne(testBaseFakeUrl);
 
     // Assert that the request is a GET.
     expect(req.request.method).toEqual('GET');
 
     // Respond with mock data, causing Observable to resolve.
     // Subscribe callback asserts that correct data was returned.
-    req.flush(testFackData);
+    req.flush(testFakeData);
   });
 
   it('#api.get can test for 404 error', () => {
     const errorMessage = 'deliberate 404 error';
     const testHeader = service.getHttpHeadersWithBase64Authorization(testUsername, testPassword);
 
-    httpClient.get<any>(testBaseFackUrl, testHeader).subscribe(
+    httpClient.get<any>(testBaseFakeUrl, testHeader).subscribe(
       data => fail('should have failed with the 404 error'),
       (error: HttpErrorResponse) => {
         expect(error.status).toEqual(404, 'status');
@@ -84,7 +84,7 @@ describe('ApiService', () => {
       }
     );
 
-    const req = httpTestingController.expectOne(testBaseFackUrl);
+    const req = httpTestingController.expectOne(testBaseFakeUrl);
 
     // Respond with mock error
     req.flush(errorMessage, { status: 404, statusText: 'Not Found' });
@@ -94,14 +94,14 @@ describe('ApiService', () => {
     const errorMessage = 'simulated network error';
     const testHeader = service.getHttpHeadersWithBase64Authorization(testUsername, testPassword);
 
-    httpClient.get<any>(testBaseFackUrl, testHeader).subscribe(
+    httpClient.get<any>(testBaseFakeUrl, testHeader).subscribe(
       data => fail('should have failed with the network error'),
       (error: HttpErrorResponse) => {
         expect(error.error.message).toEqual(errorMessage, 'message');
       }
     );
 
-    const req = httpTestingController.expectOne(testBaseFackUrl);
+    const req = httpTestingController.expectOne(testBaseFakeUrl);
 
     // Create mock ErrorEvent, raised when something goes wrong at the network level.
     // Connection timeout, DNS error, offline, etc
@@ -115,36 +115,36 @@ describe('ApiService', () => {
 
   it('#api.post should be defined ', () => {
     const testPostHeader = service.getHttpHeaders();
-    expect(httpClient.post(testFackUrl, testFackData, testPostHeader)).toBeDefined();
+    expect(httpClient.post(testFakeUrl, testFakeData, testPostHeader)).toBeDefined();
   });
 
   it('#api.post can test HttpClient.post', () => {
     const testPostHeader = service.getHttpHeaders();
 
     // Make an HTTP POST request
-    httpClient.post<any>(testBaseFackUrl, testFackData, testPostHeader)
+    httpClient.post<any>(testBaseFakeUrl, testFakeData, testPostHeader)
       .subscribe((res) => {
-        expect(res).toEqual(testFackData);
+        expect(res).toEqual(testFakeData);
       });
 
     // The following `expectOne()` will match the request's URL.
     // If no requests or multiple requests matched that URL
     // `expectOne()` would throw.
-    const req = httpTestingController.expectOne(testBaseFackUrl);
+    const req = httpTestingController.expectOne(testBaseFakeUrl);
 
     // Assert that the request is a GET.
     expect(req.request.method).toEqual('POST');
 
     // Respond with mock data, causing Observable to resolve.
     // Subscribe callback asserts that correct data was returned.
-    req.flush(testFackData);
+    req.flush(testFakeData);
   });
 
   it('#api.post can test for 404 error', () => {
     const errorMessage = 'deliberate 404 error';
     const testPostHeader = service.getHttpHeaders();
 
-    httpClient.post<any>(testBaseFackUrl, testFackData, testPostHeader).subscribe(
+    httpClient.post<any>(testBaseFakeUrl, testFakeData, testPostHeader).subscribe(
       data => fail('should have failed with the 404 error'),
       (error: HttpErrorResponse) => {
         expect(error.status).toEqual(404, 'status');
@@ -152,7 +152,7 @@ describe('ApiService', () => {
       }
     );
 
-    const req = httpTestingController.expectOne(testBaseFackUrl);
+    const req = httpTestingController.expectOne(testBaseFakeUrl);
 
     // Respond with mock error
     req.flush(errorMessage, { status: 404, statusText: 'Not Found' });
@@ -162,14 +162,14 @@ describe('ApiService', () => {
     const errorMessage = 'simulated network error';
     const testPostHeader = service.getHttpHeaders();
 
-    httpClient.post<any>(testBaseFackUrl, testFackData, testPostHeader).subscribe(
+    httpClient.post<any>(testBaseFakeUrl, testFakeData, testPostHeader).subscribe(
       data => fail('should have failed with the network error'),
       (error: HttpErrorResponse) => {
         expect(error.error.message).toEqual(errorMessage, 'message');
       }
     );
 
-    const req = httpTestingController.expectOne(testBaseFackUrl);
+    const req = httpTestingController.expectOne(testBaseFakeUrl);
 
     // Create mock ErrorEvent, raised when something goes wrong at the network level.
     // Connection timeout, DNS error, offline, etc
