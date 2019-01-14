@@ -21,7 +21,8 @@ import { MatButtonModule,
          MatSidenavModule,
          MatSortModule,
          MatTableModule,
-         MatToolbarModule
+         MatToolbarModule,
+         MatSnackBarModule
         } from '@angular/material';
 
 //app level imports here
@@ -31,6 +32,7 @@ import { DataTableModule } from './data-table/data-table.module'
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { ApiService } from './_services/api.service';
+import { EditorModule } from '@tinymce/tinymce-angular';
 
 
 
@@ -40,6 +42,8 @@ import { GenerateExamPageComponent } from './generate-exam-page/generate-exam-pa
 import { SearchForAnExamPageComponent } from './search-for-an-exam-page/search-for-an-exam-page.component';
 import { CreateExamPageComponent } from './create-exam-page/create-exam-page.component';
 import { CreateQuestionPageComponent } from './create-question-page/create-question-page.component';
+import { CreateQuestionPageComponentPart1 } from './create-question-page/create-question-page-part1/create-question-page-part1.component';
+
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { LoginComponent} from './login/login.component';
 import { RegistrationComponent } from './registration/registration.component';
@@ -80,6 +84,7 @@ import { CommonFieldControlsService } from './_services/common-field-controls.se
     SearchForAnExamPageComponent,
     CreateExamPageComponent,
     CreateQuestionPageComponent,
+    CreateQuestionPageComponentPart1,
     PageNotFoundComponent,
     RegistrationComponent,
     LoginDialogHostComponent
@@ -109,7 +114,9 @@ import { CommonFieldControlsService } from './_services/common-field-controls.se
     MatTableModule,
     MatToolbarModule,
     NavigationModule,
-    DataTableModule
+    DataTableModule,
+    EditorModule,
+    MatSnackBarModule
 ],
   providers: [ ApiService, CommonFieldControlsService ],
   bootstrap: [ AppComponent ]

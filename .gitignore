@@ -35,7 +35,9 @@ npm-debug.log
 yarn-error.log
 testem.log
 /typings
+/nbproject/
 
 # System Files
 .DS_Store
 Thumbs.db
+/nbproject/private/
