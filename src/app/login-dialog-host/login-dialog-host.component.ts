@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subject } from 'rxjs';
@@ -12,7 +12,7 @@ import { LoginDialogHostService } from './login-dialog-host.service';
   styleUrls: ['./login-dialog-host.component.css']
 })
 
-export class LoginDialogHostComponent {
+export class LoginDialogHostComponent implements OnDestroy {
 
   currentDialog: MatDialogRef<LoginComponent> = null;
   destroy = new Subject<any>();
@@ -22,7 +22,7 @@ export class LoginDialogHostComponent {
 
     route.params.pipe(takeUntil(this.destroy))
     .subscribe(params => {
-      if(this.currentDialog) {
+      if ( this.currentDialog ) {
         this.currentDialog.close();
       }
 
@@ -34,8 +34,8 @@ export class LoginDialogHostComponent {
       });
       this.currentDialog.afterClosed().subscribe((result) => {
           router.navigateByUrl(loginDHS.routeToUrl());
-      })
-    })
+      });
+    });
 
    }
 

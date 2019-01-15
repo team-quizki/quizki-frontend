@@ -18,21 +18,24 @@ import { LoginService } from './login.service';
 import { ApiService } from '../_services/api.service';
 
 import { FormBuilder, FormControl, FormControlName, FormGroup, Validators } from '@angular/forms';
-import {User, Roles} from '../user/user';
+import {User, Role} from '../user/user';
 
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
   let fixture: ComponentFixture<LoginComponent>;
-  let apiServiceSpyObj = undefined;
-  let dialogRefStub = undefined;
-  let dialogDataStub = undefined;
+  // let apiServiceSpyObj = undefined;
+  // let dialogRefStub = undefined;
+  // let dialogDataStub = undefined;
+  let apiServiceSpyObj;
+  let dialogRefStub;
+  let dialogDataStub;
 
   beforeEach(async(() => {
-    apiServiceSpyObj = jasmine.createSpyObj('apiService', ['get'])
+    apiServiceSpyObj = jasmine.createSpyObj('apiService', ['get']);
 
-    dialogDataStub = jasmine.createSpyObj('loginDialogDataStub',['dialogData'])
-    dialogRefStub = jasmine.createSpyObj('loginDialogRefStub', ['dialogRef'] )
+    dialogDataStub = jasmine.createSpyObj('loginDialogDataStub', ['dialogData']);
+    dialogRefStub = jasmine.createSpyObj('loginDialogRefStub', ['dialogRef'] );
 
     TestBed.configureTestingModule({
       imports : [ ReactiveFormsModule, BrowserAnimationsModule,

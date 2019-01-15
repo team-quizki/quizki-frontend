@@ -3,9 +3,6 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { LoginDialogHostComponent } from './login-dialog-host.component';
 import { MatDialogModule } from '@angular/material';
 import { RouterTestingModule } from '@angular/router/testing';
-//import { Subject } from 'rxjs';
-
-
 
 describe('LoginDialogHostComponent', () => {
   let component: LoginDialogHostComponent;
@@ -17,11 +14,10 @@ describe('LoginDialogHostComponent', () => {
       declarations: [ LoginDialogHostComponent ],
       imports: [
         MatDialogModule ,
-        RouterTestingModule//,
-        //Subject
+        RouterTestingModule
       ],
       providers: [
-        //{ provide: LoginDialogHostService, useValue: { routeToUrl: routeToUrlSpyObj, setRouteOnCloseToUrl: setRouteOnCloseToUrlSpyObj }}
+        // { provide: LoginDialogHostService, useValue: { routeToUrl: routeToUrlSpyObj, setRouteOnCloseToUrl: setRouteOnCloseToUrlSpyObj }}
       ]
 
     })
