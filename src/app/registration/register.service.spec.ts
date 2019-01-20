@@ -7,8 +7,8 @@ describe('RegisterService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
-      	{ provide: RegisterService, useClass: RegisterService },
-		    { provide: ApiService, useValue: { post: jasmine.createSpy('post') }},
+        { provide: RegisterService, useClass: RegisterService },
+        { provide: ApiService, useValue: { post: jasmine.createSpy('post') }},
        ]
     });
   });
