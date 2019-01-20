@@ -5,7 +5,7 @@ import { UserRegistration } from './../user/user-registration';
 import { RegisterService,
   ValidateUsernameNotTaken,
   ValidateEmailNotTaken} from './register.service';
-  import { CommonFieldControlsService } from '../_services/common-field-controls.service';
+import { CommonFieldControlsService } from '../_services/common-field-controls.service';
 
 @Component({
   selector: 'app-registration',

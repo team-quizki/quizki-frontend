@@ -1,4 +1,4 @@
-//define UserRegistration class
+// define UserRegistration class
 export class UserRegistration {
 
   constructor(
