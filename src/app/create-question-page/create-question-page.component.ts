@@ -39,7 +39,6 @@ export class CreateQuestionPageComponent {
                    ]
     };
     
-/*     
     topics = [
         {value: 'topic-0', viewValue: 'Topic 0'},   // topics placeholder, otherwise obtained from DB when user loads page.  
         {value: 'topic-1', viewValue: 'Topic 1'},
@@ -48,7 +47,6 @@ export class CreateQuestionPageComponent {
         {value: 'topic-4', viewValue: 'Topic 4'},
         {value: 'topic-5', viewValue: 'Topic 5'}
     ];
-*/
       
     newTopic:string = "";                           
     
@@ -88,12 +86,10 @@ export class CreateQuestionPageComponent {
         this.createQuestionDTO.topics.push(this.newTopic);
     }
     
-/*     
     clickedTopic(topicChoice:any){
         this.currentTopic = topicChoice;
         this.createQuestionDTO.topics.push(topicChoice);
     }
-*/
         
     clickedQuestionType(quesType:any){
         this.createQuestionDTO.type = quesType;
