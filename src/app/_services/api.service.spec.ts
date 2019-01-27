@@ -35,7 +35,7 @@ describe('ApiService', () => {
 
     inject([HttpTestingController, ApiService],
       (httpMock: HttpTestingController, service: ApiService) => {
-        service.get(mouseUrl, testUsername, testPassword).subscribe((data:any) => {
+        service.get(mouseUrl, testUsername, testPassword).subscribe((data: any) => {
           expect(data).toBeDefined();
           expect(data.id).toEqual(10);
           expect(data.role.id).toEqual(3);
@@ -49,27 +49,29 @@ describe('ApiService', () => {
         expect(req.request.method).toEqual('GET');
 
         req.flush({'id': 10, 'role': {'id': 3, 'name': 'PEST' }, 'password': null,
-          'fullname': 'Tiny Mouse','mouseArray': [ 'Snake Food', 'Cat Toy', 'Mouse Trap' ]
+          'fullname': 'Tiny Mouse', 'mouseArray': [ 'Snake Food', 'Cat Toy', 'Mouse Trap' ]
          });
       })
   );
 
   // the following test throws an uncaught error and fails. It should
   // be successful. Marking pending to move forward.
-  xit('tests apiService.get() for failure with deliberate null password ',
+  it('tests apiService.get() for failure with deliberate error',
     // Verify that a call to apiService.get() will fail when the apiUrl
     // we give it with a null password, and will return an error
 
     inject([ HttpTestingController, ApiService ],
       ( httpMock: HttpTestingController, service: ApiService ) => {
         const errorMessage = 'Something bad happened; please try again later.';
-        const nullPassword = null;
 
         service.get(mouseUrl, testUsername, testPassword).subscribe(() => {
           expect(httpMock).toHaveBeenCalled(); // check if executed
+        },
+        (error) => {
           expect(error.status).toEqual(400, 'Bad Request Client Error');
           expect(error.error.message).toEqual(errorMessage, 'message');
-        });
+        }
+      );
 
         const req = httpMock.expectOne(baseUrl + mouseUrl);
         expect(req.request.method).toEqual('GET');
@@ -95,7 +97,7 @@ describe('ApiService', () => {
           'name': testUsername, 'roleId': 3
         });
 
-        service.post( mouseUrl, mouseData ).subscribe((data:any) => {
+        service.post( mouseUrl, mouseData ).subscribe((data: any) => {
           expect(data).toBeDefined();
           expect(data.name).toEqual(true);
           expect(data.mouseArray[2]).toEqual('Squeaky');
