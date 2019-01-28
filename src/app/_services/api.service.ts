@@ -42,21 +42,11 @@ export class ApiService {
           catchError(this.handleError)
         );
     }
-
-/* 
-    post(url, data) {
-          return this.http.post(baseUrl + url, data, this.getHttpHeaders())
-    }
-*/
       
     post(url:any, data:any) {
-
-      var username = "johnathan";
-      var password = "password";
-      // alert(baseUrl + "" + url);
-      // return this.http.post(baseUrl + url, data, this.getHttpHeadersWithBase64Authorization(username, password))
-      return this.http.post('http://localhost:8080/api/question', data, this.getHttpHeadersWithBase64Authorization(username, password));
-      // return this.http.post(baseUrl + url, data, this.getHttpHeaders());
+        var username = "johnathan";
+        var password = "password";
+        return this.http.post(baseUrl + url, data, this.getHttpHeadersWithBase64Authorization(username, password));
     }
     
     

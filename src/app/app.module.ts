@@ -42,7 +42,7 @@ import { GenerateExamPageComponent } from './generate-exam-page/generate-exam-pa
 import { SearchForAnExamPageComponent } from './search-for-an-exam-page/search-for-an-exam-page.component';
 import { CreateExamPageComponent } from './create-exam-page/create-exam-page.component';
 import { CreateQuestionPageComponent } from './create-question-page/create-question-page.component';
-import { CreateQuestionPageEditorSectionComponent } from './create-question-page/create-question-page-editor-section/create-question-page-editor-section.component';
+import { CreateQuestionPageTopicSectionComponent } from './create-question-page/create-question-page-topic-section/create-question-page-topic-section.component';
 
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { LoginComponent} from './login/login.component';
@@ -84,7 +84,7 @@ import { CommonFieldControlsService } from './_services/common-field-controls.se
     SearchForAnExamPageComponent,
     CreateExamPageComponent,
     CreateQuestionPageComponent,
-    CreateQuestionPageEditorSectionComponent,
+    CreateQuestionPageTopicSectionComponent,
     PageNotFoundComponent,
     RegistrationComponent,
     LoginDialogHostComponent

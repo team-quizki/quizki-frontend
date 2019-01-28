@@ -16,12 +16,9 @@ import { ApiService } from './../_services/api.service';
 
 export class CreateQuestionPageComponent {
     
-    // title:string = "Create a Question:";
     GETid:number = 1;                              // user ID placeholder, otherwise obtained from DB when user logs in.
     
-    currentTopic:string = "";
-    
-     // Data Transfer Object
+    // Data Transfer Object
     createQuestionDTO =
     {
         "userId": 1,
@@ -38,27 +35,7 @@ export class CreateQuestionPageComponent {
                     {"text":"", "isCorrect":false}
                    ]
     };
-    
-    topics = [
-        {value: 'topic-0', viewValue: 'Topic 0'},   // topics placeholder, otherwise obtained from DB when user loads page.  
-        {value: 'topic-1', viewValue: 'Topic 1'},
-        {value: 'topic-2', viewValue: 'Topic 2'},
-        {value: 'topic-3', viewValue: 'Topic 3'},
-        {value: 'topic-4', viewValue: 'Topic 4'},
-        {value: 'topic-5', viewValue: 'Topic 5'}
-    ];
-      
-    newTopic:string = "";                           
-    
-    questionType = [
-        {value: "1",    viewValue: 'Single',   notAvailable: false},
-        {value: "2",    viewValue: 'Multiple', notAvailable: true},
-        {value: "3",    viewValue: 'Phrase',   notAvailable: true},
-        {value: "4",    viewValue: 'Sequence', notAvailable: true},
-        {value: "5",    viewValue: 'Set',      notAvailable: true}
-    ];
-  
-    briefQuestionDesc:string = "Question overview";
+
     tinyMCEeditorData:string = "Enter your question here:";
     answer1:string = "answer 1";
     answer1isCorrect = true;
@@ -73,33 +50,23 @@ export class CreateQuestionPageComponent {
     reference3:string = "reference 3";
     reference4:string = "reference 4";
     
-    
     checked:boolean = true;
     id:string = "checkbox1";
     
     constructor(private apiService: ApiService, public snackBar: MatSnackBar){
         this.createQuestionDTO.userId = this.GETid;
     };
-  
-    updateCurrentTopic(){
-        this.currentTopic = this.newTopic;
-        this.createQuestionDTO.topics.push(this.newTopic);
-    }
-    
-    clickedTopic(topicChoice:any){
-        this.currentTopic = topicChoice;
-        this.createQuestionDTO.topics.push(topicChoice);
+        
+    topicProperty = {};
+    topicDataobj(topicData:{topic:string, questionType:any, questionOverview:string}){
+        this.topicProperty = topicData;
+        this.createQuestionDTO.topics.push(topicData.topic);    
+        this.createQuestionDTO.type = topicData.questionType;  
+        this.createQuestionDTO.description = topicData.questionOverview;  
     }
         
-    clickedQuestionType(quesType:any){
-        this.createQuestionDTO.type = quesType;
-    }
-    
     onSaveQuestions() {
-          
         this.createQuestionDTO.text = this.tinyMCEeditorData;  
-        this.createQuestionDTO.description = this.briefQuestionDesc;
-         
         this.createQuestionDTO.choices.length = 0;       
         this.createQuestionDTO.choices.push({"text":this.answer1, "isCorrect":this.answer1isCorrect});
         this.createQuestionDTO.choices.push({"text":this.answer2, "isCorrect":this.answer2isCorrect});
@@ -128,7 +95,6 @@ export class CreateQuestionPageComponent {
         this.createQuestionDTO.topics.push("default");
         this.createQuestionDTO.references.length = 0;
         this.createQuestionDTO.choices.length = 0;
-   
     };
     
     showStatusMsg(status:string){
