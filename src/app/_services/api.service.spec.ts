@@ -9,7 +9,7 @@ import { ApiService } from './api.service';
 import { environment } from './../../environments/environment';
 
 const baseUrl = environment.apiUrl;
-const mouseUrl = '/api/mouseUrl';
+const testUrl = '/api/mouseUrl';
 const testUsername = 'tiny_mouse';
 const testPassword = 'rodent';
 
@@ -35,7 +35,7 @@ describe('ApiService', () => {
 
     inject([HttpTestingController, ApiService],
       (httpMock: HttpTestingController, service: ApiService) => {
-        service.get(mouseUrl, testUsername, testPassword).subscribe((data: any) => {
+        service.get(testUrl, testUsername, testPassword).subscribe((data: any) => {
           expect(data).toBeDefined();
           expect(data.id).toEqual(10);
           expect(data.role.id).toEqual(3);
@@ -45,7 +45,7 @@ describe('ApiService', () => {
           expect(data.mouseArray).toEqual([ 'Snake Food', 'Cat Toy', 'Mouse Trap' ]);
         });
 
-        const req = httpMock.expectOne(baseUrl + mouseUrl);
+        const req = httpMock.expectOne(baseUrl + testUrl);
         expect(req.request.method).toEqual('GET');
 
         req.flush({'id': 10, 'role': {'id': 3, 'name': 'PEST' }, 'password': null,
@@ -54,32 +54,27 @@ describe('ApiService', () => {
       })
   );
 
-  // the following test throws an uncaught error and fails. It should
-  // be successful. Marking pending to move forward.
-  it('tests apiService.get() for failure with deliberate error',
-    // Verify that a call to apiService.get() will fail when the apiUrl
-    // we give it with a null password, and will return an error
+
+  it('tests apiService.get() for failure with deliberate 401 error', () => {
+    const emsg = 'deliberate 401 error';
 
     inject([ HttpTestingController, ApiService ],
       ( httpMock: HttpTestingController, service: ApiService ) => {
-        const errorMessage = 'Something bad happened; please try again later.';
 
-        service.get(mouseUrl, testUsername, testPassword).subscribe(() => {
-          expect(httpMock).toHaveBeenCalled(); // check if executed
-        },
-        (error) => {
-          expect(error.status).toEqual(400, 'Bad Request Client Error');
-          expect(error.error.message).toEqual(errorMessage, 'message');
+      service.get(testUrl, testUsername, testPassword ).subscribe(
+        data => fail('should have failed with the 401 error'),
+        (error: HttpErrorResponse) => {
+          expect(error.status).toEqual(401, 'status');
+          expect(error.error).toEqual(emsg, 'message');
         }
       );
 
-        const req = httpMock.expectOne(baseUrl + mouseUrl);
-        expect(req.request.method).toEqual('GET');
+      const req = httpMock.expectOne(testUrl);
 
-        req.flush(errorMessage, { status: 400, statusText: 'Bad Request Client Error' });
-
-      })
-  );
+      // Respond with mock error
+      req.flush(emsg, { status: 401, statusText: 'Bad credentials' });
+    });
+  });
 
   it('tests apiService.post(url, data) for successful post',
     // Verify that a call to apiService.post() will load the apiUrl
@@ -97,7 +92,7 @@ describe('ApiService', () => {
           'name': testUsername, 'roleId': 3
         });
 
-        service.post( mouseUrl, mouseData ).subscribe((data: any) => {
+        service.post( testUrl, mouseData ).subscribe((data: any) => {
           expect(data).toBeDefined();
           expect(data.name).toEqual(true);
           expect(data.mouseArray[2]).toEqual('Squeaky');
@@ -106,7 +101,7 @@ describe('ApiService', () => {
           expect(data.mouseData).toEqual(mouseData);
         });
 
-        const req = httpMock.expectOne(baseUrl + mouseUrl);
+        const req = httpMock.expectOne(baseUrl + testUrl);
         expect(req.request.method).toEqual('POST');
 
         req.flush({'name': true, 'mouseArray': [ 'Gray', 'Long tail', 'Squeaky' ],
@@ -114,6 +109,30 @@ describe('ApiService', () => {
         });
       })
   );
+
+  it('tests apiService.post() for failure with deliberate 401 error', () => {
+    // test simple post for a deliberate client HttpErrorResponse
+
+    const emsg = 'deliberate 401 error';
+    const mouseData = JSON.stringify({'foo': 'foo', 'bar': 'bar'});
+
+    inject([ HttpTestingController, ApiService ],
+      ( httpMock: HttpTestingController, service: ApiService ) => {
+
+      service.post(testUrl, mouseData ).subscribe(
+        data => fail('should have failed with the 401 error'),
+        (error: HttpErrorResponse) => {
+          expect(error.status).toEqual(401, 'status');
+          expect(error.error).toEqual(emsg, 'message');
+        }
+      );
+
+      const req = httpMock.expectOne(testUrl);
+
+      // Respond with mock error
+      req.flush(emsg, { status: 401, statusText: 'Bad credentials' });
+    });
+  });
 
   afterEach(
     inject([HttpTestingController],
