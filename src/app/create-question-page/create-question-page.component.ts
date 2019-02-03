@@ -57,10 +57,7 @@ export class CreateQuestionPageComponent {
         this.createQuestionDataObj.userId = this.GETid;
     };
         
-    //topicProperty = {};
     topicsDataObj(topicsData:{topics:[string], questionType:any, questionOverview:string}){
-        console.log(JSON.stringify(topicsData.topics) + " " + topicsData.questionType + " " + topicsData.questionOverview);
-        //this.createQuestionDataObj.topics.push(topicsData.topics);   
         this.createQuestionDataObj.topics = topicsData.topics;    
         this.createQuestionDataObj.type = topicsData.questionType;  
         this.createQuestionDataObj.description = topicsData.questionOverview;  
