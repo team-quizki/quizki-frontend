@@ -10,7 +10,7 @@ export class CreateQuestionPageTopicSectionComponent {
     currentTopic:string = "";
     newTopic:string = ""; 
     
-    topicsData = {topics:"default", questionType:1, questionOverview:"Question overview default"};
+    topicsData = {topics:[], questionType:1, questionOverview:"Question overview default"};
     
     topics = [
         {value: 'topic-0', viewValue: 'Topic 0'},   // topics placeholder, otherwise obtained from DB when user loads page.  
@@ -32,12 +32,12 @@ export class CreateQuestionPageTopicSectionComponent {
     @Output() topicsDataObj = new EventEmitter<{}>();
     
     addNewTopic(){
-            this.topicsData.topics = this.newTopic;
+            this.topicsData.topics.push(this.newTopic);
             this.topicsDataObj.emit(this.topicsData);
         };    
 
     currentTopicsSelected(topicSelected:any){
-            this.topicsData.topics = topicSelected;
+            this.topicsData.topics.push(topicSelected);
             this.topicsDataObj.emit(this.topicsData);
         };    
 
