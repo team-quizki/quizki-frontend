@@ -1,12 +1,12 @@
 <div style="margin-top:2vh;">
     <h1 style="width:92%;">
         <button title="Help Menu Goes Here" mat-mini-fab style="float:right; font-size:0.5em;">?</button>
-        <span style="float:right; padding:.50% 5% 0% 0%; font-size:0.5em ">Hello User Number: {{createQuestionDTO.userId}}</span>
+        <span style="float:right; padding:.50% 5% 0% 0%; font-size:0.5em ">Hello User Number: {{createQuestionDataObj.userId}}</span>
     </h1>
     <br><br><br><br>
     
     <!--topics selector-->
-    <app-create-question-page-topic-section (topicDataObj)="topicDataobj($event)"></app-create-question-page-topic-section><br>
+    <app-create-question-page-topic-section (topicsDataObj)="topicsDataObj($event)"></app-create-question-page-topic-section><br>
         
     <mat-card style="width:92%; margin:0 auto;">
         <div class="typeConfig1">Part 2: &nbsp;&nbsp;Enter question</div><br>

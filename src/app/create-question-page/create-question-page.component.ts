@@ -19,7 +19,7 @@ export class CreateQuestionPageComponent {
     GETid:number = 1;                              // user ID placeholder, otherwise obtained from DB when user logs in.
     
     // Data Transfer Object
-    createQuestionDTO =
+    createQuestionDataObj =
     {
         "userId": 1,
         "text": "RequiredQuestionText",
@@ -54,31 +54,31 @@ export class CreateQuestionPageComponent {
     id:string = "checkbox1";
     
     constructor(private apiService: ApiService, public snackBar: MatSnackBar){
-        this.createQuestionDTO.userId = this.GETid;
+        this.createQuestionDataObj.userId = this.GETid;
     };
         
-    topicProperty = {};
-    topicDataobj(topicData:{topic:string, questionType:any, questionOverview:string}){
-        this.topicProperty = topicData;
-        this.createQuestionDTO.topics.push(topicData.topic);    
-        this.createQuestionDTO.type = topicData.questionType;  
-        this.createQuestionDTO.description = topicData.questionOverview;  
+    //topicProperty = {};
+    topicsDataObj(topicsData:{topics:string, questionType:any, questionOverview:string}){
+        console.log(topicsData.topics + " " + topicsData.questionType + " " + topicsData.questionOverview);
+        this.createQuestionDataObj.topics.push(topicsData.topics);    
+        this.createQuestionDataObj.type = topicsData.questionType;  
+        this.createQuestionDataObj.description = topicsData.questionOverview;  
     }
         
     onSaveQuestions() {
-        this.createQuestionDTO.text = this.tinyMCEeditorData;  
-        this.createQuestionDTO.choices.length = 0;       
-        this.createQuestionDTO.choices.push({"text":this.answer1, "isCorrect":this.answer1isCorrect});
-        this.createQuestionDTO.choices.push({"text":this.answer2, "isCorrect":this.answer2isCorrect});
-        this.createQuestionDTO.choices.push({"text":this.answer3, "isCorrect":this.answer3isCorrect});
-        this.createQuestionDTO.choices.push({"text":this.answer4, "isCorrect":this.answer4isCorrect});
+        this.createQuestionDataObj.text = this.tinyMCEeditorData;  
+        this.createQuestionDataObj.choices.length = 0;       
+        this.createQuestionDataObj.choices.push({"text":this.answer1, "isCorrect":this.answer1isCorrect});
+        this.createQuestionDataObj.choices.push({"text":this.answer2, "isCorrect":this.answer2isCorrect});
+        this.createQuestionDataObj.choices.push({"text":this.answer3, "isCorrect":this.answer3isCorrect});
+        this.createQuestionDataObj.choices.push({"text":this.answer4, "isCorrect":this.answer4isCorrect});
         
-        this.createQuestionDTO.references.push(this.reference1);
-        this.createQuestionDTO.references.push(this.reference2);
-        this.createQuestionDTO.references.push(this.reference3);
-        this.createQuestionDTO.references.push(this.reference4);
+        this.createQuestionDataObj.references.push(this.reference1);
+        this.createQuestionDataObj.references.push(this.reference2);
+        this.createQuestionDataObj.references.push(this.reference3);
+        this.createQuestionDataObj.references.push(this.reference4);
           
-        this.apiService.post('/api/question', this.createQuestionDTO)
+        this.apiService.post('/api/question', this.createQuestionDataObj)
         .subscribe(
             (response:any) => {console.log(JSON.stringify(response));
                                this.clearDTO(); 
@@ -91,10 +91,10 @@ export class CreateQuestionPageComponent {
     
     clearDTO(){
         this.tinyMCEeditorData = "Enter your question here:";
-        this.createQuestionDTO.topics.length = 0;
-        this.createQuestionDTO.topics.push("default");
-        this.createQuestionDTO.references.length = 0;
-        this.createQuestionDTO.choices.length = 0;
+        this.createQuestionDataObj.topics.length = 0;
+        this.createQuestionDataObj.topics.push("default");
+        this.createQuestionDataObj.references.length = 0;
+        this.createQuestionDataObj.choices.length = 0;
     };
     
     showStatusMsg(status:string){

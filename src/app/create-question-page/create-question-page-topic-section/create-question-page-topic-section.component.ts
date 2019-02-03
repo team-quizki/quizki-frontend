@@ -9,9 +9,8 @@ import { Component, EventEmitter, Output } from '@angular/core';
 export class CreateQuestionPageTopicSectionComponent {
     currentTopic:string = "";
     newTopic:string = ""; 
-    briefQuestionDesc:string = "Question overview";
     
-    topicData = {topic:"default", questionType:1, questionOverview:"Question overview default"};
+    topicsData = {topics:"default", questionType:1, questionOverview:"Question overview default"};
     
     topics = [
         {value: 'topic-0', viewValue: 'Topic 0'},   // topics placeholder, otherwise obtained from DB when user loads page.  
@@ -30,20 +29,26 @@ export class CreateQuestionPageTopicSectionComponent {
         {value: "5",    viewValue: 'Set',      notAvailable: true}
     ];
     
-    @Output() topicDataObj = new EventEmitter<{}>();
+    @Output() topicsDataObj = new EventEmitter<{}>();
     
-    updateCurrentTopic(){
-            this.topicData.topic = this.newTopic;
-            this.topicDataObj.emit(this.topicData);
-        }    
-
-    clickedTopic(topicChoice:any){
-            this.topicData.topic = topicChoice;
-            this.topicDataObj.emit(this.topicData);
-        }    
-
-    clickedQuestionType(questionType:any){
-            this.topicData.questionType = questionType;
-            this.topicDataObj.emit(this.topicData);
+    addNewTopic(){
+            this.topicsData.topics = this.newTopic;
+            this.topicsDataObj.emit(this.topicsData);
         };    
+
+    currentTopicsSelected(topicSelected:any){
+            this.topicsData.topics = topicSelected;
+            this.topicsDataObj.emit(this.topicsData);
+        };    
+
+    questionTypeSelected(questionType:any){
+            this.topicsData.questionType = questionType;
+            this.topicsDataObj.emit(this.topicsData);
+        };    
+    
+    questionDesc(event:any){
+        this.topicsData.questionOverview = (<HTMLInputElement>event.target).value;
+        this.topicsDataObj.emit(this.topicsData);
+    }    
 }
+
