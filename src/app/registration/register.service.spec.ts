@@ -24,9 +24,6 @@ describe('RegisterService', () => {
     apiService.post = jasmine.createSpy().and.returnValue(true);
     expect(apiService.post).toBeTruthy();
 
-    registerService.isUniqueUsername = jasmine.createSpy().and.returnValue(apiService.post);
-    expect(registerService.isUniqueUsername).toBeTruthy();
-
   }));
 
   it('isUniqueUsername should have truthy apiService.post with returnValue false', inject([RegisterService, ApiService],
@@ -34,9 +31,6 @@ describe('RegisterService', () => {
 
     apiService.post = jasmine.createSpy().and.returnValue(false);
     expect(apiService.post).toBeTruthy();
-
-    registerService.isUniqueUsername = jasmine.createSpy().and.returnValue(apiService.post);
-    expect(registerService.isUniqueUsername).toBeTruthy();
 
   }));
 
@@ -46,9 +40,6 @@ describe('RegisterService', () => {
     apiService.post = jasmine.createSpy().and.returnValue(true);
     expect(apiService.post).toBeTruthy();
 
-    registerService.isUniqueEmail = jasmine.createSpy().and.returnValue(apiService.post);
-    expect(registerService.isUniqueEmail).toBeTruthy();
-
   }));
 
   it('isUniqueEmail should have truthy apiService.post with returnValue false', inject([RegisterService, ApiService],
@@ -56,9 +47,6 @@ describe('RegisterService', () => {
 
     apiService.post = jasmine.createSpy().and.returnValue(false);
     expect(apiService.post).toBeTruthy();
-
-    registerService.isUniqueEmail = jasmine.createSpy().and.returnValue(apiService.post);
-    expect(registerService.isUniqueEmail).toBeTruthy();
 
   }));
 
@@ -71,9 +59,6 @@ describe('RegisterService', () => {
     apiService.post = jasmine.createSpy().and.returnValue(user);
     expect(apiService.post).toBeTruthy();
 
-    registerService.registerUser = jasmine.createSpy().and.returnValue(apiService.post);
-    expect(registerService.registerUser).toBeTruthy();
-
   }));
 
   it('registerUser should have truthy apiService.post with returnValue failedUserReg', inject([RegisterService, ApiService],
@@ -83,9 +68,6 @@ describe('RegisterService', () => {
 
     apiService.post = jasmine.createSpy().and.returnValue(failedUserReg);
     expect(apiService.post).toBeTruthy();
-
-    registerService.registerUser = jasmine.createSpy().and.returnValue(apiService.post);
-    expect(registerService.registerUser).toBeTruthy();
 
   }));
 
