@@ -1,9 +1,9 @@
-<div style="margin-top:2vh;">
+<div style="margin-top:2vh; font-size:0.75em;">
     <h1 style="width:92%;">
-        <button title="Help Menu Goes Here" mat-mini-fab style="float:right; font-size:0.5em;">?</button>
+        <button title="Help Menu Goes Here" mat-mini-fab style="float:right; font-size:0.4em;">?</button>
         <span style="float:right; padding:.50% 5% 0% 0%; font-size:0.5em ">Hello User Number: {{createQuestionDataObj.userId}}</span>
     </h1>
-    <br><br><br><br>
+    <br><br><br>
     
     <!--topics selector-->
     <app-create-question-page-topic-section (topicsDataObj)="topicsDataObj($event)"></app-create-question-page-topic-section><br>
@@ -20,9 +20,7 @@
         <div class="typeConfig1">Part 3: &nbsp;&nbsp;Enter answers</div><br>
         <table style="width:100%; font-size:1.0em; margin-left:4%;">
             <tr>
-                <th title="Provide correct and incorrect answers and check mark the correct answers">
-                    Enter Answers:
-                </th>
+                <th></th>
                 <th>
                     is Correct:
                 </th>
@@ -77,7 +75,6 @@
         <table style="width:90%; font-size:1.0em; margin-left:4%;">
             <tr>
                 <th>
-                    <span title="List your citations / references here" style="float:left;">Enter References:</span>
                     <span style="float:right;">
                         <button disabled="false" mat-raised-button>Add Reference</button>
                     </span>

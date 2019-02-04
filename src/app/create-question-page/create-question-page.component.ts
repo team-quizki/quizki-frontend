@@ -9,9 +9,9 @@ import { MatSnackBar } from '@angular/material';
 import { ApiService } from './../_services/api.service';
 
 @Component({
-    selector: 'app-create-question-page',
-    templateUrl: './create-question-page.component.html',
-    styleUrls: ['./create-question-page.component.css']
+  selector: 'app-create-question-page',
+  templateUrl: './create-question-page.component.html',
+  styleUrls: ['./create-question-page.component.css']
 })
 
 export class CreateQuestionPageComponent {
@@ -76,7 +76,7 @@ export class CreateQuestionPageComponent {
         this.createQuestionDataObj.references.push(this.reference3);
         this.createQuestionDataObj.references.push(this.reference4);
           
-        this.apiService.post('/api/question', this.createQuestionDataObj)
+        this.apiService.postCreatedQuestion('/api/question', this.createQuestionDataObj)
         .subscribe(
             (response:any) => {console.log(JSON.stringify(response));
                                this.clearDTO(); 

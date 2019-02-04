@@ -1,5 +1,5 @@
 <mat-card style="width:92%; margin:0 auto;">
-    <div class="typeConfig1">Part 1: &nbsp;&nbsp;Question topic and type</div><br>
+    <div class="typeConfig1">Part 1: &nbsp;&nbsp;Topics, type, overview</div><br>
     <table style="width:95%; font-size:1.0em; margin:0px auto;">
         <tr>
             <td title="Select topic applicable to your question" style="width:33%; text-align:left;">
@@ -18,11 +18,17 @@
                 <mat-form-field style="width:50%;">
                   <input matInput placeholder="New Topic" [(ngModel)]="newTopic">
                 </mat-form-field>&nbsp;&nbsp;&nbsp;
-                <button mat-raised-button (click)="addNewTopic()">Set as current topic</button>
+                <button mat-raised-button (click)="addNewTopic()">Submit new topic</button>
             </td>
 
-            <td title="Topic chosen for your question" style="width:33%; text-align:center; vertical-align:top;">
-                Current Topic:<br>{{topicsData.topic}}
+            <td rowspan="2" 
+                title="Topics chosen for your question"
+                style="vertical-align:top; text-indent:10%;">
+                <div style="margin-bottom:0.5vh;">Chosen Topics:</div>    
+                <div  *ngFor="let topicsSelected of topicsData.topics"
+                      style="width:33%; text-indent:10%; vertical-align:top;">
+                      {{topicsSelected}}
+                </div><br>
             </td>    
         </tr>
 
@@ -39,13 +45,12 @@
                     </mat-select>
                 </mat-form-field>
             </td>
-            <td title="(optional) Enter a short description of the question " style="width:33%; text-align:left;">
+            <td title="(optional) Enter a short overview of your question " style="width:33%; text-align:left;">
                 <mat-form-field style="width:80%;">
-                    <input matInput placeholder="Question Description" (input)="questionDesc($event)">
+                    <input matInput placeholder="Question Overview" (input)="questionOverview($event)">
                 </mat-form-field>
             </td>
-            <td>
-            </td>
+            
         </tr>
     </table>
 </mat-card>

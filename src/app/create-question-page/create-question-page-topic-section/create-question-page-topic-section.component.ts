@@ -46,7 +46,7 @@ export class CreateQuestionPageTopicSectionComponent {
             this.topicsDataObj.emit(this.topicsData);
         };    
     
-    questionDesc(event:any){
+    questionOverview(event:any){
         this.topicsData.questionOverview = (<HTMLInputElement>event.target).value;
         this.topicsDataObj.emit(this.topicsData);
     }    
