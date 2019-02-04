@@ -1,5 +1,4 @@
 import { TestBed, inject } from '@angular/core/testing';
-import { Injectable } from '@angular/core';
 
 import { HttpClientTestingModule, HttpTestingController} from '@angular/common/http/testing';
 
@@ -54,7 +53,6 @@ describe('ApiService', () => {
       })
   );
 
-
   it('tests apiService.get() for failure with deliberate 401 error', () => {
     const emsg = 'deliberate 401 error';
 
@@ -62,7 +60,7 @@ describe('ApiService', () => {
       ( httpMock: HttpTestingController, service: ApiService ) => {
 
       service.get(testUrl, testUsername, testPassword ).subscribe(
-        data => fail('should have failed with the 401 error'),
+        () => fail('should have failed with the 401 error'),
         (error: HttpErrorResponse) => {
           expect(error.status).toEqual(401, 'status');
           expect(error.error).toEqual(emsg, 'message');
@@ -76,6 +74,7 @@ describe('ApiService', () => {
     });
   });
 
+
   it('tests apiService.post(url, data) for successful post',
     // Verify that a call to apiService.post() will load the apiUrl
     // we give it, and will return the correct data to whatever
@@ -88,28 +87,23 @@ describe('ApiService', () => {
 
     inject([HttpTestingController, ApiService],
       (httpMock: HttpTestingController, service: ApiService) => {
-        const mouseData = JSON.stringify({'password': testPassword,
-          'name': testUsername, 'roleId': 3
-        });
+        const postedData = JSON.stringify({ 'foo': '1Foo', 'bar': '2Bar', 'bah': '3Bah' });
+        const returnedResult = JSON.stringify( true );
 
-        service.post( testUrl, mouseData ).subscribe((data: any) => {
+        service.post( testUrl, postedData ).subscribe((data: any) => {
           expect(data).toBeDefined();
-          expect(data.name).toEqual(true);
-          expect(data.mouseArray[2]).toEqual('Squeaky');
-          expect(data.mouseArray[0]).toEqual('Gray');
-          expect(data.mouseArray[1]).toEqual('Long tail');
-          expect(data.mouseData).toEqual(mouseData);
+          expect(data).toEqual(returnedResult);
         });
 
         const req = httpMock.expectOne(baseUrl + testUrl);
         expect(req.request.method).toEqual('POST');
 
-        req.flush({'name': true, 'mouseArray': [ 'Gray', 'Long tail', 'Squeaky' ],
-          'mouseData': mouseData
-        });
+        req.flush(returnedResult);
       })
   );
 
+
+/*
   it('tests apiService.post() for failure with deliberate 401 error', () => {
     // test simple post for a deliberate client HttpErrorResponse
 
@@ -133,6 +127,7 @@ describe('ApiService', () => {
       req.flush(emsg, { status: 401, statusText: 'Bad credentials' });
     });
   });
+*/
 
   afterEach(
     inject([HttpTestingController],
