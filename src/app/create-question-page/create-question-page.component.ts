@@ -62,6 +62,10 @@ export class CreateQuestionPageComponent {
         this.createQuestionDataObj.type = topicsData.questionType;  
         this.createQuestionDataObj.description = topicsData.questionOverview;  
     }
+    
+    editorDataObj(editorData:{questionText:string}){
+        console.log("questionText is: " + editorData.questionText);
+    }
         
     onSaveQuestions() {
         this.createQuestionDataObj.text = this.tinyMCEeditorData;  
