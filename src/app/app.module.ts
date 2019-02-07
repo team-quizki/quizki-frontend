@@ -112,6 +112,7 @@ import { CommonFieldControlsService } from './_services/common-field-controls.se
     DataTableModule
 ],
   providers: [ ApiService, CommonFieldControlsService ],
-  bootstrap: [ AppComponent ]
+  bootstrap: [ AppComponent ],
+  entryComponents: [ LoginComponent ]
 })
 export class AppModule { }

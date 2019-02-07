@@ -35,8 +35,8 @@ export const appRoutes: Routes = [
   { path: 'search-for-an-exam-page', component: SearchForAnExamPageComponent, data: {pageTitle: 'Search for an Exam'} },
   { path: 'create-question-page', component: CreateQuestionPageComponent, data: {pageTitle: 'Create Question'} },
   { path: 'create-exam-page', component: CreateExamPageComponent, data: {pageTitle: 'Create Exam'} },
-  { path: 'login', component: LoginComponent, data: {pageTitle: 'Login'} },
-  { path: ':id/login', component: LoginDialogHostComponent, data: {pageTitle: 'Login Dialog'} },
+  //{ path: 'login', component: LoginComponent, data: {pageTitle: 'Login'} },
+  { path: 'login', component: LoginDialogHostComponent, data: {pageTitle: 'Login Dialog'} },
   { path: 'registration', component: RegistrationComponent, data: {pageTitle: 'Register'} },
 
   // add new pages for the router above this comment line.
@@ -52,7 +52,8 @@ export const appRoutes: Routes = [
       // { enableTracing: false }
       )
   ],
-  exports: [ RouterModule ]
+  exports: [ RouterModule ],
+  entryComponents: [ LoginComponent ]
 })
 
 export class AppRoutingModule { }
