@@ -3,8 +3,7 @@ import { FormBuilder, FormControl, FormControlName, FormGroup, Validators } from
 
 import { LoginService } from './login.service';
 import { User, Role} from '../user/user';
-import { MatDialogModule, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
-import { LoginDialogHostService } from '../login-dialog-host/login-dialog-host.service';
+import { MatDialogModule, MatDialogRef } from '@angular/material';
 import { CommonFieldControlsService } from '../_services/common-field-controls.service';
 
 @Component({
@@ -30,19 +29,18 @@ export class LoginComponent implements OnInit {
 
   constructor(
       public commonFCS: CommonFieldControlsService,
-      public loginDHS: LoginDialogHostService,
       private formBuilder: FormBuilder,
       private loginService: LoginService,
-      public dialogRef: MatDialogRef<LoginComponent>, @Inject(MAT_DIALOG_DATA) public data: any
+      public matDialogRef: MatDialogRef<LoginComponent>
     ) {
         // console.log('Injected data: ', data)
     }
+
 
   ngOnInit() {
     this.loginStatus = 'Logged Out';
     this.username = '';
     this.password = '';
-    this.loginDHS.setRouteOnCloseToUrl('/home-page');
 
     this.hidePassword = true;
 
@@ -97,13 +95,12 @@ export class LoginComponent implements OnInit {
     this.username = '';
     this.password = '';
 
-    this.dialogRef.close();
+    this.matDialogRef.close();
 
   }
 
   private prepareToTransferToRegistation() {
     // consider asking the user for cancel confirmation.
-    this.loginDHS.setRouteOnCloseToUrl('/registration');
     this.cancelLogin();
   }
 
@@ -133,12 +130,12 @@ export class LoginComponent implements OnInit {
           this.loginForm.setErrors({'invalid': true});
           this.loginSubmitted = false;
         },
-        () => {this.loginForm.reset(); this.dialogRef.close(); }
+        () => {this.loginForm.reset(); this.matDialogRef.close(); }
       );
   }
 
   onNoClick(): void {
-    this.dialogRef.close();
+    this.matDialogRef.close();
   }
 
 }

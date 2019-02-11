@@ -1,10 +1,6 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Subject } from 'rxjs';
-import { takeUntil} from 'rxjs/operators';
 import { LoginComponent } from '../login/login.component';
-import { LoginDialogHostService } from './login-dialog-host.service';
 
 @Component({
   selector: 'app-login-dialog-host',
@@ -12,35 +8,22 @@ import { LoginDialogHostService } from './login-dialog-host.service';
   styleUrls: ['./login-dialog-host.component.css']
 })
 
-export class LoginDialogHostComponent implements OnDestroy {
+export class LoginDialogHostComponent {
 
-  currentDialog: MatDialogRef<LoginComponent> = null;
-  destroy = new Subject<any>();
+  currentMatDialogRef: MatDialogRef<LoginComponent> = null;
 
+  constructor( public matDialog: MatDialog ) {}
 
-  constructor(loginDHS: LoginDialogHostService, matDialog: MatDialog, route: ActivatedRoute, router: Router) {
+  public openLoginDialog(): void {
 
-    route.params.pipe(takeUntil(this.destroy))
-    .subscribe(params => {
-      if ( this.currentDialog ) {
-        this.currentDialog.close();
-      }
-
-      this.currentDialog = matDialog.open(LoginComponent, {
-        autoFocus: true,
-        disableClose: true,
-        hasBackdrop: true,
-        data: { id: params.id }
-      });
-      this.currentDialog.afterClosed().subscribe((result) => {
-          router.navigateByUrl(loginDHS.routeToUrl());
-      });
+    this.currentMatDialogRef = this.matDialog.open(LoginComponent, {
+      autoFocus: true,
+      disableClose: true,
+      hasBackdrop: true
     });
-
-   }
-
-  ngOnDestroy() {
-    this.destroy.next();
+    this.currentMatDialogRef.afterClosed().subscribe(() => {
+        console.log('closed dialog box');
+    });
   }
 
 }
