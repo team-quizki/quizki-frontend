@@ -60,7 +60,8 @@ import { QuestionTypeComponent } from './questions/question/question-types/quest
 import { CommonFieldControlsService } from './_services/common-field-controls.service';
 import { LoginComponent } from './login/login.component';
 import { LoginDialogHostComponent } from './login-dialog-host/login-dialog-host.component';
-
+import { LoginService } from './login/login.service';
+import { QuestionDataService } from './questionData/question-data.service';
 
 @NgModule({
   declarations: [
@@ -112,7 +113,7 @@ import { LoginDialogHostComponent } from './login-dialog-host/login-dialog-host.
     NavigationModule,
     DataTableModule
 ],
-  providers: [ ApiService, CommonFieldControlsService, LoginDialogHostComponent ],
+  providers: [ ApiService, CommonFieldControlsService, LoginDialogHostComponent, LoginService, QuestionDataService ],
   bootstrap: [ AppComponent ],
   entryComponents: [ LoginComponent ]
 })

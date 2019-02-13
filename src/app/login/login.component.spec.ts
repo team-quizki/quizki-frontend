@@ -24,9 +24,6 @@ import {User, Role} from '../user/user';
 describe('LoginComponent', () => {
   let component: LoginComponent;
   let fixture: ComponentFixture<LoginComponent>;
-  // let apiServiceSpyObj = undefined;
-  // let dialogRefStub = undefined;
-  // let dialogDataStub = undefined;
   let apiServiceSpyObj;
   let dialogRefStub;
   let dialogDataStub;

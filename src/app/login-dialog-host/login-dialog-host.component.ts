@@ -21,9 +21,7 @@ export class LoginDialogHostComponent {
       disableClose: true,
       hasBackdrop: true
     });
-    this.currentMatDialogRef.afterClosed().subscribe(() => {
-        console.log('closed dialog box');
-    });
+    this.currentMatDialogRef.afterClosed().subscribe(() => {});
   }
 
 }

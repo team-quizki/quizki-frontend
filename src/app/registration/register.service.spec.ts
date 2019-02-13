@@ -54,7 +54,7 @@ describe('RegisterService', () => {
     (registerService: RegisterService, apiService: ApiService) => {
 
     const role = new Role(2, 'userRole 2 definition');
-    const user = new User(20, role, 'abc123', 'uniqueUsername', 1, 'uniqueEmail', 'Test Fullname', true, 'demograhic indicator' );
+    const user = new User(20, role, 'abc123', 'uniqueUsername', 1, 'uniqueEmail', 'Test Fullname', 'demograhic indicator' );
 
     apiService.post = jasmine.createSpy().and.returnValue(user);
     expect(apiService.post).toBeTruthy();

@@ -16,8 +16,6 @@ export class LoginComponent implements OnInit {
   username: string;
   password: string;
   loginStatus: string;
-  role = new Role(0, '');
-  user = new User(0, this.role, '', '', 1, '', '', false);
 
   routeOnCloseUrl: string;
   loginForm: FormGroup;
@@ -30,15 +28,24 @@ export class LoginComponent implements OnInit {
   constructor(
       public commonFCS: CommonFieldControlsService,
       private formBuilder: FormBuilder,
-      private loginService: LoginService,
+      public loginService: LoginService,
       public matDialogRef: MatDialogRef<LoginComponent>
-    ) {
-        // console.log('Injected data: ', data)
-    }
+    ) {}
 
 
   ngOnInit() {
-    this.loginStatus = 'Logged Out';
+
+    let currentUser = this.loginService.getCurrentUser();
+    if( currentUser === undefined){
+      this.loginStatus = 'no one logged in';
+    } else
+    {
+      this.loginStatus = currentUser.name + ' is logged in';
+
+      //TODO: remove this line and the next line of code when finished.
+      console.log("Hey there DMPJ Coders: " + this.loginStatus + ". What action to we want to take? Allow/Prevent Duplicates? Log the user out? Ask user to logout?")
+    }
+
     this.username = '';
     this.password = '';
 
@@ -117,13 +124,22 @@ export class LoginComponent implements OnInit {
 
   public login() {
     // need to add an error for when login doesn't occure
+
+    // TODO: remove this comment and the next 2 lines of code.
+    let checkUser = this.loginService.getCurrentUser();
+    console.log("in Login(): before requestUserLogin() is executed. getCurrentUser() returns: " + JSON.stringify(checkUser));
+
     this.loginStatus = 'Requested';
     this.loginService.requestUserLogin(this.username, this.password)
       .subscribe(
         (res: User) => {
           this.loginStatus = `${res.name} Logged In`;
-          this.user.setUserData(res);
-          this.user.loggedInNow();
+          this.loginService.setCurrentUser(res);
+
+          //TODO: remove this coment and the next 2 lines of code.
+          let checkUser = this.loginService.getCurrentUser();
+          console.log("in Login(): after getCurrentUser() returns: " + JSON.stringify(checkUser));
+
         },
         (error) => {
           this.loginStatus = 'Please correct username and password.';

@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+//TODO Remove these 2 imports
+import { LoginService } from './../login/login.service';
+import { User } from './../user/user'
 
 @Component({
   selector: 'app-home-page',
@@ -7,10 +10,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomePageComponent implements OnInit {
 
-  constructor() { }
+// TODO remmove loginservice below
+  constructor( private loginService: LoginService) { }
 
-  ngOnInit() {
+  ngOnInit() { }
 
+  // TODO: Remove these lines when done, it is just used to verify data capturing to correct variable
+  verifyGetCurrentUser($event){
+    let currentUser = this.loginService.getCurrentUser();
+    console.log( "In HomePageComponent: getCurrentUser is: " + JSON.stringify(currentUser));
   }
 
 }
