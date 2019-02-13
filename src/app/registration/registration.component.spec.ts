@@ -13,6 +13,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { RegisterService } from './register.service';
 import { ApiService } from '../_services/api.service';
 import { RegistrationComponent } from './registration.component';
+import { LoginDialogHostComponent } from '../login-dialog-host/login-dialog-host.component';
 
 describe('RegistrationComponent', () => {
   let component: RegistrationComponent;
@@ -27,7 +28,8 @@ describe('RegistrationComponent', () => {
       imports: [ MatCardModule, BrowserAnimationsModule, MatFormFieldModule, MatIconModule, MatInputModule, ReactiveFormsModule ],
       providers: [
         { provide: RegisterService, useValue: { isUniqueName: jasmine.createSpy('isUniqueName') }},
-        { provide: ApiService, useValue: apiServiceSpyObj}
+        { provide: ApiService, useValue: apiServiceSpyObj},
+        { provide: LoginDialogHostComponent, useValue: { openLoginDialog: jasmine.createSpy('openLoginDialog') }}
       ]
     })
     .compileComponents();
