@@ -48,6 +48,9 @@ import { QuestionReferencesComponent } from './questions/question/question-refer
 import { QuestionChoiceComponent } from './questions/question/question-choices/question-choice/question-choice.component';
 import { QuestionChoicesComponent } from './questions/question/question-choices/question-choices.component';
 import { LoginDialogHostComponent } from './login-dialog-host/login-dialog-host.component';
+import { QuestionDataService } from './questionData/question-data.service';
+import { DataService } from './data-table/data.service';
+import { ApiService } from './_services/api.service';
 
 
 describe('AppRoutingModule', () => {
@@ -113,6 +116,20 @@ describe('AppRoutingModule', () => {
           useValue: {
             openLoginDialog: jasmine.createSpy('openLoginDialog')
           }
+        },
+        {
+          provide: QuestionDataService, useValue: { getQuestions: jasmine.createSpy('getQuestions'), getQuestionTypeData: jasmine.createSpy('getQuestionTypeData')}
+        },
+        {
+          provide: DataService,
+          useValue: {
+            getQuestions: jasmine.createSpy('getQuestions'),
+            activateFilter: jasmine.createSpy('activateFilter'),
+            getQuestionUpdateListener: () => { return { subscribe: () => {}}}
+          }
+        },
+        {
+          provide: ApiService, useValue: { post: jasmine.createSpy('post') }
         }
       ]
     });
@@ -133,37 +150,37 @@ describe('AppRoutingModule', () => {
     expect(location.path()).toBe('/home-page');
   }));
 
-  xit('#app-routing navigate to "home-page" takes you to /home-page', fakeAsync(() => {
+  it('#app-routing navigate to "home-page" takes you to /home-page', fakeAsync(() => {
     router.navigate(['/home-page']);
     tick();
     expect(location.path()).toBe('/home-page');
   }));
 
-  xit('#app-routing navigate to "generate-exam-page" takes you to /generate-exam-page', fakeAsync(() => {
+  it('#app-routing navigate to "generate-exam-page" takes you to /generate-exam-page', fakeAsync(() => {
     router.navigate(['/generate-exam-page']);
     tick();
     expect(location.path()).toBe('/generate-exam-page');
   }));
 
-  xit('#app-routing navigate to "search-for-an-exam-page" takes you to /search-for-an-exam-page', fakeAsync(() => {
+  it('#app-routing navigate to "search-for-an-exam-page" takes you to /search-for-an-exam-page', fakeAsync(() => {
     router.navigate(['/search-for-an-exam-page']);
     tick();
     expect(location.path()).toBe('/search-for-an-exam-page');
   }));
 
-  xit('#app-routing navigate to "create-question-page" takes you to /create-question-page', fakeAsync(() => {
+  it('#app-routing navigate to "create-question-page" takes you to /create-question-page', fakeAsync(() => {
     router.navigate(['/create-question-page']);
     tick();
     expect(location.path()).toBe('/create-question-page');
   }));
 
-  xit('#app-routing navigate to "create-exam-page" takes you to /create-exam-page', fakeAsync(() => {
+  it('#app-routing navigate to "create-exam-page" takes you to /create-exam-page', fakeAsync(() => {
     router.navigate(['/create-exam-page']);
     tick();
     expect(location.path()).toBe('/create-exam-page');
   }));
 
-  xit('#app-routing navigate to "registration" takes you to /registration', fakeAsync(() => {
+  it('#app-routing navigate to "registration" takes you to /registration', fakeAsync(() => {
     router.navigate(['/registration']);
     tick();
     expect(location.path()).toBe('/registration');
