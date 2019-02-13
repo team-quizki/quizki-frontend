@@ -103,7 +103,6 @@ describe('ApiService', () => {
   );
 
 
-/*
   it('tests apiService.post() for failure with deliberate 401 error', () => {
     // test simple post for a deliberate client HttpErrorResponse
 
@@ -127,7 +126,6 @@ describe('ApiService', () => {
       req.flush(emsg, { status: 401, statusText: 'Bad credentials' });
     });
   });
-*/
 
   afterEach(
     inject([HttpTestingController],
