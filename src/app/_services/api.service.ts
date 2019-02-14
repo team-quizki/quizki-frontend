@@ -43,6 +43,13 @@ export class ApiService {
   post(url, data) {
     return this.http.post(baseUrl + url, data, this.getHttpHeaders());
   }
+  
+  postCreatedQuestion(url:any, data:any) {
+        var username = "johnathan";
+        var password = "password";
+        return this.http.post(baseUrl + url, data, this.getHttpHeadersWithBase64Authorization(username, password));
+  }
+  
 
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
