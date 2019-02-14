@@ -3,7 +3,7 @@ export class Role {
   constructor(
     public id: number,
     public name: string
-  ){}
+  ) {}
 
 }
 
@@ -19,22 +19,22 @@ export class User {
     public loggedIn?: boolean,
     public demographic?: string
 
-  ){}
+  ) {}
 
 
-  public loggedOutNow(){
+  public loggedOutNow() {
     return this.loggedIn = false;
   }
 
-  public loggedInNow(){
+  public loggedInNow() {
     return this.loggedIn = true;
   }
 
-  public isUserLoggedIn(){
+  public isUserLoggedIn() {
     return this.loggedIn;
   }
 
-  public setUserData(user:User){
+  public setUserData(user: User) {
     this.id = user.id;
     this.role.id = user.role.id;
     this.role.name = user.role.name;

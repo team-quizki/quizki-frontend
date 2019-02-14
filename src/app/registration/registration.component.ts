@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-//import { AsyncValidator, AbstractControl, NG_ASYNC_VALIDATORS, ValidationErrors} from '@angular/forms';
 
 import { UserRegistration } from './../user/user-registration';
 import { RegisterService,
   ValidateUsernameNotTaken,
   ValidateEmailNotTaken} from './register.service';
-  import { CommonFieldControlsService } from '../_services/common-field-controls.service';
+import { CommonFieldControlsService } from '../_services/common-field-controls.service';
+import { LoginDialogHostComponent } from './../login-dialog-host/login-dialog-host.component';
 
 @Component({
   selector: 'app-registration',
@@ -28,12 +28,13 @@ export class RegistrationComponent implements OnInit {
 
   hideWhileRegistering: boolean;
   hideLoginButton: boolean;
-  specificUserRegistration = new UserRegistration('','',2,'','');
+  specificUserRegistration = new UserRegistration('', '', 2, '', '');
 
   constructor(
     public commonFCS: CommonFieldControlsService,
     private formBuilder: FormBuilder,
-    private registerService: RegisterService
+    private registerService: RegisterService,
+    private loginDialogHostComponent: LoginDialogHostComponent
   ) {
    // setting this is the key to initial select.
   }
@@ -43,7 +44,7 @@ export class RegistrationComponent implements OnInit {
     this.hidePassword = true;
 
     this.registerSubmitted = false;
-    this.registerStatus = "Fill in form.";
+    this.registerStatus = 'Fill in form.';
     this.hideWhileRegistering = false;
     this.hideLoginButton = true;
     // email validator still allows someEmail@somewhere because that is a valid emailValue
@@ -53,7 +54,7 @@ export class RegistrationComponent implements OnInit {
         [
           Validators.required,
           Validators.minLength(5),
-          Validators.pattern("([a-zA-Z0-9])[a-zA-Z0-9]* ([a-zA-Z0-9])[a-zA-Z0-9., ]*")
+          Validators.pattern('([a-zA-Z0-9])[a-zA-Z0-9]* ([a-zA-Z0-9])[a-zA-Z0-9., ]*')
         ]],
       email: ['',
         {
@@ -74,7 +75,7 @@ export class RegistrationComponent implements OnInit {
             [
               Validators.required,
               Validators.minLength(5),
-              Validators.pattern("([a-zA-Z0-9_])[a-zA-Z0-9_]*")
+              Validators.pattern('([a-zA-Z0-9_])[a-zA-Z0-9_]*')
             ],
           asyncValidators:
             [
@@ -86,7 +87,7 @@ export class RegistrationComponent implements OnInit {
         [
           Validators.required,
           Validators.minLength(5),
-          Validators.pattern("([a-zA-Z0-9_-])[a-zA-Z0-9_-]*")
+          Validators.pattern('([a-zA-Z0-9_-])[a-zA-Z0-9_-]*')
         ]]
     });
 
@@ -94,15 +95,15 @@ export class RegistrationComponent implements OnInit {
 
 //  getter for form fields
  get f() { return this.registerForm.controls; }
- get valid() {return this.registerForm.valid;}
+ get valid() { return this.registerForm.valid; }
 
 // getters for for form controls by form control name
- get fullnameFC() {return this.registerForm.get('fullname');}
- get usernameFC() {return this.registerForm.get('username');}
- get emailFC() {return this.registerForm.get('email');}
- get passwordFC() {return this.registerForm.get('password');}
+ get fullnameFC() { return this.registerForm.get('fullname'); }
+ get usernameFC() { return this.registerForm.get('username'); }
+ get emailFC() { return this.registerForm.get('email'); }
+ get passwordFC() { return this.registerForm.get('password'); }
 
- public isPossibleInvalidRegisterControl(fcName:string):boolean {
+ public isPossibleInvalidRegisterControl(fcName: string): boolean {
    return this.registerForm.get(fcName).invalid
       && (this.registerForm.get(fcName).touched || this.registerForm.get(fcName).dirty);
  }
@@ -110,9 +111,9 @@ export class RegistrationComponent implements OnInit {
 // TODO: need to change getErrorMessage, so any form can use it.
 // yet solution works for the near term.
 
- public getErrorMessage(formControlName: string) {
+ public getErrorMessage( formControlName: string ) {
 
-   switch(formControlName){
+   switch ( formControlName ) {
      case 'fullname':
        this.errorMessage = this.fullnameFC.hasError('required') ? 'You must enter a value' :
          this.fullnameFC.hasError('minlength') ? 'Length must be at least 5 characters' :
@@ -139,7 +140,7 @@ export class RegistrationComponent implements OnInit {
          '';
        break;
      default:
-            this.errorMessage='';
+            this.errorMessage = '';
        break;
      }
      return this.errorMessage;
@@ -148,42 +149,39 @@ export class RegistrationComponent implements OnInit {
 
   // Establish the controls and methods for the submit button
   onSubmit() {
-    if(this.registerForm.invalid) { return;} // the form should never be invalid at this point...
+    if ( this.registerForm.invalid ) { return; } // the form should never be invalid at this point...
     this.registerSubmitted = true; // temporarily prevent multiple submits
     this.hideWhileRegistering = true; // hides controles during registration
-    this.registerStatus = "Processing. Please wait a moment!"
+    this.registerStatus = 'Processing. Please wait a moment!';
 
-    //consider writing a set method
+    // consider writing a set method
     this.specificUserRegistration.password = this.passwordFC.value;
     this.specificUserRegistration.name = this.usernameFC.value;
     this.specificUserRegistration.roleId = 2;
     this.specificUserRegistration.email = this.emailFC.value;
     this.specificUserRegistration.fullname = this.fullnameFC.value;
 
-    let localResult;
-    //need to add failure processing
-    //for examples 1) username invalid, or 2) username valid & password invalid
+    // need to add failure processing
+    // for examples 1) username invalid, or 2) username valid & password invalid
 
     this.registerService.registerUser(this.specificUserRegistration)
         .subscribe(
           (result) => {
             this.hideWhileRegistering = false;
-            this.registerStatus = "Registration complete. Please login."
+            this.registerStatus = 'Registration complete. Please login.';
             this.hideLoginButton = false;
-          //  this.registerSubmitted=false;
           },
           (resultError) => {
-            //this.registerSubmitted=false;
             this.hideLoginButton = true;
             this.hideWhileRegistering = false;
-            this.registerStatus = "Registration failed."
+            this.registerStatus = 'Registration failed.';
           }
         );
 
   }
 
 
-  public cancelRegistration(){
+  public cancelRegistration() {
     // consider asking the user for cancel confirmation.
     this.registerForm.reset();
 
@@ -197,10 +195,8 @@ export class RegistrationComponent implements OnInit {
     // routing should be back to page the user was on orginially ...
   }
 
-
-
   // Saving the following diagonostic example for future use.
   // TODO: Remove these when done, it is just used to verify data capturing to correct variable
-  //get registerFormDiagnostic() { return JSON.stringify(this.registerForm.value); }
+  // get registerFormDiagnostic() { return JSON.stringify(this.registerForm.value); }
 
 }
