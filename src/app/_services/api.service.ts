@@ -7,7 +7,9 @@ import { catchError } from '../../../node_modules/rxjs/operators';
 
 const baseUrl = environment.apiUrl;
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class ApiService {
 
   constructor(private http: HttpClient) { }
