@@ -41,7 +41,7 @@ import { SearchForAnExamPageComponent } from './search-for-an-exam-page/search-f
 import { CreateExamPageComponent } from './create-exam-page/create-exam-page.component';
 import { CreateQuestionPageComponent } from './create-question-page/create-question-page.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-import { LoginComponent} from './login/login.component';
+
 import { RegistrationComponent } from './registration/registration.component';
 import { DataTableComponent } from './data-table/data-table.component';
 
@@ -56,8 +56,10 @@ import { QuestionReferenceComponent } from './questions/question/question-refere
 import { QuestionTopicComponent } from './questions/question/question-topics/question-topic/question-topic.component';
 import { QuestionDifficultyComponent } from './questions/question/question-difficulties/question-difficulty.component';
 import { QuestionTypeComponent } from './questions/question/question-types/question-type.component';
-import { LoginDialogHostComponent } from './login-dialog-host/login-dialog-host.component';
+
 import { CommonFieldControlsService } from './_services/common-field-controls.service';
+import { LoginComponent } from './login/login.component';
+import { LoginDialogHostComponent } from './login-dialog-host/login-dialog-host.component';
 
 
 @NgModule({
@@ -73,8 +75,6 @@ import { CommonFieldControlsService } from './_services/common-field-controls.se
     QuestionTopicComponent,
     QuestionDifficultyComponent,
     QuestionTypeComponent,
-    LoginComponent,
-    //NavigationComponent,
     HomePageComponent,
     GenerateExamPageComponent,
     SearchForAnExamPageComponent,
@@ -82,6 +82,7 @@ import { CommonFieldControlsService } from './_services/common-field-controls.se
     CreateQuestionPageComponent,
     PageNotFoundComponent,
     RegistrationComponent,
+    LoginComponent,
     LoginDialogHostComponent
   ],
   imports: [
@@ -111,7 +112,8 @@ import { CommonFieldControlsService } from './_services/common-field-controls.se
     NavigationModule,
     DataTableModule
 ],
-  providers: [ ApiService, CommonFieldControlsService ],
-  bootstrap: [ AppComponent ]
+  providers: [ ApiService, CommonFieldControlsService, LoginDialogHostComponent ],
+  bootstrap: [ AppComponent ],
+  entryComponents: [ LoginComponent ]
 })
 export class AppModule { }

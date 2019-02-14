@@ -30,9 +30,6 @@ import { SearchForAnExamPageComponent } from './search-for-an-exam-page/search-f
 import { CreateExamPageComponent } from './create-exam-page/create-exam-page.component';
 import { CreateQuestionPageComponent } from './create-question-page/create-question-page.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-import { LoginComponent } from './login/login.component';
-import { LoginDialogHostComponent } from './login-dialog-host/login-dialog-host.component';
-import { LoginDialogHostService } from './login-dialog-host/login-dialog-host.service';
 import { RegistrationComponent } from './registration/registration.component';
 import { AppRoutingModule, appRoutes } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -50,6 +47,7 @@ import { QuestionReferenceComponent } from './questions/question/question-refere
 import { QuestionReferencesComponent } from './questions/question/question-references/question-references.component';
 import { QuestionChoiceComponent } from './questions/question/question-choices/question-choice/question-choice.component';
 import { QuestionChoicesComponent } from './questions/question/question-choices/question-choices.component';
+import { LoginDialogHostComponent } from './login-dialog-host/login-dialog-host.component';
 
 
 describe('AppRoutingModule', () => {
@@ -90,8 +88,6 @@ describe('AppRoutingModule', () => {
         DataTableComponent,
         GenerateExamPageComponent,
         HomePageComponent,
-        LoginComponent,
-        LoginDialogHostComponent,
         PageNotFoundComponent,
         NavigationComponent,
         RegistrationComponent,
@@ -113,9 +109,9 @@ describe('AppRoutingModule', () => {
           }
         },
         {
-          provide: LoginDialogHostService,
+          provide: LoginDialogHostComponent,
           useValue: {
-            setRouteOnCloseToUrl: jasmine.createSpy('setRouteOnCloseToUrl')
+            openLoginDialog: jasmine.createSpy('openLoginDialog')
           }
         }
       ]
@@ -165,18 +161,6 @@ describe('AppRoutingModule', () => {
     router.navigate(['/create-exam-page']);
     tick();
     expect(location.path()).toBe('/create-exam-page');
-  }));
-
-  xit('#app-routing navigate to "login" takes you to /login', fakeAsync(() => {
-    router.navigate(['/login']);
-    tick();
-    expect(location.path()).toBe('/login');
-  }));
-
-  xit('#app-routing navigate to ":dialog101/login" takes you to /:dialog101/login', fakeAsync(() => {
-    router.navigate(['/:dialog101/login']);
-    tick();
-    expect(location.path()).toBe('/:dialog101/login');
   }));
 
   xit('#app-routing navigate to "registration" takes you to /registration', fakeAsync(() => {
