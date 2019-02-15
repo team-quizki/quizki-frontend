@@ -10,9 +10,13 @@ import { EditorModule } from '@tinymce/tinymce-angular';
 export class CreateQuestionPageEditorSectionComponent {
     currentTopic:string = "";
     
-    editorData = {questionText:"type question here"};
+    createQuestionEditorText = "type question here";
     
-    @Output() editorDataObj = new EventEmitter<{}>();
+    @Output() createQuestionEditorTextData = new EventEmitter<string>();
     
+    // submitTextEvent function is called when the editor is blurred
+    submitTextEvent(){
+      this.createQuestionEditorTextData.emit(this.createQuestionEditorText);
+    }
     
 }
