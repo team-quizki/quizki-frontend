@@ -93,7 +93,8 @@
           <button [hidden]=hideLoginButton mat-raised-button
             type="text" class="btn"
             aria-label="login button"
-            routerLink="/dialog101/login"
+            (click)="this.loginDialogHostComponent.openLoginDialog()"
+            routerLink="/home-page"
             >Login
           </button>
 
@@ -104,9 +105,10 @@
           <p>Already registered?
             &nbsp;
             <a  (click)="registerForm.reset()"
-              routerLink="/dialog101/login"
+              (click)="this.loginDialogHostComponent.openLoginDialog()"
               aria-label="login"
-              href ="/dialog101/login">Login</a>
+              routerLink="/home-page"
+              >Login</a>
           </p>
           <br>
         </div>
