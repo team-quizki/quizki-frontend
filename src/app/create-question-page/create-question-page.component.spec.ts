@@ -4,7 +4,7 @@ import { EditorModule } from '@tinymce/tinymce-angular';
 
 import { CreateQuestionPageComponent }  from './create-question-page.component';
 import { CreateQuestionPageTopicSectionComponent } from './create-question-page-topic-section/create-question-page-topic-section.component';
-
+import { ApiService } from '../_services/api.service';
 
 import { QuestionsComponent }           from '../questions/questions.component'
 import { QuestionComponent }            from '../questions/question/question.component'
@@ -28,9 +28,12 @@ describe('CreateQuestionPageComponent', () => {
       declarations: [ CreateQuestionPageComponent, CreateQuestionPageTopicSectionComponent,
         MatCard, MatFormField, MatCheckbox,
         QuestionsComponent, QuestionComponent, QuestionTopicsComponent, QuestionTopicComponent, QuestionReferencesComponent, QuestionReferenceComponent, QuestionTypeComponent, QuestionChoicesComponent, QuestionChoiceComponent, QuestionDifficultyComponent ],
-      providers: [{
-        provide: QuestionDataService, useValue: { getQuestions: jasmine.createSpy('getQuestions'), getQuestionTypeData: jasmine.createSpy('getQuestionTypeData')}
-      }]
+      providers: [
+        { provide: ApiService, useValue: { postCreatedQuestion: jasmine.createSpy('postCreatedQuestion') }},
+        {
+          provide: QuestionDataService, useValue: { getQuestions: jasmine.createSpy('getQuestions'), getQuestionTypeData: jasmine.createSpy('getQuestionTypeData')}
+        }
+      ]
     })
     .compileComponents();
   }));
