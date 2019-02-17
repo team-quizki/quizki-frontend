@@ -1,0 +1,21 @@
+.dto
+{ 
+
+border: 1px solid black;
+border-collapse: collapse;
+text-indent:2%;
+
+}
+
+button:hover
+{
+color:red;
+box-shadow: 0px 0px 12px black;
+}
+
+.typeConfig1   
+{
+color:#3F51B5;
+font-size:1.10em;
+font-family: arial, sans-serif;
+}
