@@ -2,9 +2,11 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { FormBuilder, FormControl, FormControlName, FormGroup, Validators } from '@angular/forms';
 
 import { LoginService } from './login.service';
+import { UserService } from '../_services/user.service';
 import { User, Role} from '../user/user';
 import { MatDialogModule, MatDialogRef } from '@angular/material';
 import { CommonFieldControlsService } from '../_services/common-field-controls.service';
+
 
 @Component({
   selector: 'app-login',
@@ -29,13 +31,14 @@ export class LoginComponent implements OnInit {
       public commonFCS: CommonFieldControlsService,
       private formBuilder: FormBuilder,
       public loginService: LoginService,
+      public userService: UserService,
       public matDialogRef: MatDialogRef<LoginComponent>
     ) {}
 
 
   ngOnInit() {
 
-    let currentUser = this.loginService.getCurrentUser();
+    let currentUser = this.userService.getCurrentUser();
     if( currentUser === undefined){
       this.loginStatus = 'no one logged in';
     } else
@@ -126,7 +129,7 @@ export class LoginComponent implements OnInit {
     // need to add an error for when login doesn't occure
 
     // TODO: remove this comment and the next 2 lines of code.
-    let checkUser = this.loginService.getCurrentUser();
+    let checkUser = this.userService.getCurrentUser();
     console.log("in Login(): before requestUserLogin() is executed. getCurrentUser() returns: " + JSON.stringify(checkUser));
 
     this.loginStatus = 'Requested';
@@ -134,10 +137,10 @@ export class LoginComponent implements OnInit {
       .subscribe(
         (res: User) => {
           this.loginStatus = `${res.name} Logged In`;
-          this.loginService.setCurrentUser(res);
+          this.userService.setCurrentUser(res);
 
           //TODO: remove this coment and the next 2 lines of code.
-          let checkUser = this.loginService.getCurrentUser();
+          let checkUser = this.userService.getCurrentUser();
           console.log("in Login(): after getCurrentUser() returns: " + JSON.stringify(checkUser));
 
         },

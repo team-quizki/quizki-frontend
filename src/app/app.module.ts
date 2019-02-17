@@ -66,6 +66,7 @@ import { LoginComponent } from './login/login.component';
 import { LoginDialogHostComponent } from './login-dialog-host/login-dialog-host.component';
 import { LoginService } from './login/login.service';
 import { QuestionDataService } from './questionData/question-data.service';
+import { UserService } from './_services/user.service';
 
 @NgModule({
   declarations: [
@@ -120,7 +121,7 @@ import { QuestionDataService } from './questionData/question-data.service';
     EditorModule,
     MatSnackBarModule
 ],
-  providers: [ ApiService, CommonFieldControlsService, LoginDialogHostComponent, LoginService, QuestionDataService ],
+  providers: [ ApiService, UserService, CommonFieldControlsService, LoginDialogHostComponent, LoginService, QuestionDataService ],
   bootstrap: [ AppComponent ],
   entryComponents: [ LoginComponent ]
 })
