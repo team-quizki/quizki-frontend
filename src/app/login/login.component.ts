@@ -109,11 +109,6 @@ export class LoginComponent implements OnInit {
 
   }
 
-  private prepareToTransferToRegistation() {
-    // consider asking the user for cancel confirmation.
-    this.cancelLogin();
-  }
-
   private onSubmit() {
       if ( this.loginForm.invalid ) { return; } // form should never be invalid at this point.
       this.loginSubmitted = true;
