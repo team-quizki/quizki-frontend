@@ -18,11 +18,11 @@ export class CreateQuestionPageComponent {
     
     GETid:number = 1;                              // user ID placeholder, otherwise obtained from DB when user logs in.
     
-    // Data Transfer Object
+    // Create Question Data Object
     createQuestionDataObj =
     {
         "userId": 1,
-        "text": "RequiredQuestionText",
+        "text": "",
         "description": "",
         "type": 1,
         "topics": ["default"],
@@ -36,7 +36,6 @@ export class CreateQuestionPageComponent {
                    ]
     };
 
-    tinyMCEeditorData:string = "Enter your question here:";
     answer1:string = "answer 1";
     answer1isCorrect = true;
     answer2:string = "answer 2";
@@ -62,9 +61,12 @@ export class CreateQuestionPageComponent {
         this.createQuestionDataObj.type = topicsData.questionType;  
         this.createQuestionDataObj.description = topicsData.questionOverview;  
     }
-        
+    
+    createQuestionEditorTextDATA(createQuestionEditorTEXT:string){
+        this.createQuestionDataObj.text = createQuestionEditorTEXT;
+    }
+                
     onSaveQuestions() {
-        this.createQuestionDataObj.text = this.tinyMCEeditorData;  
         this.createQuestionDataObj.choices.length = 0;       
         this.createQuestionDataObj.choices.push({"text":this.answer1, "isCorrect":this.answer1isCorrect});
         this.createQuestionDataObj.choices.push({"text":this.answer2, "isCorrect":this.answer2isCorrect});
@@ -78,17 +80,16 @@ export class CreateQuestionPageComponent {
           
         this.apiService.postCreatedQuestion('/api/question', this.createQuestionDataObj)
         .subscribe(
-            (response:any) => {console.log(JSON.stringify(response));
-                               this.clearDTO(); 
+            (response:any) => {console.log("Response object is: " + JSON.stringify(response));
+                               this.clearCreateQuestionDataObj(); 
                                this.showStatusMsg("success")},
-            (error:any) => {console.log(JSON.stringify(error));
+            (error:any) => {console.log("Error response is: " + JSON.stringify(error));
                             this.showStatusMsg("failure");
                             }
         );
     };
     
-    clearDTO(){
-        this.tinyMCEeditorData = "Enter your question here:";
+    clearCreateQuestionDataObj(){
         this.createQuestionDataObj.topics.length = 0;
         this.createQuestionDataObj.topics.push("default");
         this.createQuestionDataObj.references.length = 0;
