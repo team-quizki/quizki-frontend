@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { Location } from '@angular/common';
-import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
+import { ComponentFixture, TestBed, fakeAsync, tick, async } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Router } from '@angular/router';
 import { MatButtonModule,
@@ -20,7 +20,8 @@ import { MatButtonModule,
          MatSidenavModule,
          MatSortModule,
          MatTableModule,
-         MatToolbarModule
+         MatToolbarModule,
+         MatSnackBarModule
        } from '@angular/material';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
@@ -36,7 +37,8 @@ import { AppRoutingModule, appRoutes } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavigationComponent } from './navigation/navigation.component';
 import { NavigationService } from './navigation.service';
-import { DataTableComponent } from './data-table/data-table.component';
+//import { DataTableComponent } from './data-table/data-table.component';
+import { DataTableModule } from './data-table/data-table.module';
 import { EditorModule } from '@tinymce/tinymce-angular';
 
 
@@ -51,6 +53,9 @@ import { QuestionReferencesComponent } from './questions/question/question-refer
 import { QuestionChoiceComponent } from './questions/question/question-choices/question-choice/question-choice.component';
 import { QuestionChoicesComponent } from './questions/question/question-choices/question-choices.component';
 import { LoginDialogHostComponent } from './login-dialog-host/login-dialog-host.component';
+import { HttpClientModule } from '@angular/common/http';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { ApiService } from './_services/api.service';
 
 
 describe('AppRoutingModule', () => {
@@ -60,7 +65,7 @@ describe('AppRoutingModule', () => {
   let router: Router;
   let fixture;
 
-  beforeEach(async() => {
+  beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
         RouterTestingModule.withRoutes(appRoutes),
@@ -78,19 +83,23 @@ describe('AppRoutingModule', () => {
         MatPaginatorModule,
         MatSelectModule,
         MatSidenavModule,
+        MatSnackBarModule,
         MatSortModule,
         MatTableModule,
         MatToolbarModule,
         FormsModule,
         ReactiveFormsModule,
-        EditorModule
+        EditorModule,
+        HttpClientModule,
+        HttpClientTestingModule,
+        DataTableModule
       ],
       declarations: [
         AppComponent,
         CreateExamPageComponent,
         CreateQuestionPageComponent,
         CreateQuestionPageTopicSectionComponent,
-        DataTableComponent,
+//        DataTableComponent,
         GenerateExamPageComponent,
         HomePageComponent,
         PageNotFoundComponent,
@@ -106,7 +115,7 @@ describe('AppRoutingModule', () => {
         QuestionChoiceComponent,
         QuestionChoicesComponent
       ],
-      providers: [
+      providers: [ ApiService,
         {
           provide: NavigationService,
           useValue: {
@@ -120,9 +129,9 @@ describe('AppRoutingModule', () => {
           }
         }
       ]
-    });
+    }).compileComponents();
     appRoutingModule = new AppRoutingModule();
-  });
+  }));
 
   beforeEach(() => {
 
