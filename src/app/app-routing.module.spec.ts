@@ -37,7 +37,6 @@ import { AppRoutingModule, appRoutes } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavigationComponent } from './navigation/navigation.component';
 import { NavigationService } from './navigation.service';
-//import { DataTableComponent } from './data-table/data-table.component';
 import { DataTableModule } from './data-table/data-table.module';
 import { EditorModule } from '@tinymce/tinymce-angular';
 
@@ -99,7 +98,6 @@ describe('AppRoutingModule', () => {
         CreateExamPageComponent,
         CreateQuestionPageComponent,
         CreateQuestionPageTopicSectionComponent,
-//        DataTableComponent,
         GenerateExamPageComponent,
         HomePageComponent,
         PageNotFoundComponent,
