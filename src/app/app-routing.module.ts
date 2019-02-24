@@ -9,6 +9,7 @@ import { SearchForAnExamPageComponent } from './search-for-an-exam-page/search-f
 import { CreateExamPageComponent } from './create-exam-page/create-exam-page.component';
 import { CreateQuestionPageComponent } from './create-question-page/create-question-page.component';
 import { CreateQuestionPageTopicSectionComponent } from './create-question-page/create-question-page-topic-section/create-question-page-topic-section.component';
+import { CreateQuestionPageEditorSectionComponent } from './create-question-page/create-question-page-editor-section/create-question-page-editor-section.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { RegistrationComponent} from './registration/registration.component';
 import { NavigationService } from './navigation.service';
@@ -35,7 +36,8 @@ export const appRoutes: Routes = [
   { path: 'search-for-an-exam-page', component: SearchForAnExamPageComponent, data: {pageTitle: 'Search for an Exam'} },
   { path: 'create-question-page', component: CreateQuestionPageComponent, data: {pageTitle: 'Create Question'},
     children: [
-      {path:'', component: CreateQuestionPageTopicSectionComponent }
+      { path: '', component: CreateQuestionPageTopicSectionComponent },
+      { path: '', component: CreateQuestionPageEditorSectionComponent }
     ]
   },
 

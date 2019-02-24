@@ -31,6 +31,7 @@ import { SearchForAnExamPageComponent } from './search-for-an-exam-page/search-f
 import { CreateExamPageComponent } from './create-exam-page/create-exam-page.component';
 import { CreateQuestionPageComponent } from './create-question-page/create-question-page.component';
 import { CreateQuestionPageTopicSectionComponent } from './create-question-page/create-question-page-topic-section/create-question-page-topic-section.component';
+import { CreateQuestionPageEditorSectionComponent } from './create-question-page/create-question-page-editor-section/create-question-page-editor-section.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { RegistrationComponent } from './registration/registration.component';
 import { AppRoutingModule, appRoutes } from './app-routing.module';
@@ -55,7 +56,6 @@ import { LoginDialogHostComponent } from './login-dialog-host/login-dialog-host.
 import { HttpClientModule } from '@angular/common/http';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ApiService } from './_services/api.service';
-
 
 describe('AppRoutingModule', () => {
 
@@ -98,6 +98,7 @@ describe('AppRoutingModule', () => {
         CreateExamPageComponent,
         CreateQuestionPageComponent,
         CreateQuestionPageTopicSectionComponent,
+        CreateQuestionPageEditorSectionComponent,
         GenerateExamPageComponent,
         HomePageComponent,
         PageNotFoundComponent,
