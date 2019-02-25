@@ -8,6 +8,8 @@ import { GenerateExamPageComponent } from './generate-exam-page/generate-exam-pa
 import { SearchForAnExamPageComponent } from './search-for-an-exam-page/search-for-an-exam-page.component';
 import { CreateExamPageComponent } from './create-exam-page/create-exam-page.component';
 import { CreateQuestionPageComponent } from './create-question-page/create-question-page.component';
+import { CreateQuestionPageTopicSectionComponent } from './create-question-page/create-question-page-topic-section/create-question-page-topic-section.component';
+import { CreateQuestionPageEditorSectionComponent } from './create-question-page/create-question-page-editor-section/create-question-page-editor-section.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { RegistrationComponent} from './registration/registration.component';
 import { NavigationService } from './navigation.service';
@@ -32,7 +34,13 @@ export const appRoutes: Routes = [
   { path: 'home-page', component: HomePageComponent, data: {pageTitle: 'Home'} },
   { path: 'generate-exam-page', component: GenerateExamPageComponent, data: {pageTitle: 'Generate Exam'} },
   { path: 'search-for-an-exam-page', component: SearchForAnExamPageComponent, data: {pageTitle: 'Search for an Exam'} },
-  { path: 'create-question-page', component: CreateQuestionPageComponent, data: {pageTitle: 'Create Question'} },
+  { path: 'create-question-page', component: CreateQuestionPageComponent, data: {pageTitle: 'Create Question'},
+    children: [
+      { path: '', component: CreateQuestionPageTopicSectionComponent },
+      { path: '', component: CreateQuestionPageEditorSectionComponent }
+    ]
+  },
+
   { path: 'create-exam-page', component: CreateExamPageComponent, data: {pageTitle: 'Create Exam'} },
   { path: 'registration', component: RegistrationComponent, data: {pageTitle: 'Register'} },
 

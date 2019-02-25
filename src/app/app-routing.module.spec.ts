@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { Location } from '@angular/common';
-import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
+import { ComponentFixture, TestBed, fakeAsync, tick, async } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Router } from '@angular/router';
 import { MatButtonModule,
@@ -20,7 +20,8 @@ import { MatButtonModule,
          MatSidenavModule,
          MatSortModule,
          MatTableModule,
-         MatToolbarModule
+         MatToolbarModule,
+         MatSnackBarModule
        } from '@angular/material';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
@@ -29,13 +30,17 @@ import { GenerateExamPageComponent } from './generate-exam-page/generate-exam-pa
 import { SearchForAnExamPageComponent } from './search-for-an-exam-page/search-for-an-exam-page.component';
 import { CreateExamPageComponent } from './create-exam-page/create-exam-page.component';
 import { CreateQuestionPageComponent } from './create-question-page/create-question-page.component';
+import { CreateQuestionPageTopicSectionComponent } from './create-question-page/create-question-page-topic-section/create-question-page-topic-section.component';
+import { CreateQuestionPageEditorSectionComponent } from './create-question-page/create-question-page-editor-section/create-question-page-editor-section.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { RegistrationComponent } from './registration/registration.component';
 import { AppRoutingModule, appRoutes } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavigationComponent } from './navigation/navigation.component';
 import { NavigationService } from './navigation.service';
-import { DataTableComponent } from './data-table/data-table.component';
+import { DataTableModule } from './data-table/data-table.module';
+import { EditorModule } from '@tinymce/tinymce-angular';
+
 
 // TODO: Ask Johnathan if we even need the questions directory code any more?
 // if not remove questions directory and associated imports and selectors
@@ -48,7 +53,9 @@ import { QuestionReferencesComponent } from './questions/question/question-refer
 import { QuestionChoiceComponent } from './questions/question/question-choices/question-choice/question-choice.component';
 import { QuestionChoicesComponent } from './questions/question/question-choices/question-choices.component';
 import { LoginDialogHostComponent } from './login-dialog-host/login-dialog-host.component';
-
+import { HttpClientModule } from '@angular/common/http';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { ApiService } from './_services/api.service';
 
 describe('AppRoutingModule', () => {
 
@@ -57,7 +64,7 @@ describe('AppRoutingModule', () => {
   let router: Router;
   let fixture;
 
-  beforeEach(async() => {
+  beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
         RouterTestingModule.withRoutes(appRoutes),
@@ -75,17 +82,23 @@ describe('AppRoutingModule', () => {
         MatPaginatorModule,
         MatSelectModule,
         MatSidenavModule,
+        MatSnackBarModule,
         MatSortModule,
         MatTableModule,
         MatToolbarModule,
         FormsModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        EditorModule,
+        HttpClientModule,
+        HttpClientTestingModule,
+        DataTableModule
       ],
       declarations: [
         AppComponent,
         CreateExamPageComponent,
         CreateQuestionPageComponent,
-        DataTableComponent,
+        CreateQuestionPageTopicSectionComponent,
+        CreateQuestionPageEditorSectionComponent,
         GenerateExamPageComponent,
         HomePageComponent,
         PageNotFoundComponent,
@@ -101,7 +114,7 @@ describe('AppRoutingModule', () => {
         QuestionChoiceComponent,
         QuestionChoicesComponent
       ],
-      providers: [
+      providers: [ ApiService,
         {
           provide: NavigationService,
           useValue: {
@@ -115,9 +128,9 @@ describe('AppRoutingModule', () => {
           }
         }
       ]
-    });
+    }).compileComponents();
     appRoutingModule = new AppRoutingModule();
-  });
+  }));
 
   beforeEach(() => {
 
@@ -133,37 +146,37 @@ describe('AppRoutingModule', () => {
     expect(location.path()).toBe('/home-page');
   }));
 
-  xit('#app-routing navigate to "home-page" takes you to /home-page', fakeAsync(() => {
+  it('#app-routing navigate to "home-page" takes you to /home-page', fakeAsync(() => {
     router.navigate(['/home-page']);
     tick();
     expect(location.path()).toBe('/home-page');
   }));
 
-  xit('#app-routing navigate to "generate-exam-page" takes you to /generate-exam-page', fakeAsync(() => {
+  it('#app-routing navigate to "generate-exam-page" takes you to /generate-exam-page', fakeAsync(() => {
     router.navigate(['/generate-exam-page']);
     tick();
     expect(location.path()).toBe('/generate-exam-page');
   }));
 
-  xit('#app-routing navigate to "search-for-an-exam-page" takes you to /search-for-an-exam-page', fakeAsync(() => {
+  it('#app-routing navigate to "search-for-an-exam-page" takes you to /search-for-an-exam-page', fakeAsync(() => {
     router.navigate(['/search-for-an-exam-page']);
     tick();
     expect(location.path()).toBe('/search-for-an-exam-page');
   }));
 
-  xit('#app-routing navigate to "create-question-page" takes you to /create-question-page', fakeAsync(() => {
+  it('#app-routing navigate to "create-question-page" takes you to /create-question-page', fakeAsync(() => {
     router.navigate(['/create-question-page']);
     tick();
     expect(location.path()).toBe('/create-question-page');
   }));
 
-  xit('#app-routing navigate to "create-exam-page" takes you to /create-exam-page', fakeAsync(() => {
+  it('#app-routing navigate to "create-exam-page" takes you to /create-exam-page', fakeAsync(() => {
     router.navigate(['/create-exam-page']);
     tick();
     expect(location.path()).toBe('/create-exam-page');
   }));
 
-  xit('#app-routing navigate to "registration" takes you to /registration', fakeAsync(() => {
+  it('#app-routing navigate to "registration" takes you to /registration', fakeAsync(() => {
     router.navigate(['/registration']);
     tick();
     expect(location.path()).toBe('/registration');
