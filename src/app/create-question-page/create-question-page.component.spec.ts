@@ -1,9 +1,12 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { MatCard, MatFormField, MatCheckbox } from '@angular/material';
+import { MatFormFieldModule, MatCheckboxModule, MatCardModule, MatOptionModule, MatSelectModule,
+  MatSnackBarModule, MatInputModule } from '@angular/material';
 import { EditorModule } from '@tinymce/tinymce-angular';
+import { FormsModule } from '@angular/forms';
 
 import { CreateQuestionPageComponent }  from './create-question-page.component';
 import { CreateQuestionPageTopicSectionComponent } from './create-question-page-topic-section/create-question-page-topic-section.component';
+import { CreateQuestionPageEditorSectionComponent } from './create-question-page-editor-section/create-question-page-editor-section.component';
 import { ApiService } from '../_services/api.service';
 
 import { QuestionsComponent }           from '../questions/questions.component'
@@ -18,6 +21,7 @@ import { QuestionDifficultyComponent }  from '../questions/question/question-dif
 import { QuestionTypeComponent }        from '../questions/question/question-types/question-type.component'
 
 import { QuestionDataService }          from '../questionData/question-data.service'
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('CreateQuestionPageComponent', () => {
   let component: CreateQuestionPageComponent;
@@ -26,8 +30,10 @@ describe('CreateQuestionPageComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ CreateQuestionPageComponent, CreateQuestionPageTopicSectionComponent,
-        MatCard, MatFormField, MatCheckbox,
+        CreateQuestionPageEditorSectionComponent,
         QuestionsComponent, QuestionComponent, QuestionTopicsComponent, QuestionTopicComponent, QuestionReferencesComponent, QuestionReferenceComponent, QuestionTypeComponent, QuestionChoicesComponent, QuestionChoiceComponent, QuestionDifficultyComponent ],
+      imports: [ BrowserAnimationsModule, FormsModule, EditorModule, FormsModule, MatFormFieldModule, MatCheckboxModule,
+        MatCardModule, MatOptionModule, MatSelectModule, MatSnackBarModule, MatInputModule ],
       providers: [
         { provide: ApiService, useValue: { postCreatedQuestion: jasmine.createSpy('postCreatedQuestion') }},
         {
@@ -44,7 +50,7 @@ describe('CreateQuestionPageComponent', () => {
     fixture.detectChanges();
   });
 
-  xit('should create', () => {
+  it('should create', () => {
     expect(component).toBeTruthy();
   });
 });
