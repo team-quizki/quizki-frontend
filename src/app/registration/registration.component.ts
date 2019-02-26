@@ -6,7 +6,7 @@ import { RegisterService,
   ValidateUsernameNotTaken,
   ValidateEmailNotTaken} from './register.service';
 import { CommonFieldControlsService } from '../_services/common-field-controls.service';
-import { LoginDialogHostComponent } from './../login-dialog-host/login-dialog-host.component';
+import { LoginDialogService} from './../login/login-dialog.service';
 
 @Component({
   selector: 'app-registration',
@@ -34,7 +34,7 @@ export class RegistrationComponent implements OnInit {
     public commonFCS: CommonFieldControlsService,
     private formBuilder: FormBuilder,
     private registerService: RegisterService,
-    private loginDialogHostComponent: LoginDialogHostComponent
+    private loginDialogService: LoginDialogService
   ) {
    // setting this is the key to initial select.
   }

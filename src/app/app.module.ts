@@ -64,10 +64,11 @@ import { QuestionTypeComponent } from './questions/question/question-types/quest
 
 import { CommonFieldControlsService } from './_services/common-field-controls.service';
 import { LoginComponent } from './login/login.component';
-import { LoginDialogHostComponent } from './login-dialog-host/login-dialog-host.component';
 import { LoginService } from './login/login.service';
+import { LoginDialogService } from './login/login-dialog.service';
 import { QuestionDataService } from './questionData/question-data.service';
 import { UserService } from './_services/user.service';
+
 
 @NgModule({
   declarations: [
@@ -91,8 +92,7 @@ import { UserService } from './_services/user.service';
     CreateQuestionPageEditorSectionComponent,
     PageNotFoundComponent,
     RegistrationComponent,
-    LoginComponent,
-    LoginDialogHostComponent
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -123,7 +123,7 @@ import { UserService } from './_services/user.service';
     EditorModule,
     MatSnackBarModule
 ],
-  providers: [ ApiService, UserService, CommonFieldControlsService, LoginDialogHostComponent, LoginService, QuestionDataService ],
+  providers: [ ApiService, UserService, CommonFieldControlsService, LoginService, LoginDialogService, QuestionDataService ],
   bootstrap: [ AppComponent ],
   entryComponents: [ LoginComponent ]
 })

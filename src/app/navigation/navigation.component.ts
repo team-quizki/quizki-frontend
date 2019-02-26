@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 import { filter, map, mergeMap } from 'rxjs/operators';
 
 import { NavigationService } from './../navigation.service';
-import { LoginDialogHostComponent } from './../login-dialog-host/login-dialog-host.component';
+import { LoginDialogService } from './../login/login-dialog.service';
 
 @Injectable({
   providedIn: 'root'
@@ -30,7 +30,7 @@ export class NavigationComponent {
     private navigationService: NavigationService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private loginDialogHostComponent: LoginDialogHostComponent
+    private loginDialogService: LoginDialogService
     ) {
       // Create an Observable NavigationEnd event
       this.navigationEnd = this.router.events.pipe(

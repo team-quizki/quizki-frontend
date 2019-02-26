@@ -52,7 +52,7 @@ import { QuestionReferenceComponent } from './questions/question/question-refere
 import { QuestionReferencesComponent } from './questions/question/question-references/question-references.component';
 import { QuestionChoiceComponent } from './questions/question/question-choices/question-choice/question-choice.component';
 import { QuestionChoicesComponent } from './questions/question/question-choices/question-choices.component';
-import { LoginDialogHostComponent } from './login-dialog-host/login-dialog-host.component';
+import { LoginDialogService } from './login/login-dialog.service';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ApiService } from './_services/api.service';
@@ -122,7 +122,7 @@ describe('AppRoutingModule', () => {
           }
         },
         {
-          provide: LoginDialogHostComponent,
+          provide: LoginDialogService,
           useValue: {
             openLoginDialog: jasmine.createSpy('openLoginDialog')
           }

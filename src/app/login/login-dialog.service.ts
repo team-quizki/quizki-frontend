@@ -1,14 +1,11 @@
-import { Component } from '@angular/core';
-import { MatDialog, MatDialogRef } from '@angular/material';
-import { LoginComponent } from '../login/login.component';
+import { Injectable } from '@angular/core';
+import { MatDialogRef, MatDialog } from '@angular/material';
+import { LoginComponent } from './login.component';
 
-@Component({
-  selector: 'app-login-dialog-host',
-  templateUrl: './login-dialog-host.component.html',
-  styleUrls: ['./login-dialog-host.component.css']
+@Injectable({
+  providedIn: 'root'
 })
-
-export class LoginDialogHostComponent {
+export class LoginDialogService {
 
   currentMatDialogRef: MatDialogRef<LoginComponent> = null;
 
@@ -23,5 +20,4 @@ export class LoginDialogHostComponent {
     });
     this.currentMatDialogRef.afterClosed().subscribe(() => {});
   }
-
 }
