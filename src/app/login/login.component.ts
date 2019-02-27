@@ -123,28 +123,17 @@ export class LoginComponent implements OnInit {
   public login() {
     // need to add an error for when login doesn't occure
 
-    // TODO: remove this comment and the next 2 lines of code.
-    let checkUser = this.userService.getCurrentUser();
-    console.log("in Login(): before requestUserLogin() is executed. getCurrentUser() returns: " + JSON.stringify(checkUser));
-
     this.loginStatus = 'Requested';
     this.loginService.requestUserLogin(this.username, this.password)
-      .subscribe(
-        (res: User) => {
-          this.loginStatus = `${res.name} Logged In`;
-          this.userService.setCurrentUser(res);
-
-          //TODO: remove this coment and the next 2 lines of code.
-          let checkUser = this.userService.getCurrentUser();
-          console.log("in Login(): after getCurrentUser() returns: " + JSON.stringify(checkUser));
-
-        },
-        (error) => {
-          this.loginStatus = 'Please correct username and password.';
+      .then((resolve) => {
+          this.loginForm.reset();
+          this.matDialogRef.close();
+        })
+      .catch((reject) => { // error state
+          this.loginStatus = 'Please verify username and password.';
           this.loginForm.setErrors({'invalid': true});
           this.loginSubmitted = false;
-        },
-        () => {this.loginForm.reset(); this.matDialogRef.close(); }
+        }
       );
   }
 
