@@ -40,7 +40,7 @@
       </mat-card-content>
       <mat-card-actions class="basic-container basic-card-actions">
         <div class="button-row">
-          <button mat-raised-button
+          <button mat-raised-button id='login_button'
             type="submit" class="btn btn-success btn-primary"
             aria-label="login button"
             [disabled]="loginForm.invalid || loginSubmitted"
@@ -48,7 +48,7 @@
             >Login
           </button>
           &nbsp;
-          <button mat-raised-button
+          <button mat-raised-button id='cancel_button'
             type="text" class="btn"
             aria-label="cancel button"
             (click)="cancelLogin()"
