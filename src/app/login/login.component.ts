@@ -37,17 +37,7 @@ export class LoginComponent implements OnInit {
 
 
   ngOnInit() {
-
-    let currentUser = this.userService.getCurrentUser();
-    if( currentUser === undefined){
-      this.loginStatus = 'no one logged in';
-    } else
-    {
-      this.loginStatus = currentUser.name + ' is logged in';
-
-      //TODO: remove this line and the next line of code when finished.
-      console.log("Hey there DMPJ Coders: " + this.loginStatus + ". What action to we want to take? Allow/Prevent Duplicates? Log the user out? Ask user to logout?")
-    }
+    this.loginStatus = 'Please enter username and password.';
 
     this.username = '';
     this.password = '';
@@ -97,9 +87,7 @@ export class LoginComponent implements OnInit {
       return this.loginErrorMessage;
   }
 
-
-  private cancelLogin() {
-    // consider asking the user for cancel confirmation.
+  public cancelLogin() {
     this.loginForm.reset();
 
     this.username = '';
@@ -121,9 +109,6 @@ export class LoginComponent implements OnInit {
   }
 
   public login() {
-    // need to add an error for when login doesn't occure
-
-    this.loginStatus = 'Requested';
     this.loginService.requestUserLogin(this.username, this.password)
       .then((resolve) => {
           this.loginForm.reset();
