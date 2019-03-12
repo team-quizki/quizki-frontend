@@ -10,7 +10,7 @@
           <div class="basic-container">
             <mat-form-field appearance="standard">
               <mat-label for="username">username</mat-label>
-              <input #usernameLogin matInput required minlength
+              <input matInput required minlength
                 type="text" class="form-control" id="username"
                 formControlName="username"
                 placeholder="username">
@@ -24,7 +24,7 @@
           <a class="basic-container">
             <mat-form-field appearance="standard">
               <mat-label for="passwordIn">password</mat-label>
-              <input #passwordLogin matInput required minlength
+              <input matInput required minlength
                 type="password" class="form-control" id="passwordIn"
                 formControlName="password"
                 placeholder="Enter password" [type]="commonFCS.getPasswordFieldType()">

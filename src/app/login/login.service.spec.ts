@@ -9,7 +9,7 @@ describe('LoginService', () => {
     TestBed.configureTestingModule({
       providers: [
         { provide: LoginService, useClass: LoginService },
-        { provide: ApiService, useValue: { post: jasmine.createSpy('post') }},
+        { provide: ApiService, useValue: { get: jasmine.createSpy('get') }},
       ],
       imports: [ BrowserAnimationsModule ]
     });
