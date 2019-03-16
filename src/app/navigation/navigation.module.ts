@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 
 import { NavigationComponent } from './navigation.component';
 import { NavigationService } from '../navigation.service';
-import { LoginDialogHostComponent } from './../login-dialog-host/login-dialog-host.component';
+import { LoginDialogService } from './../login/login-dialog.service';
 
 import { RouterModule } from '@angular/router';
 
@@ -31,7 +31,7 @@ import {
     NavigationComponent
   ],
   providers: [
-    NavigationService
+    NavigationService, LoginDialogService
   ]
 })
 

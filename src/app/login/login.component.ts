@@ -2,9 +2,12 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { FormBuilder, FormControl, FormControlName, FormGroup, Validators } from '@angular/forms';
 
 import { LoginService } from './login.service';
-import { User, Role} from '../user/user';
-import { MatDialogModule, MatDialogRef } from '@angular/material';
+import { UserService } from '../_services/user.service';
+//import { User, Role} from '../user/user';
+//import { MatDialogModule, MatDialogRef } from '@angular/material';
+import { MatDialogRef } from '@angular/material';
 import { CommonFieldControlsService } from '../_services/common-field-controls.service';
+
 
 @Component({
   selector: 'app-login',
@@ -16,8 +19,6 @@ export class LoginComponent implements OnInit {
   username: string;
   password: string;
   loginStatus: string;
-  role = new Role(0, '');
-  user = new User(0, this.role, '', '', 1, '', '', false);
 
   routeOnCloseUrl: string;
   loginForm: FormGroup;
@@ -30,15 +31,15 @@ export class LoginComponent implements OnInit {
   constructor(
       public commonFCS: CommonFieldControlsService,
       private formBuilder: FormBuilder,
-      private loginService: LoginService,
+      public loginService: LoginService,
+      public userService: UserService,
       public matDialogRef: MatDialogRef<LoginComponent>
-    ) {
-        // console.log('Injected data: ', data)
-    }
+    ) {}
 
 
   ngOnInit() {
-    this.loginStatus = 'Logged Out';
+    this.loginStatus = 'Please enter username and password.';
+
     this.username = '';
     this.password = '';
 
@@ -87,9 +88,7 @@ export class LoginComponent implements OnInit {
       return this.loginErrorMessage;
   }
 
-
-  private cancelLogin() {
-    // consider asking the user for cancel confirmation.
+  public cancelLogin() {
     this.loginForm.reset();
 
     this.username = '';
@@ -97,11 +96,6 @@ export class LoginComponent implements OnInit {
 
     this.matDialogRef.close();
 
-  }
-
-  private prepareToTransferToRegistation() {
-    // consider asking the user for cancel confirmation.
-    this.cancelLogin();
   }
 
   private onSubmit() {
@@ -116,21 +110,16 @@ export class LoginComponent implements OnInit {
   }
 
   public login() {
-    // need to add an error for when login doesn't occure
-    this.loginStatus = 'Requested';
     this.loginService.requestUserLogin(this.username, this.password)
-      .subscribe(
-        (res: User) => {
-          this.loginStatus = `${res.name} Logged In`;
-          this.user.setUserData(res);
-          this.user.loggedInNow();
-        },
-        (error) => {
-          this.loginStatus = 'Please correct username and password.';
+      .then((resolve) => {
+          this.loginForm.reset();
+          this.matDialogRef.close();
+        })
+      .catch((reject) => { // error state
+          this.loginStatus = 'Please verify username and password.';
           this.loginForm.setErrors({'invalid': true});
           this.loginSubmitted = false;
-        },
-        () => {this.loginForm.reset(); this.matDialogRef.close(); }
+        }
       );
   }
 
