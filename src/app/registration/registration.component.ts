@@ -2,16 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { UserRegistration } from './../user/user-registration';
-import { RegisterService,
-  ValidateUsernameNotTaken,
-  ValidateEmailNotTaken} from './register.service';
+import { RegisterService } from './register.service';
 import { CommonFieldControlsService } from '../_services/common-field-controls.service';
 import { LoginDialogService} from './../login/login-dialog.service';
+import { EmailTakenAsyncValidatorDirective, emailTakenAsycValidator } from './email-taken-async-validator.directive';
+import { UsernameTakenAsyncValidatorDirective, usernameTakenAsycValidator } from './username-taken-async-validator.directive';
 
 @Component({
   selector: 'app-registration',
   templateUrl: './registration.component.html',
-  providers: [ RegisterService ],
+  providers: [ RegisterService, EmailTakenAsyncValidatorDirective, UsernameTakenAsyncValidatorDirective ],
   styleUrls: ['./registration.component.css']
 })
 export class RegistrationComponent implements OnInit {
@@ -34,8 +34,10 @@ export class RegistrationComponent implements OnInit {
     public commonFCS: CommonFieldControlsService,
     private formBuilder: FormBuilder,
     private registerService: RegisterService,
-    private loginDialogService: LoginDialogService
-  ) {
+    private loginDialogService: LoginDialogService,
+    private emailTakenAsyncValidatorDirective: EmailTakenAsyncValidatorDirective,
+    private usernameTakenAsyncValidatorDirective: UsernameTakenAsyncValidatorDirective,
+    ) {
    // setting this is the key to initial select.
   }
 
@@ -65,7 +67,7 @@ export class RegistrationComponent implements OnInit {
             ],
           asyncValidators:
             [
-              ValidateEmailNotTaken.createValidator(this.registerService)
+              emailTakenAsycValidator(this.registerService)
             ],
           updateOn: 'blur'
         }],
@@ -79,7 +81,7 @@ export class RegistrationComponent implements OnInit {
             ],
           asyncValidators:
             [
-              ValidateUsernameNotTaken.createValidator(this.registerService)
+              usernameTakenAsycValidator(this.registerService)
             ],
           updateOn: 'blur'
         }],
@@ -180,7 +182,6 @@ export class RegistrationComponent implements OnInit {
 
   }
 
-
   public cancelRegistration() {
     // consider asking the user for cancel confirmation.
     this.registerForm.reset();
@@ -191,8 +192,6 @@ export class RegistrationComponent implements OnInit {
     this.specificUserRegistration.password = '';
     this.specificUserRegistration.email = '';
 
-    // routed to homepage is done on the button. of course eventually,
-    // routing should be back to page the user was on orginially ...
   }
 
   // Saving the following diagonostic example for future use.
