@@ -28,7 +28,7 @@ describe('RegistrationComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ RegistrationComponent ],
       imports: [ MatCardModule, BrowserAnimationsModule, MatFormFieldModule, MatIconModule, MatInputModule, ReactiveFormsModule ],
-      providers: [ //emailTakenAsycValidator,
+      providers: [
         { provide: emailTakenAsycValidator, useValue: jasmine.createSpy('emailTakenAsycValidator') },
         { provide: EmailTakenAsyncValidatorDirective, useValue: { validate: jasmine.createSpy('validate') }},
         { provide: usernameTakenAsycValidator, useValue: { validate: jasmine.createSpy('usernameTakenAsycValidator') }},
@@ -105,10 +105,10 @@ describe('RegistrationComponent', () => {
 
   it('should validate required email field value is present ', () => {
     let errors = {};
-    let emailFormControl = component.registerForm.get('fullname');
-    emailFormControl.setValue('Firstname Lastname');
+    let emailFormControl = component.registerForm.get('email');
+    emailFormControl.setValue('test');
     errors = emailFormControl.errors || {};
-    expect(errors['required']).toBeUndefined(); // no errors
+    expect(errors['required']).toBeUndefined(); // no required error
   });
 
   it('should validate required email field value is missing ', () => {
@@ -119,24 +119,25 @@ describe('RegistrationComponent', () => {
     expect(errors['required']).toBeTruthy(); // has errors
   });
 
-  it('should validate email field value is a well formed email address  ', () => {
+  it('should validate email field value is an invalid, poorly formed email address', () => {
     let errors = {};
-    let emailFormControl = component.registerForm.get('username');
-    emailFormControl.setValue('goodEmail@somewhere.com');
-    errors = emailFormControl.errors || {};
-    expect(errors['email']).toBeUndefined(); // no errors
-  });
-
-  it('should validate email field value is and invalid, poorly formed email address  ', () => {
-    let errors = {};
-    let emailFormControl = component.registerForm.get('username');
+    let emailFormControl = component.registerForm.get('email');
     emailFormControl.setValue('badEmail@');
     errors = emailFormControl.errors || {};
-    expect(errors['email']).toBeUndefined(); // has errors
+    expect(errors['email']).toBeTruthy(); // has errors
   });
 
-  // NOTE: the following 2 tests we cannot use emailFormControl.setValue('goodEmail@somewhere.com');
-  // because setting the value to a good meial will cause the emailTakenAsycValidator funtion to execute
+  // NOTE: the following 3 tests we cannot use emailFormControl.setValue('goodEmail@somewhere.com');
+  // because setting the value to a good email will cause the emailTakenAsycValidator funtion to execute
+
+  it('should validate email field validator works when validator returns null (i.e., null means well formed email)', () => {
+    let errors = {};
+    let emailFormControl = component.registerForm.get('email');
+    emailFormControl.setErrors({'email': null});
+    errors = emailFormControl.errors || {};
+    expect(errors['email']).toBeNull(); // no errors
+  });
+
   it('should validate email field validator emailTaken to be truthy when emailTaken=true', () => {
     let errors = {};
     let emailFormControl = component.registerForm.get('email');
@@ -158,7 +159,7 @@ describe('RegistrationComponent', () => {
   it('should validate required username field value is present ', () => {
     let errors = {};
     let usernameFormControl = component.registerForm.get('username');
-    usernameFormControl.setValue('Firstname Lastname');
+    usernameFormControl.setValue('test');
     errors = usernameFormControl.errors || {};
     expect(errors['required']).toBeUndefined(); // no errors
   });
@@ -179,8 +180,24 @@ describe('RegistrationComponent', () => {
     expect(errors['minlength']).toBeTruthy(); // has errors
   });
 
-  // NOTE: the following 2 tests we cannot use usernameFormControl.setValue('aGoodUsername');
+  it('should validate username field value is poorly formed', () => {
+    let errors = {};
+    let usernameFormControl = component.registerForm.get('username');
+    usernameFormControl.setValue("testWith:-SpecialChars"); // :- is not allowed
+    errors = usernameFormControl.errors || {};
+    expect(errors['pattern']).toBeTruthy(); // has errors
+  });
+
+  // NOTE: the following 3 tests we cannot use usernameFormControl.setValue('aGoodUsername');
   // because setting the value to a well formed username will cause the usernameTakenAsycValidator funtion to execute
+
+  it('should validate username field validator pattern works when null is returned ', () => {
+    let errors = {};
+    let usernameFormControl = component.registerForm.get('username');
+    usernameFormControl.setErrors({'pattern': null});
+    errors = usernameFormControl.errors || {};
+    expect(errors['pattern']).toBeNull(); // no errors
+  });
 
   it('should validate username validator usernameTaken to be truthy when usernameTaken=true', () => {
     let errors = {};
@@ -203,7 +220,7 @@ describe('RegistrationComponent', () => {
   it('should validate required password field value is present ', () => {
     let errors = {};
     let passwordFormControl = component.registerForm.get('password');
-    passwordFormControl.setValue('Firstname Lastname');
+    passwordFormControl.setValue('aPassword');
     errors = passwordFormControl.errors || {};
     expect(errors['required']).toBeUndefined(); // no errors
   });
