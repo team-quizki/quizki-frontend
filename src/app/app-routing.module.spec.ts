@@ -40,18 +40,6 @@ import { NavigationComponent } from './navigation/navigation.component';
 import { NavigationService } from './navigation.service';
 import { DataTableModule } from './data-table/data-table.module';
 import { EditorModule } from '@tinymce/tinymce-angular';
-
-
-// TODO: Ask Johnathan if we even need the questions directory code any more?
-// if not remove questions directory and associated imports and selectors
-import { QuestionsComponent } from './questions/questions.component';
-import { QuestionComponent } from './questions/question/question.component';
-import { QuestionTopicComponent } from './questions/question/question-topics/question-topic/question-topic.component';
-import { QuestionTopicsComponent } from './questions/question/question-topics/question-topics.component';
-import { QuestionReferenceComponent } from './questions/question/question-references/question-reference/question-reference.component';
-import { QuestionReferencesComponent } from './questions/question/question-references/question-references.component';
-import { QuestionChoiceComponent } from './questions/question/question-choices/question-choice/question-choice.component';
-import { QuestionChoicesComponent } from './questions/question/question-choices/question-choices.component';
 import { LoginDialogService } from './login/login-dialog.service';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
@@ -104,15 +92,7 @@ describe('AppRoutingModule', () => {
         PageNotFoundComponent,
         NavigationComponent,
         RegistrationComponent,
-        SearchForAnExamPageComponent,
-        QuestionComponent,
-        QuestionsComponent,
-        QuestionTopicComponent,
-        QuestionTopicsComponent,
-        QuestionReferenceComponent,
-        QuestionReferencesComponent,
-        QuestionChoiceComponent,
-        QuestionChoicesComponent
+        SearchForAnExamPageComponent
       ],
       providers: [ ApiService,
         {
