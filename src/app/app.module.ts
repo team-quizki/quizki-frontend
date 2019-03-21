@@ -55,7 +55,8 @@ import { LoginComponent } from './login/login.component';
 import { LoginService } from './login/login.service';
 import { LoginDialogService } from './login/login-dialog.service';
 import { UserService } from './_services/user.service';
-
+import { EmailTakenAsyncValidatorDirective } from './registration/email-taken-async-validator.directive';
+import { UsernameTakenAsyncValidatorDirective } from './registration/username-taken-async-validator.directive';
 
 @NgModule({
   declarations: [
@@ -69,7 +70,9 @@ import { UserService } from './_services/user.service';
     CreateQuestionPageEditorSectionComponent,
     PageNotFoundComponent,
     RegistrationComponent,
-    LoginComponent
+    LoginComponent,
+    EmailTakenAsyncValidatorDirective,
+    UsernameTakenAsyncValidatorDirective
   ],
   imports: [
     BrowserModule,

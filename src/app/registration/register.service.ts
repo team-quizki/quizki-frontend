@@ -1,10 +1,6 @@
 import { Injectable } from '@angular/core';
-import { AbstractControl } from '@angular/forms';
-
 import { ApiService } from '../_services/api.service';
 import { Observable } from '../../../node_modules/rxjs';
-import { map, catchError } from '../../../node_modules/rxjs/operators';
-
 import { UserRegistration } from './../user/user-registration';
 
 @Injectable()
@@ -34,32 +30,5 @@ export class RegisterService {
     return this.apiService
       .post(apiUsersUrl, JSON.stringify(userRegistration));
   }
-
-}
-
-// asyncValidators classes for usernameTaken and emailTaken
-export class ValidateUsernameNotTaken {
-  static createValidator(registerService: RegisterService) {
-    return (control: AbstractControl) => {
-      return registerService.isUniqueUsername(control.value).pipe(
-        map((res) => {
-          return res.name ? null : { usernameTaken: true };
-        }),
-        catchError(() => null)
-      );
-    };
-  }
-}
-
-export class ValidateEmailNotTaken {
-  static createValidator(registerService: RegisterService) {
-    return (control: AbstractControl) => {
-      return registerService.isUniqueEmail(control.value).pipe(
-        map((res) => {
-          return res.email ? null : { emailTaken: true };
-        }),
-        catchError(() => null)
-      );
-    };
-  }
+  
 }

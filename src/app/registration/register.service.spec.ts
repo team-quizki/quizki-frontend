@@ -71,9 +71,5 @@ describe('RegisterService', () => {
 
   }));
 
-  afterEach(() => {
-    // nothing to clean up???
-  });
-
 
 });
