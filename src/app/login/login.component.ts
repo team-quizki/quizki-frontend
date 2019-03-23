@@ -98,7 +98,7 @@ export class LoginComponent implements OnInit {
 
   }
 
-  private submitWhenEntireFormIsValid() {
+  public submitWhenEntireFormIsValid() {
 
     if (this.loginForm.valid ) { this.onSubmit(); return; }
 
@@ -106,7 +106,7 @@ export class LoginComponent implements OnInit {
 
   }
 
-  private onSubmit() {
+  public onSubmit() {
       if ( this.loginForm.invalid ) { return; } // form should never be invalid at this point.
       this.loginSubmitted = true;
 

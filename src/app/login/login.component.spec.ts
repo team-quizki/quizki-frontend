@@ -115,4 +115,24 @@ describe('LoginComponent', () => {
     expect(errors['minlength']).toBeTruthy();
   });
 
+  it('submitWhenEntireFormIsValid() calls onSubmit() when loginForm is valid', () => {
+    spyOn(component, 'onSubmit');
+    let usernameFormControl = component.loginForm.get('username');
+    let passwordFormControl = component.loginForm.get('password');
+    usernameFormControl.setValue("validUsername");
+    passwordFormControl.setValue("validPassword");
+    component.submitWhenEntireFormIsValid();
+    expect(component.onSubmit).toHaveBeenCalled();
+  });
+
+  it('submitWhenEntireFormIsValid() does not call onSubmit() when loginForm is invalid', () => {
+    spyOn(component, 'onSubmit');
+    let usernameFormControl = component.loginForm.get('username');
+    let passwordFormControl = component.loginForm.get('password');
+    usernameFormControl.setValue("validUsername");
+    passwordFormControl.setValue("bad");
+    component.submitWhenEntireFormIsValid();
+    expect(component.onSubmit).not.toHaveBeenCalled();
+  });
+
 });
