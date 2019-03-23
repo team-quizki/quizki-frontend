@@ -47,6 +47,7 @@
             aria-label="login button"
             [disabled]="loginForm.invalid || loginSubmitted"
             (click)="onSubmit()"
+            (keyup.enter)="onSubmit()"
             >Login
           </button>
           &nbsp;
