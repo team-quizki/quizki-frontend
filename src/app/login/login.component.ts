@@ -98,6 +98,14 @@ export class LoginComponent implements OnInit {
 
   }
 
+  private submitWhenEntireFormIsValid() {
+
+    if (this.loginForm.valid ) { this.onSubmit(); return; }
+
+    this.loginStatus = 'Whoops! Please enter valid username and password.';
+
+  }
+
   private onSubmit() {
       if ( this.loginForm.invalid ) { return; } // form should never be invalid at this point.
       this.loginSubmitted = true;
