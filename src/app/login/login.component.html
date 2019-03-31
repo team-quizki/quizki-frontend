@@ -13,7 +13,8 @@
               <input matInput required minlength
                 type="text" class="form-control" id="username"
                 formControlName="username"
-                placeholder="username">
+                placeholder="username"
+                (keyup.enter)="submitWhenEntireFormIsValid()">
               <mat-error *ngIf="isInvalidWithTouchedOrDirtyControl('username')">
                 {{getLoginErrorMessage("username")}}
               </mat-error>
@@ -27,7 +28,8 @@
               <input matInput required minlength
                 type="password" class="form-control" id="passwordIn"
                 formControlName="password"
-                placeholder="Enter password" [type]="commonFCS.getPasswordFieldType()">
+                placeholder="Enter password" [type]="commonFCS.getPasswordFieldType()"
+                (keyup.enter)="submitWhenEntireFormIsValid()">
               <mat-icon matSuffix (click)="commonFCS.hidePasswordClick($event)">{{commonFCS.getIconVisiblityString()}}</mat-icon>
               <mat-error *ngIf="isInvalidWithTouchedOrDirtyControl('password')">
                 {{getLoginErrorMessage("password")}}
@@ -45,6 +47,7 @@
             aria-label="login button"
             [disabled]="loginForm.invalid || loginSubmitted"
             (click)="onSubmit()"
+            (keyup.enter)="onSubmit()"
             >Login
           </button>
           &nbsp;
