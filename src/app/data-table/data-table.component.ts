@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { DataService} from './data.service';
 import { Question} from './question.model';
 import { Subscription} from 'rxjs';
+import { SelectionModel } from '@angular/cdk/collections';
+import { FormGroup, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-data-table',
@@ -12,9 +14,9 @@ import { Subscription} from 'rxjs';
 export class DataTableComponent implements OnInit {
 
   /** Vars *---------------------------------------------------------------------------------------------------------------*/
+  examForm: FormGroup;
   selectedType: string;
   selectedDifficulty: string;
-  selectedMyQuestion: string;
   displayedColumns = ['question', 'topics', 'type', 'difficulty'];
   dataSource = [];
   difficulties = ['All', 'Junior', 'Intermediate', 'Senior', 'Guru'];
@@ -22,21 +24,33 @@ export class DataTableComponent implements OnInit {
   myQuestions = ['All', 'Mine', 'Selected'];
   questionSub: Subscription;
 
+  /** Necessary for Checkbox *---------------------------------------------------------------------------------------------------------------*/
+  selection = new SelectionModel<Question>(true, []);
+
   /** Constructor *---------------------------------------------------------------------------------------------------------------*/
   constructor(private dataService: DataService) {
   }
 
   /**NgOnInit *---------------------------------------------------------------------------------------------------------------*/
   ngOnInit() {
+    this.initForm();
     this.dataSource = this.dataService.getQuestions();
     this.questionSub = this.dataService.getQuestionUpdateListener()
       .subscribe((questions: Question[]) => {
         this.dataSource = questions;
       });
-
   }
 
   /**Functions *---------------------------------------------------------------------------------------------------------------*/
+  private initForm() {
+    const examTitle = '';
+    const examDescription = '';
+    this.examForm = new FormGroup({
+      'title': new FormControl(examTitle),
+      'description': new FormControl(examDescription)
+    });
+  }
+
   filterByType(type) {
     if (type === 'All') {
       this.dataService.byType = false;
@@ -77,5 +91,23 @@ export class DataTableComponent implements OnInit {
     this.dataService.activateFilter();
   }
 
+  onClickAll() {
+    this.dataService.activateAllChecked();
+  }
 
+  onClick(question, i) {
+    this.dataService.activateChecked(question, i);
+  }
+
+  onSubmit() {
+    console.log(this.examForm.value['description']);
+    console.log(this.examForm.value['title']);
+    console.log(this.getSelectedOptions());
+  }
+
+  getSelectedOptions() { // right now: ['1','3']
+    return this.dataSource
+      .filter(question => question.checked);
+    //.map(question => question.value);
+  }
 }

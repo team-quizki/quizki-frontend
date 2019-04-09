@@ -1,102 +1,109 @@
-<!--Filter-->
+<!--Main Container-->
+<form [formGroup]="examForm" (ngSubmit)="onSubmit()" class="main">
 
-	<table class="filters">
-	  <tr>
-	    <td class="filter-button">
-	      <button mat-button color="primary" class="filter-button">
-		    <i class="material-icons">check_circle</i>
-	      </button>
-		  		  <button mat-button color="primary" class="filter-button">
-		    <i class="material-icons">refresh</i>
-		  </button>
-	    </td>
-		<td>
-			<mat-form-field>
-				<mat-select placeholder="All">
-					<mat-option *ngFor="let myQuestion of myQuestions" [value]="myQuestion">
-						{{myQuestion}}
-					</mat-option>
-				</mat-select>
-			</mat-form-field>
-		</td>
-		<td>
-			<form class="example-form">
-				<mat-form-field class="example-full-width">
-					<input matInput placeholder="Serach in questions..." (input)="filterByQuestion($event.target.value)">
-				</mat-form-field>
-			</form>
-		</td>
-		<td>
-			<form class="example-form">
-				<mat-form-field class="example-full-width">
-					<input matInput placeholder="Serach in topics..." (input)="filterByTopic($event.target.value)">
-				</mat-form-field>
-			</form>
-		</td>
-		<td>
-			<mat-form-field>
-				<mat-select placeholder="Filter Type" (selectionChange)="filterByType(selectedType)" [(value)]="selectedType">
-					<mat-option *ngFor="let type of types" [value]="type">
-						{{type}}
-					</mat-option>
-				</mat-select>
-			</mat-form-field>
-		</td>
-		<td>
-			<mat-form-field>
-				<mat-select placeholder="Filter Difficulty" (selectionChange)="filterByDifficulty(selectedDifficulty)" [(value)]="selectedDifficulty">
-				    <mat-option *ngFor="let difficulty of difficulties" [value]="difficulty">
-						{{difficulty}}
-					</mat-option>
-				</mat-select>
-			</mat-form-field>
-		</td>
-	  </tr>
-	</table>
+  <!--Filter-->
+  <table class="filters">
+    <tr>
+      <td class="filter-button">
+        <button mat-button color="primary" class="filter-button">
+          <i class="material-icons">check_circle</i>
+        </button>
+        <button mat-button color="primary" class="filter-button">
+          <i class="material-icons">refresh</i>
+        </button>
+      </td>
+      <td>
+        <mat-form-field>
+          <mat-select placeholder="All">
+            <mat-option *ngFor="let myQuestion of myQuestions" [value]="myQuestion">
+              {{myQuestion}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </td>
+      <td>
+          <mat-form-field class="example-full-width">
+            <input matInput placeholder="Search in questions..." (input)="filterByQuestion($event.target.value)">
+          </mat-form-field>
+      </td>
+      <td>
+          <mat-form-field class="example-full-width">
+            <input matInput placeholder="Serach in topics..." (input)="filterByTopic($event.target.value)">
+          </mat-form-field>
+      </td>
+      <td>
+        <mat-form-field>
+          <mat-select placeholder="Filter Type" (selectionChange)="filterByType(selectedType)" [(value)]="selectedType">
+            <mat-option *ngFor="let type of types" [value]="type">
+              {{type}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </td>
+      <td>
+        <mat-form-field>
+          <mat-select placeholder="Filter Difficulty" (selectionChange)="filterByDifficulty(selectedDifficulty)" [(value)]="selectedDifficulty">
+            <mat-option *ngFor="let difficulty of difficulties" [value]="difficulty">
+              {{difficulty}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </td>
+    </tr>
+  </table>
 
-<!--Data table has a dataSource property wihch is the 'MEAT' of the table. This dataTable source feeds in the data that needs to be rendered-->
-<mat-table [dataSource]="dataSource" class="mat-elevation-z8 data-table">
+  <!--Title and Description-->
+  <div class="title-and-description">
+    <mat-form-field class="example-full-width">
+        <input matInput placeholder="Exam Title..." formControlName="title">
+      </mat-form-field>
+    <mat-form-field class="example-full-width">
+        <textarea matInput placeholder="Exam Description..." formControlName="description"></textarea>
+      </mat-form-field>
+  </div>
 
-  <!-- Checkbox Column -->
- <!-- <ng-container matColumnDef="select" class="check-box">
-	<mat-header-cell *matHeaderCellDef>
-	  <mat-checkbox (change)="$event ? masterToggle() : null"
-					[checked]="selection.hasValue() && isAllSelected()"
-					[indeterminate]="selection.hasValue() && !isAllSelected()">
-	  </mat-checkbox>
-	</mat-header-cell>
-	<mat-cell *matCellDef="let row">
-	  <mat-checkbox (click)="$event.stopPropagation()"
-					(change)="$event ? selection.toggle(row) : null"
-					[checked]="selection.isSelected(row)">
-	  </mat-checkbox>
-	</mat-cell>
-  </ng-container>-->
-  
+  <!--Data table has a dataSource property wihch is the 'MEAT' of the table. This dataTable source feeds in the data that needs to be rendered-->
+  <mat-table [dataSource]="dataSource" class="mat-elevation-z8 data-table">
+
+    <!-- Id Question -->
+    <ng-container matColumnDef="question">
+      <mat-header-cell *matHeaderCellDef class="header-container">
+        <mat-checkbox [checked]="" (click)="onClickAll()"></mat-checkbox>
+        Question
+      </mat-header-cell>
+      <mat-cell *matCellDef="let question; let i = index" class="cell-container">
+        <mat-checkbox [checked]="question.checked" (change)="onClick(question, i)"></mat-checkbox>
+        {{question.question}}
+      </mat-cell>
+    </ng-container>
+
+    <!-- Name Topics -->
+    <ng-container matColumnDef="topics">
+      <mat-header-cell *matHeaderCellDef>Topics</mat-header-cell>
+      <mat-cell *matCellDef="let question">{{question.topics}}</mat-cell>
+    </ng-container>
+
+    <!-- Name Type -->
+    <ng-container matColumnDef="type">
+      <mat-header-cell *matHeaderCellDef>Type</mat-header-cell>
+      <mat-cell *matCellDef="let question">{{question.type}}</mat-cell>
+    </ng-container>
+
+    <!-- Name Difficulty -->
+    <ng-container matColumnDef="difficulty">
+      <mat-header-cell *matHeaderCellDef>Difficulty</mat-header-cell>
+      <mat-cell *matCellDef="let question">{{question.difficulty}}</mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let question; columns: displayedColumns"></mat-row>
+  </mat-table>
+
   <!-- Id Question -->
-  <ng-container matColumnDef="question">
-	<mat-header-cell *matHeaderCellDef>Question</mat-header-cell>
-	<mat-cell *matCellDef="let question">{{question.question}}</mat-cell>
-  </ng-container>
+  <div class="submit-button-container">
+    <button mat-button mat-raised-button color="primary">
+      Create
+    </button>
+  </div>
 
-  <!-- Name Topics -->
-  <ng-container matColumnDef="topics">
-	<mat-header-cell *matHeaderCellDef>Topics</mat-header-cell>
-	<mat-cell *matCellDef="let question">{{question.topics}}</mat-cell>
-  </ng-container>
-	
-  <!-- Name Type -->
-  <ng-container matColumnDef="type">
-	<mat-header-cell *matHeaderCellDef>Type</mat-header-cell>
-	<mat-cell *matCellDef="let question">{{question.type}}</mat-cell>
-  </ng-container>
-	
-  <!-- Name Difficulty -->
-  <ng-container matColumnDef="difficulty">
-	<mat-header-cell *matHeaderCellDef>Difficulty</mat-header-cell>
-	<mat-cell *matCellDef="let question">{{question.difficulty}}</mat-cell>
-  </ng-container>
-
-  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-  <mat-row *matRowDef="let question; columns: displayedColumns"></mat-row>
-</mat-table>
+</form>

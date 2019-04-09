@@ -25,8 +25,8 @@ import { MatButtonModule,
         } from '@angular/material';
 
 //app level imports here
-import { NavigationModule } from './navigation/navigation.module'
-import { DataTableModule } from './data-table/data-table.module'
+import { NavigationModule } from './navigation/navigation.module';
+import { DataTableModule } from './data-table/data-table.module';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -109,8 +109,11 @@ import { CommonFieldControlsService } from './_services/common-field-controls.se
     MatTableModule,
     MatToolbarModule,
     NavigationModule,
-    DataTableModule
-],
+    DataTableModule,
+    MatCheckboxModule,
+    FormsModule
+
+  ],
   providers: [ ApiService, CommonFieldControlsService ],
   bootstrap: [ AppComponent ]
 })
