@@ -1,6 +1,6 @@
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { fakeAsync, ComponentFixture, TestBed } from '@angular/core/testing';
-import { 
+import {
          MatIconModule,
          MatListModule,
          MatSidenavModule,
@@ -12,6 +12,7 @@ import { NavigationService } from '../navigation.service';
 
 //import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing'
+import { LoginDialogService } from '../login/login-dialog.service';
 
 describe('NavigationComponent', () => {
   let component: NavigationComponent;
@@ -21,19 +22,20 @@ describe('NavigationComponent', () => {
     TestBed.configureTestingModule({
       imports: [ RouterTestingModule, BrowserAnimationsModule, MatIconModule, MatListModule, MatSidenavModule, MatToolbarModule ],
       declarations: [NavigationComponent],
-      providers: [{
-        provide: NavigationService,
-        useValue: {
-          setPageTitle: jasmine.createSpy('setPageTitle')
+      providers: [
+        {
+          provide: NavigationService,
+          useValue: {
+            setPageTitle: jasmine.createSpy('setPageTitle')
+          }
+        },
+        {
+          provide: LoginDialogService,
+          useValue: {
+            openLoginDialog: jasmine.createSpy('openLoginDialog')
+          }
         }
-      }]
-//      providers: [{
-//          provide: Router, 
-//          useValue: {
-//            navigate: jasmine.createSpy('navigate')
-//          }
-//        }
-//      ]
+      ]
     })
     .compileComponents();
 

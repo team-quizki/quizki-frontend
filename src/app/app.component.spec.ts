@@ -13,6 +13,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 
 import { NavigationComponent } from './navigation/navigation.component';
 import { NavigationService } from './navigation.service';
+import { LoginDialogService } from './login/login-dialog.service';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
@@ -28,7 +29,13 @@ describe('AppComponent', () => {
           useValue: {
             setPageTitle: jasmine.createSpy('setPageTitle')
           }
-        }
+        },
+        {
+            provide: LoginDialogService,
+            useValue: {
+              openLoginDialog: jasmine.createSpy('openLoginDialog')
+            }
+          }
       ]
     }).compileComponents();
   }));

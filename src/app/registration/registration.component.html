@@ -79,6 +79,7 @@
             aria-label="submit button"
             [disabled]="!registerForm.valid || registerSubmitted"
             (click)="onSubmit()"
+            (keyup.enter)="onSubmit()"
             >Submit
           </button>
           &nbsp;
@@ -86,6 +87,7 @@
             type="text" class="btn"
             aria-label="cancel button"
             (click)="cancelRegistration(registerForm)"
+            (keyup.enter)="cancelRegistration(registerForm)"
             routerLink="/home-page"
             >Cancel
           </button>
@@ -93,7 +95,9 @@
           <button [hidden]=hideLoginButton mat-raised-button
             type="text" class="btn"
             aria-label="login button"
-            routerLink="/dialog101/login"
+            (click)="this.loginDialogService.openLoginDialog()"
+            (keyup.enter)="this.loginDialogService.openLoginDialog()"
+            routerLink="/home-page"
             >Login
           </button>
 
@@ -104,9 +108,11 @@
           <p>Already registered?
             &nbsp;
             <a  (click)="registerForm.reset()"
-              routerLink="/dialog101/login"
+              (click)="this.loginDialogService.openLoginDialog()"
+              (keyup.enter)="this.loginDialogService.openLoginDialog()"
               aria-label="login"
-              href ="/dialog101/login">Login</a>
+              routerLink="/home-page"
+              >Login</a>
           </p>
           <br>
         </div>

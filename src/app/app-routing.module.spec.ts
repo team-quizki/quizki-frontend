@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { Location } from '@angular/common';
-import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
+import { ComponentFixture, TestBed, fakeAsync, tick, async } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Router } from '@angular/router';
 import { MatButtonModule,
@@ -20,7 +20,8 @@ import { MatButtonModule,
          MatSidenavModule,
          MatSortModule,
          MatTableModule,
-         MatToolbarModule
+         MatToolbarModule,
+         MatSnackBarModule
        } from '@angular/material';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
@@ -29,28 +30,20 @@ import { GenerateExamPageComponent } from './generate-exam-page/generate-exam-pa
 import { SearchForAnExamPageComponent } from './search-for-an-exam-page/search-for-an-exam-page.component';
 import { CreateExamPageComponent } from './create-exam-page/create-exam-page.component';
 import { CreateQuestionPageComponent } from './create-question-page/create-question-page.component';
+import { CreateQuestionPageTopicSectionComponent } from './create-question-page/create-question-page-topic-section/create-question-page-topic-section.component';
+import { CreateQuestionPageEditorSectionComponent } from './create-question-page/create-question-page-editor-section/create-question-page-editor-section.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-import { LoginComponent } from './login/login.component';
-import { LoginDialogHostComponent } from './login-dialog-host/login-dialog-host.component';
-import { LoginDialogHostService } from './login-dialog-host/login-dialog-host.service';
 import { RegistrationComponent } from './registration/registration.component';
 import { AppRoutingModule, appRoutes } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavigationComponent } from './navigation/navigation.component';
 import { NavigationService } from './navigation.service';
-import { DataTableComponent } from './data-table/data-table.component';
-
-// TODO: Ask Johnathan if we even need the questions directory code any more?
-// if not remove questions directory and associated imports and selectors
-import { QuestionsComponent } from './questions/questions.component';
-import { QuestionComponent } from './questions/question/question.component';
-import { QuestionTopicComponent } from './questions/question/question-topics/question-topic/question-topic.component';
-import { QuestionTopicsComponent } from './questions/question/question-topics/question-topics.component';
-import { QuestionReferenceComponent } from './questions/question/question-references/question-reference/question-reference.component';
-import { QuestionReferencesComponent } from './questions/question/question-references/question-references.component';
-import { QuestionChoiceComponent } from './questions/question/question-choices/question-choice/question-choice.component';
-import { QuestionChoicesComponent } from './questions/question/question-choices/question-choices.component';
-
+import { DataTableModule } from './data-table/data-table.module';
+import { EditorModule } from '@tinymce/tinymce-angular';
+import { LoginDialogService } from './login/login-dialog.service';
+import { HttpClientModule } from '@angular/common/http';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { ApiService } from './_services/api.service';
 
 describe('AppRoutingModule', () => {
 
@@ -59,7 +52,7 @@ describe('AppRoutingModule', () => {
   let router: Router;
   let fixture;
 
-  beforeEach(async() => {
+  beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
         RouterTestingModule.withRoutes(appRoutes),
@@ -77,35 +70,31 @@ describe('AppRoutingModule', () => {
         MatPaginatorModule,
         MatSelectModule,
         MatSidenavModule,
+        MatSnackBarModule,
         MatSortModule,
         MatTableModule,
         MatToolbarModule,
         FormsModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        EditorModule,
+        HttpClientModule,
+        HttpClientTestingModule,
+        DataTableModule
       ],
       declarations: [
         AppComponent,
         CreateExamPageComponent,
         CreateQuestionPageComponent,
-        DataTableComponent,
+        CreateQuestionPageTopicSectionComponent,
+        CreateQuestionPageEditorSectionComponent,
         GenerateExamPageComponent,
         HomePageComponent,
-        LoginComponent,
-        LoginDialogHostComponent,
         PageNotFoundComponent,
         NavigationComponent,
         RegistrationComponent,
-        SearchForAnExamPageComponent,
-        QuestionComponent,
-        QuestionsComponent,
-        QuestionTopicComponent,
-        QuestionTopicsComponent,
-        QuestionReferenceComponent,
-        QuestionReferencesComponent,
-        QuestionChoiceComponent,
-        QuestionChoicesComponent
+        SearchForAnExamPageComponent
       ],
-      providers: [
+      providers: [ ApiService,
         {
           provide: NavigationService,
           useValue: {
@@ -113,82 +102,103 @@ describe('AppRoutingModule', () => {
           }
         },
         {
-          provide: LoginDialogHostService,
+          provide: LoginDialogService,
           useValue: {
-            setRouteOnCloseToUrl: jasmine.createSpy('setRouteOnCloseToUrl')
+            openLoginDialog: jasmine.createSpy('openLoginDialog')
           }
         }
       ]
-    });
+    }).compileComponents();
     appRoutingModule = new AppRoutingModule();
-  });
+  }));
 
   beforeEach(() => {
-
     router = TestBed.get(Router);
     location = TestBed.get(Location);
     fixture = TestBed.createComponent(AppComponent);
-    router.initialNavigation();
+    fixture.ngZone.run(() => {
+      router.initialNavigation();
+    });
   });
 
-  it('#app-routing navigate to "" redirects to /home-page', fakeAsync(() => {
-    router.navigate(['']);
-    tick();
-    expect(location.path()).toBe('/home-page');
+  it('#app-routing navigate to "" redirects to /home-page', async(() => {
+      fixture.ngZone.run(() => {
+          router.navigate(['']);
+          fixture.detectChanges();
+          fixture.whenStable().then(() => {
+            expect(location.path()).toBe('/home-page');
+          });
+      });
   }));
 
-  xit('#app-routing navigate to "home-page" takes you to /home-page', fakeAsync(() => {
-    router.navigate(['/home-page']);
-    tick();
-    expect(location.path()).toBe('/home-page');
+  it('#app-routing navigate to "home-page" takes you to /home-page', async(() => {
+      fixture.ngZone.run(() => {
+          router.navigate(['/home-page']);
+          fixture.detectChanges();
+          fixture.whenStable().then(() => {
+            expect(location.path()).toBe('/home-page');
+          });
+      });
   }));
 
-  xit('#app-routing navigate to "generate-exam-page" takes you to /generate-exam-page', fakeAsync(() => {
-    router.navigate(['/generate-exam-page']);
-    tick();
-    expect(location.path()).toBe('/generate-exam-page');
+  it('#app-routing navigate to "generate-exam-page" takes you to /generate-exam-page', async(() => {
+      fixture.ngZone.run(() => {
+          router.navigate(['/generate-exam-page']);
+          fixture.detectChanges();
+          fixture.whenStable().then(() => {
+            expect(location.path()).toBe('/generate-exam-page');
+          });
+      });
   }));
 
-  xit('#app-routing navigate to "search-for-an-exam-page" takes you to /search-for-an-exam-page', fakeAsync(() => {
-    router.navigate(['/search-for-an-exam-page']);
-    tick();
-    expect(location.path()).toBe('/search-for-an-exam-page');
+  it('#app-routing navigate to "search-for-an-exam-page" takes you to /search-for-an-exam-page', async(() => {
+      fixture.ngZone.run(() => {
+          router.navigate(['/search-for-an-exam-page']);
+          fixture.detectChanges();
+          fixture.whenStable().then(() => {
+            expect(location.path()).toBe('/search-for-an-exam-page');
+          });
+      });
   }));
 
-  xit('#app-routing navigate to "create-question-page" takes you to /create-question-page', fakeAsync(() => {
-    router.navigate(['/create-question-page']);
-    tick();
-    expect(location.path()).toBe('/create-question-page');
+  it('#app-routing nnavigate to "create-question-page" takes you to /create-question-page', async(() => {
+      fixture.ngZone.run(() => {
+          router.navigate(['/create-question-page']);
+          fixture.detectChanges();
+          fixture.whenStable().then(() => {
+            expect(location.path()).toBe('/create-question-page');
+          });
+      });
   }));
 
-  xit('#app-routing navigate to "create-exam-page" takes you to /create-exam-page', fakeAsync(() => {
-    router.navigate(['/create-exam-page']);
-    tick();
-    expect(location.path()).toBe('/create-exam-page');
+  it('#app-routing nnavigate to "create-exam-page" takes you to /create-exam-page', async(() => {
+      fixture.ngZone.run(() => {
+          router.navigate(['/create-exam-page']);
+          fixture.detectChanges();
+          fixture.whenStable().then(() => {
+            expect(location.path()).toBe('/create-exam-page');
+          });
+      });
   }));
 
-  xit('#app-routing navigate to "login" takes you to /login', fakeAsync(() => {
-    router.navigate(['/login']);
-    tick();
-    expect(location.path()).toBe('/login');
+  it('#app-routing navigate to "registration" takes you to /registration', async(() => {
+      fixture.ngZone.run(() => {
+          router.navigate(['/registration']);
+          fixture.detectChanges();
+          fixture.whenStable().then(() => {
+            expect(location.path()).toBe('/registration');
+          });
+      });
   }));
 
-  xit('#app-routing navigate to ":dialog101/login" takes you to /:dialog101/login', fakeAsync(() => {
-    router.navigate(['/:dialog101/login']);
-    tick();
-    expect(location.path()).toBe('/:dialog101/login');
-  }));
-
-  xit('#app-routing navigate to "registration" takes you to /registration', fakeAsync(() => {
-    router.navigate(['/registration']);
-    tick();
-    expect(location.path()).toBe('/registration');
-  }));
-
-  it('#app-routing navigate to "**" takes you to /page-not-found', fakeAsync(() => {
-    router.navigate(['/page-not-found']);
-    tick();
-    expect(location.path()).toBe('/page-not-found');
+  it('#app-routing navigate to "**" takes you to /page-not-found', async(() => {
+      fixture.ngZone.run(() => {
+          router.navigate(['/page-not-found']);
+          fixture.detectChanges();
+          fixture.whenStable().then(() => {
+            expect(location.path()).toBe('/page-not-found');
+          });
+      });
   }));
 
   it('#app-routing should create an instance', () => {

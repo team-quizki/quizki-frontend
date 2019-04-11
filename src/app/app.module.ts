@@ -21,7 +21,8 @@ import { MatButtonModule,
          MatSidenavModule,
          MatSortModule,
          MatTableModule,
-         MatToolbarModule
+         MatToolbarModule,
+         MatSnackBarModule
         } from '@angular/material';
 
 //app level imports here
@@ -31,6 +32,7 @@ import { DataTableModule } from './data-table/data-table.module';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { ApiService } from './_services/api.service';
+import { EditorModule } from '@tinymce/tinymce-angular';
 
 
 
@@ -40,49 +42,37 @@ import { GenerateExamPageComponent } from './generate-exam-page/generate-exam-pa
 import { SearchForAnExamPageComponent } from './search-for-an-exam-page/search-for-an-exam-page.component';
 import { CreateExamPageComponent } from './create-exam-page/create-exam-page.component';
 import { CreateQuestionPageComponent } from './create-question-page/create-question-page.component';
+import { CreateQuestionPageTopicSectionComponent } from './create-question-page/create-question-page-topic-section/create-question-page-topic-section.component';
+import { CreateQuestionPageEditorSectionComponent } from './create-question-page/create-question-page-editor-section/create-question-page-editor-section.component';
+
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-import { LoginComponent} from './login/login.component';
+
 import { RegistrationComponent } from './registration/registration.component';
 import { DataTableComponent } from './data-table/data-table.component';
 
-//question imports
-import { QuestionComponent } from './questions/question/question.component';
-import { QuestionTopicsComponent } from './questions/question/question-topics/question-topics.component';
-import { QuestionReferencesComponent } from './questions/question/question-references/question-references.component';
-import { QuestionChoicesComponent } from './questions/question/question-choices/question-choices.component';
-import { QuestionsComponent } from '../app/questions/questions.component';
-import { QuestionChoiceComponent } from './questions/question/question-choices/question-choice/question-choice.component';
-import { QuestionReferenceComponent } from './questions/question/question-references/question-reference/question-reference.component';
-import { QuestionTopicComponent } from './questions/question/question-topics/question-topic/question-topic.component';
-import { QuestionDifficultyComponent } from './questions/question/question-difficulties/question-difficulty.component';
-import { QuestionTypeComponent } from './questions/question/question-types/question-type.component';
-import { LoginDialogHostComponent } from './login-dialog-host/login-dialog-host.component';
 import { CommonFieldControlsService } from './_services/common-field-controls.service';
-
+import { LoginComponent } from './login/login.component';
+import { LoginService } from './login/login.service';
+import { LoginDialogService } from './login/login-dialog.service';
+import { UserService } from './_services/user.service';
+import { EmailTakenAsyncValidatorDirective } from './registration/email-taken-async-validator.directive';
+import { UsernameTakenAsyncValidatorDirective } from './registration/username-taken-async-validator.directive';
 
 @NgModule({
   declarations: [
     AppComponent,
-    QuestionComponent,
-    QuestionTopicsComponent,
-    QuestionReferencesComponent,
-    QuestionChoicesComponent,
-    QuestionsComponent,
-    QuestionChoiceComponent,
-    QuestionReferenceComponent,
-    QuestionTopicComponent,
-    QuestionDifficultyComponent,
-    QuestionTypeComponent,
-    LoginComponent,
-    //NavigationComponent,
     HomePageComponent,
     GenerateExamPageComponent,
     SearchForAnExamPageComponent,
     CreateExamPageComponent,
     CreateQuestionPageComponent,
+    CreateQuestionPageTopicSectionComponent,
+    CreateQuestionPageEditorSectionComponent,
     PageNotFoundComponent,
     RegistrationComponent,
-    LoginDialogHostComponent
+    LoginComponent,
+    EmailTakenAsyncValidatorDirective,
+    UsernameTakenAsyncValidatorDirective
   ],
   imports: [
     BrowserModule,
@@ -111,10 +101,12 @@ import { CommonFieldControlsService } from './_services/common-field-controls.se
     NavigationModule,
     DataTableModule,
     MatCheckboxModule,
-    FormsModule
-
-  ],
-  providers: [ ApiService, CommonFieldControlsService ],
-  bootstrap: [ AppComponent ]
+    FormsModule,
+    EditorModule,
+    MatSnackBarModule
+],
+  providers: [ ApiService, UserService, CommonFieldControlsService, LoginService, LoginDialogService ],
+  bootstrap: [ AppComponent ],
+  entryComponents: [ LoginComponent ]
 })
 export class AppModule { }

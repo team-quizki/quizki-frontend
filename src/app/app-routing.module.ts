@@ -8,35 +8,25 @@ import { GenerateExamPageComponent } from './generate-exam-page/generate-exam-pa
 import { SearchForAnExamPageComponent } from './search-for-an-exam-page/search-for-an-exam-page.component';
 import { CreateExamPageComponent } from './create-exam-page/create-exam-page.component';
 import { CreateQuestionPageComponent } from './create-question-page/create-question-page.component';
+import { CreateQuestionPageTopicSectionComponent } from './create-question-page/create-question-page-topic-section/create-question-page-topic-section.component';
+import { CreateQuestionPageEditorSectionComponent } from './create-question-page/create-question-page-editor-section/create-question-page-editor-section.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-import { LoginComponent} from './login/login.component';
-import { LoginDialogHostComponent } from './login-dialog-host/login-dialog-host.component';
 import { RegistrationComponent} from './registration/registration.component';
-
-// question imports
-/* saving these imports for use when processing original QuizkiTest functionality
-import { QuestionComponent } from './questions/question/question.component';
-import { QuestionTopicsComponent } from './questions/question/question-topics/question-topics.component';
-import { QuestionReferencesComponent } from './questions/question/question-references/question-references.component';
-import { QuestionChoicesComponent } from './questions/question/question-choices/question-choices.component';
-import { QuestionsComponent } from '../app/questions/questions.component';
-import { QuestionChoiceComponent } from './questions/question/question-choices/question-choice/question-choice.component';
-import { QuestionReferenceComponent } from './questions/question/question-references/question-reference/question-reference.component';
-import { QuestionTopicComponent } from './questions/question/question-topics/question-topic/question-topic.component';
-import { QuestionDifficultyComponent } from './questions/question/question-difficulties/question-difficulty.component';
-import { QuestionTypeComponent } from './questions/question/question-types/question-type.component';
-*/
-
+import { NavigationService } from './navigation.service';
 
 // for each component page add the path, component, and pageTitle
 export const appRoutes: Routes = [
   { path: 'home-page', component: HomePageComponent, data: {pageTitle: 'Home'} },
   { path: 'generate-exam-page', component: GenerateExamPageComponent, data: {pageTitle: 'Generate Exam'} },
   { path: 'search-for-an-exam-page', component: SearchForAnExamPageComponent, data: {pageTitle: 'Search for an Exam'} },
-  { path: 'create-question-page', component: CreateQuestionPageComponent, data: {pageTitle: 'Create Question'} },
+  { path: 'create-question-page', component: CreateQuestionPageComponent, data: {pageTitle: 'Create Question'},
+    children: [
+      { path: '', component: CreateQuestionPageTopicSectionComponent },
+      { path: '', component: CreateQuestionPageEditorSectionComponent }
+    ]
+  },
+
   { path: 'create-exam-page', component: CreateExamPageComponent, data: {pageTitle: 'Create Exam'} },
-  { path: 'login', component: LoginComponent, data: {pageTitle: 'Login'} },
-  { path: ':id/login', component: LoginDialogHostComponent, data: {pageTitle: 'Login Dialog'} },
   { path: 'registration', component: RegistrationComponent, data: {pageTitle: 'Register'} },
 
   // add new pages for the router above this comment line.
@@ -52,7 +42,8 @@ export const appRoutes: Routes = [
       // { enableTracing: false }
       )
   ],
-  exports: [ RouterModule ]
+  exports: [ RouterModule ],
+  providers: [ NavigationService ]
 })
 
 export class AppRoutingModule { }

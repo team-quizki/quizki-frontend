@@ -2,7 +2,7 @@
   <div>
     <mat-card>
       <mat-card-header class="basic-container basic-card-header">
-        <mat-card-title><h2>LOGIN STATUS: {{loginStatus}}</h2></mat-card-title>
+        <mat-card-title><h2>LOGIN: {{loginStatus}}</h2></mat-card-title>
       </mat-card-header>
       <mat-card-content>
         <form class="basic-container" [formGroup]="loginForm"
@@ -10,10 +10,11 @@
           <div class="basic-container">
             <mat-form-field appearance="standard">
               <mat-label for="username">username</mat-label>
-              <input #usernameLogin matInput required minlength
+              <input matInput required minlength
                 type="text" class="form-control" id="username"
                 formControlName="username"
-                placeholder="username">
+                placeholder="username"
+                (keyup.enter)="submitWhenEntireFormIsValid()">
               <mat-error *ngIf="isInvalidWithTouchedOrDirtyControl('username')">
                 {{getLoginErrorMessage("username")}}
               </mat-error>
@@ -24,10 +25,11 @@
           <a class="basic-container">
             <mat-form-field appearance="standard">
               <mat-label for="passwordIn">password</mat-label>
-              <input #passwordLogin matInput required minlength
+              <input matInput required minlength
                 type="password" class="form-control" id="passwordIn"
                 formControlName="password"
-                placeholder="Enter password" [type]="commonFCS.getPasswordFieldType()">
+                placeholder="Enter password" [type]="commonFCS.getPasswordFieldType()"
+                (keyup.enter)="submitWhenEntireFormIsValid()">
               <mat-icon matSuffix (click)="commonFCS.hidePasswordClick($event)">{{commonFCS.getIconVisiblityString()}}</mat-icon>
               <mat-error *ngIf="isInvalidWithTouchedOrDirtyControl('password')">
                 {{getLoginErrorMessage("password")}}
@@ -40,15 +42,16 @@
       </mat-card-content>
       <mat-card-actions class="basic-container basic-card-actions">
         <div class="button-row">
-          <button mat-raised-button
+          <button mat-raised-button id='login_button'
             type="submit" class="btn btn-success btn-primary"
             aria-label="login button"
             [disabled]="loginForm.invalid || loginSubmitted"
             (click)="onSubmit()"
+            (keyup.enter)="onSubmit()"
             >Login
           </button>
           &nbsp;
-          <button mat-raised-button
+          <button mat-raised-button id='cancel_button'
             type="text" class="btn"
             aria-label="cancel button"
             (click)="cancelLogin()"
@@ -61,7 +64,7 @@
         <div>
           <p>New to Quizki?
             &nbsp;
-            <a  (click)="prepareToTransferToRegistation()"
+            <a  (click)="cancelLogin()"
               routerLink="/registration"
               aria-label="create an account"
               href ="/registration">Create an account.</a>
