@@ -3,7 +3,7 @@ import { EditorModule } from '@tinymce/tinymce-angular';
 
 import { CreateQuestionPageEditorSectionComponent } from './create-question-page-editor-section.component';
 import { FormsModule } from '@angular/forms';
-import { MatCardModule } from '@angular/material';
+import { MatCardModule } from '@angular/material/card';
 
 // tinymce is causing "Uncaught TypeError:Cannot read property setAttribute of undefined"
 // marking all create-question-page and create-question-page-editor-section tests as pending

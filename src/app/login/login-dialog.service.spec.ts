@@ -1,5 +1,5 @@
 import { TestBed, inject } from '@angular/core/testing';
-import { MatDialogModule, MatDialog } from '@angular/material';
+import { MatDialogModule, MatDialog } from '@angular/material/dialog';
 
 import { LoginDialogService } from './login-dialog.service';
 import { of } from 'rxjs/internal/observable/of';

@@ -5,7 +5,7 @@ import { LoginService } from './login.service';
 import { UserService } from '../_services/user.service';
 //import { User, Role} from '../user/user';
 //import { MatDialogModule, MatDialogRef } from '@angular/material';
-import { MatDialogRef } from '@angular/material';
+import { MatDialogRef } from '@angular/material/dialog';
 import { CommonFieldControlsService } from '../_services/common-field-controls.service';
 
 
