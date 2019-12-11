@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { EditorModule } from '@tinymce/tinymce-angular';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { ApiService } from './../_services/api.service';
 
