@@ -1,14 +1,14 @@
 # Quizki Frontend
 Quizki is a question and answer database which generates exams. This is the frontend of the project. For the backend go to [team-quizki/backend](https://github.com/team-quizki/quizki-backend).
 
-This project was generated with [Angular CLI](https://cli.angular.io/) version 6.0.1.
+This project was update to [Angular CLI](https://cli.angular.io/) version 8.3.20, and is now using Angular 8.
 
 ## Getting Started
 Here is what you need to do to get the project up and running on your local machine for development and testing purposes.
 
 ### Dependencies
 To run the frontend you will need to install the following tools, on your own, and before proceeding...
-* Node Package Manager ([npm](https://www.npmjs.com/) 
+* Node Package Manager ([npm](https://www.npmjs.com/)
 * Angular Command Line Interface ([Angular CLI](https://cli.angular.io/))
 
 ### Installation
@@ -65,7 +65,7 @@ This project is in alpha version.
 * Deborah
 * Jeremiah
 * Nabil
-* 
+*
 
 ## License
 The templated code is licensed by Google under an MIT-style License. Documentation licensed under CC BY 4.0.
@@ -85,4 +85,3 @@ The [team-quizki](https://github.com/team-quizki) project is licensed under the 
 ## Join team-quizki coding an Open Source project!
 
 To join the [team-quizki](https://github.com/team-quizki) project, which you are encouraged to do, look on Meetup.com for the [Denver Mock Programming Job] (https://www.meetup.com/Denver-Mock-Programming-Job-Meetup/) meetings. We use the agile development process. We want to help you gain professional coding experience.
-

@@ -1,11 +1,9 @@
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { fakeAsync, ComponentFixture, TestBed } from '@angular/core/testing';
-import {
-         MatIconModule,
-         MatListModule,
-         MatSidenavModule,
-         MatToolbarModule
-        } from '@angular/material';
+import { MatIconModule } from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatToolbarModule } from '@angular/material/toolbar';
 
 import { NavigationComponent } from './navigation.component';
 import { NavigationService } from '../navigation.service';
