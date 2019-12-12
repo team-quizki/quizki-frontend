@@ -7,14 +7,16 @@ export class DataService {
 
   private questionsUpdated = new Subject<Question[]>();
   private questions: Question[] = [
-    {question: 'What is the name of the first president?', topics: 'History', type: 'Single', difficulty: 'Junior', answer: 'George Washington'},
-    {question: 'True or false: Mammals are warm blooded?', topics: 'Animals', type: 'Multiple', difficulty:'Junior', answer: 'True'},
-    {question: 'True or false: Reptiles are warm blooded?', topics: 'Animals', type: 'Multiple', difficulty:'Junior', answer: 'False'},
-    {question: 'First cartoon to air on telivision?', topics: 'Pop Culture', type: 'Phrase', difficulty:'Senior', answer: 'Fantasmagorie'},
-    {question: 'Beethoven composed "Fur Elise"', topics: 'Music History', type: 'Phrase', difficulty:'Junior', answer: 'True'}
+    {question: 'What is the name of the first president?', topics: 'History', type: 'Single', difficulty: 'Junior', answer: 'George Washington', checked: false},
+    {question: 'True or false: Mammals are warm blooded?', topics: 'Animals', type: 'Multiple', difficulty:'Junior', answer: 'True', checked: false},
+    {question: 'True or false: Reptiles are warm blooded?', topics: 'Animals', type: 'Multiple', difficulty:'Junior', answer: 'False', checked: false},
+    {question: 'First cartoon to air on telivision?', topics: 'Pop Culture', type: 'Phrase', difficulty:'Senior', answer: 'Fantasmagorie', checked: false},
+    {question: 'Beethoven composed "Fur Elise"', topics: 'Music History', type: 'Phrase', difficulty:'Junior', answer: 'True', checked: false}
   ];
 
   private filteredQuestions: Question[] = this.questions;
+  private checkedQuestions: Question[] = this.questions;
+  allAreChecked = false;
 
   /**Filter Determinants *-------------------------------------------------------------------------------------------------------*/
   public byDifficulty = false;
@@ -31,6 +33,27 @@ export class DataService {
   /**Get Questions *-------------------------------------------------------------------------------------------------------*/
   getQuestions() {
     return [...this.filteredQuestions];
+  }
+
+  /**Activate Checked *-------------------------------------------------------------------------------------------------------*/
+  activateChecked(question, i) {
+    this.checkedQuestions = this.questions;
+    this.checkedQuestions[i].checked === false ? this.checkedQuestions[i].checked = true : this.checkedQuestions[i].checked = false;
+    console.log(this.checkedQuestions);
+    this.questionsUpdated.next([...this.checkedQuestions]);
+  }
+
+  /**Activate All Checked *-------------------------------------------------------------------------------------------------------*/
+  activateAllChecked() {
+    this.checkedQuestions.map(question => {
+      if (this.allAreChecked === false) {
+        return question.checked = true;
+      }
+      return question.checked = false;
+    });
+    this.allAreChecked === false ? this.allAreChecked = true : this.allAreChecked = false;
+    this.questionsUpdated.next([...this.checkedQuestions]);
+    console.log(this.checkedQuestions);
   }
 
   /**Main Filter *---------------------------------------------------------------------------------------------------------------*/

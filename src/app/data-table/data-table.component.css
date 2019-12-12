@@ -1,22 +1,20 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  align-content: space-evenly;
+}
+
 .data-table {
-	width: 80%;
-	margin: 20px auto;
+	width: 50vw;
 }
 
-.mat-column-select {
-  overflow: initial;
-}
-
-.mat-form-field {
-  font-size: 14px;
-  width: 80%;
-}
-
-table {
-    font-family: arial, sans-serif;
-    border-collapse: collapse;
-    width: 80%;
-	margin: 20px auto;
+.filters {
+  width: 50vw;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
 }
 
 td, th {
@@ -30,4 +28,20 @@ td > button {
 
 tr:nth-child(even) {
     background-color: #dddddd;
+}
+
+.cell-container,
+.header-container {
+  margin: 0;
+  padding: 0 1rem;
+}
+
+.cell-container mat-checkbox {
+  margin: 0;
+  padding: 1rem;
+}
+
+.header-container mat-checkbox {
+  margin: 0;
+  padding: 0 1rem;
 }

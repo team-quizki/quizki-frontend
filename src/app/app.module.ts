@@ -25,8 +25,8 @@ import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
 
 //app level imports here
-import { NavigationModule } from './navigation/navigation.module'
-import { DataTableModule } from './data-table/data-table.module'
+import { NavigationModule } from './navigation/navigation.module';
+import { DataTableModule } from './data-table/data-table.module';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -99,6 +99,8 @@ import { UsernameTakenAsyncValidatorDirective } from './registration/username-ta
     MatToolbarModule,
     NavigationModule,
     DataTableModule,
+    MatCheckboxModule,
+    FormsModule,
     EditorModule,
     MatSnackBarModule
 ],

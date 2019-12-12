@@ -4,6 +4,7 @@ export class Question {
   public type: string;
   public difficulty: string;
   public  answer: string;
+  public checked: boolean;
 
   constructor(question: string, topics: string, type: string, difficulty: string, answer: string) {
     this.question = question;
@@ -11,5 +12,6 @@ export class Question {
     this.type = type;
     this.difficulty = difficulty;
     this.answer = answer;
+    this.checked = false;
   }
 }
