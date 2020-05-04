@@ -1,3 +1,21 @@
-<p>
-  search-for-an-exam-page works!
-</p>
+<mat-accordion>
+  <mat-expansion-panel *ngFor="let exam of exams">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        {{ exam.title }}
+      </mat-panel-title>
+      <mat-panel-description>
+        {{ exam.description }}
+      </mat-panel-description>
+      <mat-panel-description>
+        {{ exam.difficulty }}
+      </mat-panel-description>
+      <mat-panel-description>
+        Complete: {{ exam.complete }}
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <button mat-raised-button>Start</button>
+    <button mat-raised-button color="warn">Delete</button>
+  </mat-expansion-panel>
+
+</mat-accordion>
